@@ -1,0 +1,26 @@
+"use client"
+import { AccessibilityProvider } from "./flow-state/accessibility-provider"
+import { ThemeProvider } from "next-themes"
+import { MetaSessionProvider } from "@/components/flow-state/meta-session-provider"
+import { ConversationTreeProvider } from "@/components/flow-state/conversation-tree"
+import { FlowStateProvider } from "@/components/flow-state/flow-state-context"
+import type { ReactNode } from "react"
+
+interface ClientProvidersProps {
+  children: ReactNode
+  initialShowSuggestions?: boolean
+}
+
+export function ClientProviders({ children, initialShowSuggestions = true }: ClientProvidersProps) {
+  return (
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <AccessibilityProvider>
+        <MetaSessionProvider>
+          <ConversationTreeProvider>
+            <FlowStateProvider initialShowSuggestions={initialShowSuggestions}>{children}</FlowStateProvider>
+          </ConversationTreeProvider>
+        </MetaSessionProvider>
+      </AccessibilityProvider>
+    </ThemeProvider>
+  )
+}
