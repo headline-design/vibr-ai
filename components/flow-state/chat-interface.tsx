@@ -3,7 +3,7 @@
 import type React from "react"
 import { useState, useRef, useEffect, useCallback } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { Check, X, ChevronLeft, Settings } from "lucide-react"
+import { Check, X, ChevronLeft } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
@@ -13,7 +13,7 @@ import { ChatSettings } from "./chat-settings"
 import ReactMarkdown from "react-markdown"
 import MessageActions from "@/components/flow-state/message-actions"
 import { useMediaQuery } from "@/hooks/use-media-query"
-import { MessageInputRefined } from "./message-input-refined"
+import { MessageInput } from "./message-input"
 
 export type ChatRole = "user" | "assistant" | "system"
 
@@ -66,7 +66,7 @@ const SuggestionChips: React.FC<SuggestionChipsProps> = ({ suggestions, onSelect
 
 const ChatInterface: React.FC<ChatInterfaceProps> = ({
   className,
-  title = "AI Assistant",
+  title = "Flux AI Assistant",
   hideHeader = false,
   currentView: externalView,
   onOpenSettings,
@@ -313,12 +313,6 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
             )}
             <h1 className="text-lg font-medium">{currentView === "chat" ? title : "Settings"}</h1>
           </div>
-
-          {currentView === "chat" && (
-            <Button variant="ghost" size="icon" onClick={openSettings}>
-              <Settings className="h-5 w-5" />
-            </Button>
-          )}
         </header>
       )}
 
@@ -550,7 +544,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
               </div>
 
               {/* Footer */}
-              <MessageInputRefined
+              <MessageInput
                 onSendMessage={handleSendMessage}
                 isWaitingForResponse={isWaitingForResponse}
                 onSettingsClick={openSettings}

@@ -68,7 +68,10 @@ export default function ChatDemo() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Controls Panel */}
-          <Card className="lg:col-span-4">
+          <Card className="lg:col-span-4" style={{
+            containerName: "controls-panel",
+            containerType: "inline-size"
+          }}>
             <CardHeader>
               <CardTitle>Demo Controls</CardTitle>
               <CardDescription>Configure the demo experience</CardDescription>
@@ -83,16 +86,25 @@ export default function ChatDemo() {
                 >
                   <TabsList className="grid w-full grid-cols-3">
                     <TabsTrigger value="embedded">
-                      <PanelLeft className="h-4 w-4 mr-2" />
-                      Embedded
+                      <PanelLeft className="h-4 w-4 flex-shrink-0 " />
+                      <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
+                        Embedded
+                      </span>
                     </TabsTrigger>
                     <TabsTrigger value="floating">
-                      <Maximize2 className="h-4 w-4 mr-2" />
-                      Floating
+                      <Maximize2 className="h-4 w-4 flex-shrink-0" />
+                      <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
+                        Floating
+                      </span>
+
                     </TabsTrigger>
                     <TabsTrigger value="assistant">
-                      <MessageSquare className="h-4 w-4 mr-2" />
-                      Assistant
+                      <MessageSquare className="h-4 w-4 flex-shrink-0" />
+
+                      <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
+                        Assistant
+                      </span>
+
                     </TabsTrigger>
                   </TabsList>
                 </Tabs>
@@ -104,16 +116,22 @@ export default function ChatDemo() {
                 <Tabs defaultValue={theme} onValueChange={handleThemeChange}>
                   <TabsList className="grid w-full grid-cols-3">
                     <TabsTrigger value="light">
-                      <Sun className="h-4 w-4 mr-2" />
-                      Light
+                      <Sun className="h-4 w-4" />
+                      <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
+                        Light
+                      </span>
                     </TabsTrigger>
                     <TabsTrigger value="dark">
-                      <Moon className="h-4 w-4 mr-2" />
-                      Dark
+                      <Moon className="h-4 w-4" />
+                      <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
+                        Dark
+                      </span>
                     </TabsTrigger>
                     <TabsTrigger value="system">
-                      <Laptop className="h-4 w-4 mr-2" />
-                      System
+                      <Laptop className="h-4 w-4" />
+                      <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
+                        System
+                      </span>
                     </TabsTrigger>
                   </TabsList>
                 </Tabs>
@@ -129,8 +147,10 @@ export default function ChatDemo() {
                     className={activeFeature === "command" ? "border-primary" : ""}
                     onClick={() => setIsCommandPaletteOpen(!isCommandPaletteOpen)}
                   >
-                    <Command className="h-4 w-4 mr-2" />
-                    Command Palette
+                    <Command className="h-4 w-4" />
+                    <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
+                      CMDK
+                    </span>
                   </Button>
                   <Button
                     variant="outline"
@@ -138,8 +158,10 @@ export default function ChatDemo() {
                     className={activeFeature === "voice" ? "border-primary" : ""}
                     onClick={() => setActiveFeature(activeFeature === "voice" ? null : "voice")}
                   >
-                    <Mic className="h-4 w-4 mr-2" />
-                    Voice Input
+                    <Mic className="h-4 w-4" />
+                    <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
+                      Voice Input
+                    </span>
                   </Button>
                   <Button
                     variant="outline"
@@ -147,8 +169,11 @@ export default function ChatDemo() {
                     className={activeFeature === "file" ? "border-primary" : ""}
                     onClick={() => setActiveFeature(activeFeature === "file" ? null : "file")}
                   >
-                    <Paperclip className="h-4 w-4 mr-2" />
-                    File Attachment
+                    <Paperclip className="h-4 w-4" />
+                    <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
+                      Attachment
+                    </span>
+
                   </Button>
                   <Button
                     variant="outline"
@@ -156,8 +181,10 @@ export default function ChatDemo() {
                     className={activeFeature === "keyboard" ? "border-primary" : ""}
                     onClick={() => setActiveFeature(activeFeature === "keyboard" ? null : "keyboard")}
                   >
-                    <Keyboard className="h-4 w-4 mr-2" />
-                    Keyboard Shortcuts
+                    <Keyboard className="h-4 w-4" />
+                    <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
+                      Shortcuts
+                    </span>
                   </Button>
                   <Button
                     variant="outline"
@@ -165,8 +192,10 @@ export default function ChatDemo() {
                     className={activeFeature === "accessibility" ? "border-primary" : ""}
                     onClick={() => setShowAccessibilityPanel(!showAccessibilityPanel)}
                   >
-                    <Info className="h-4 w-4 mr-2" />
-                    Accessibility
+                    <Info className="h-4 w-4" />
+                    <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
+                      Accessibility
+                    </span>
                   </Button>
                 </div>
               </div>
