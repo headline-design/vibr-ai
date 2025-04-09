@@ -1,10 +1,12 @@
 "use client"
+
 import { AccessibilityProvider } from "./flow-state/accessibility-provider"
 import { ThemeProvider } from "next-themes"
 import { MetaSessionProvider } from "@/components/flow-state/meta-session-provider"
 import { ConversationTreeProvider } from "@/components/flow-state/conversation-tree"
 import { FlowStateProvider } from "@/components/flow-state/flow-state-context"
 import type { ReactNode } from "react"
+import { DemoStateProvider } from "./flow-state/demo-state-provider"
 
 interface ClientProvidersProps {
   children: ReactNode
@@ -17,7 +19,11 @@ export function ClientProviders({ children, initialShowSuggestions = true }: Cli
       <AccessibilityProvider>
         <MetaSessionProvider>
           <ConversationTreeProvider>
-            <FlowStateProvider initialShowSuggestions={initialShowSuggestions}>{children}</FlowStateProvider>
+            <FlowStateProvider initialShowSuggestions={initialShowSuggestions}>
+              <DemoStateProvider>
+                {children}
+              </DemoStateProvider>
+            </FlowStateProvider>
           </ConversationTreeProvider>
         </MetaSessionProvider>
       </AccessibilityProvider>
