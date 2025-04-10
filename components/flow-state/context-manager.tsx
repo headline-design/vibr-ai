@@ -205,7 +205,6 @@ export function ContextManager({ isOpen, onClose, onSave, initialContexts = [], 
                             <Switch
                               checked={item.enabled}
                               onCheckedChange={() => toggleContextItem(item.id)}
-
                             />
                             <Button
                               variant="ghost"

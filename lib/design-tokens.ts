@@ -7,7 +7,7 @@
 
 // Color System
 export const colors = {
-  // Primary palette - neutral
+  // Primary palette
   primary: {
     50: "hsl(0, 0%, 98%)",
     100: "hsl(0, 0%, 96%)",
@@ -39,6 +39,9 @@ export const colors = {
 
   // Semantic colors
   success: {
+    DEFAULT: "hsl(142, 71%, 45%)",
+    light: "hsl(142, 72%, 90%)",
+    foreground: "hsl(0, 0%, 100%)",
     50: "hsl(142, 76%, 97%)",
     100: "hsl(142, 72%, 90%)",
     500: "hsl(142, 71%, 45%)",
@@ -47,6 +50,9 @@ export const colors = {
   },
 
   warning: {
+    DEFAULT: "hsl(45, 93%, 47%)",
+    light: "hsl(48, 96%, 89%)",
+    foreground: "hsl(0, 0%, 10%)",
     50: "hsl(48, 100%, 96%)",
     100: "hsl(48, 96%, 89%)",
     500: "hsl(45, 93%, 47%)",
@@ -55,6 +61,9 @@ export const colors = {
   },
 
   error: {
+    DEFAULT: "hsl(0, 84%, 60%)",
+    light: "hsl(0, 100%, 94%)",
+    foreground: "hsl(0, 0%, 100%)",
     50: "hsl(0, 100%, 97%)",
     100: "hsl(0, 100%, 94%)",
     500: "hsl(0, 84%, 60%)",
@@ -63,6 +72,9 @@ export const colors = {
   },
 
   info: {
+    DEFAULT: "hsl(210, 100%, 50%)",
+    light: "hsl(210, 100%, 92%)",
+    foreground: "hsl(0, 0%, 100%)",
     50: "hsl(210, 100%, 97%)",
     100: "hsl(210, 100%, 92%)",
     500: "hsl(210, 100%, 50%)",
@@ -75,7 +87,7 @@ export const colors = {
 export const typography = {
   // Font families
   fontFamily: {
-    sans: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    sans: 'var(--font-geist), Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
     mono: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
   },
 
@@ -89,6 +101,8 @@ export const typography = {
     "2xl": "1.5rem", // 24px
     "3xl": "1.875rem", // 30px
     "4xl": "2.25rem", // 36px
+    "5xl": "3rem", // 48px
+    "6xl": "3.75rem", // 60px
   },
 
   // Font weights
@@ -102,7 +116,7 @@ export const typography = {
   // Line heights
   lineHeight: {
     none: "1",
-    tight: "1.25",
+    tight: "1.2",
     snug: "1.375",
     normal: "1.5",
     relaxed: "1.625",

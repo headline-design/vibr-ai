@@ -347,7 +347,9 @@ export function ConversationTreeProvider({ children }: { children: ReactNode }) 
         // If it's a high-proximity match or explicitly marked as clientOnly, use client-side response
         if (matchingNode && (isHighProximity || matchingNode.clientOnly)) {
           const content =
-            matchingNode && typeof matchingNode.content === "function" ? matchingNode.content(metaSession) : matchingNode?.content
+            matchingNode && typeof matchingNode.content === "function"
+              ? matchingNode.content(metaSession)
+              : matchingNode?.content
 
           // Simulate network delay for client-side responses to make them feel like LLM responses
           // Simple fixed delay of 1.5 seconds
@@ -356,12 +358,18 @@ export function ConversationTreeProvider({ children }: { children: ReactNode }) 
           // Get actions if they exist
           const actions = matchingNode.actions || undefined
 
-          return { response: typeof content === "function" ? content(metaSession) : content, isClientOnly: true, actions }
+          return {
+            response: typeof content === "function" ? content(metaSession) : content,
+            isClientOnly: true,
+            actions,
+          }
         } else {
           // For low-proximity matches, use LLM but with the node content as context
           const llmResponse = await getLLMResponse(message)
           const nodeContent =
-            matchingNode && typeof matchingNode.content === "function" ? matchingNode.content(metaSession) : matchingNode?.content
+            matchingNode && typeof matchingNode.content === "function"
+              ? matchingNode.content(metaSession)
+              : matchingNode?.content
 
           // Fuse the responses - in a real implementation, you might use the node content
           // as context for the LLM rather than just concatenating

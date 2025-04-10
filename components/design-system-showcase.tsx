@@ -145,6 +145,22 @@ export function DesignSystemShowcase() {
           {/* Typography Tab */}
           <TabsContent value="typography" className="space-y-6">
             <div className="space-y-4">
+              <h3 className="text-lg font-medium">Font Family</h3>
+              <div className="font-showcase">
+                <div className="font-showcase-title">Geist Sans</div>
+                <p className="font-showcase-sample">The quick brown fox jumps over the lazy dog. 1234567890</p>
+                <p className="font-showcase-details">Primary font for all UI elements and text content</p>
+              </div>
+              <div className="font-showcase">
+                <div className="font-showcase-title">Monospace</div>
+                <p className="font-showcase-sample font-mono">
+                  The quick brown fox jumps over the lazy dog. 1234567890
+                </p>
+                <p className="font-showcase-details">Used for code blocks and technical content</p>
+              </div>
+            </div>
+
+            <div className="space-y-4">
               <h3 className="text-lg font-medium">Headings</h3>
               <div className="space-y-4 border rounded-md p-4">
                 <div className="flex items-center justify-between">
@@ -228,14 +244,60 @@ export function DesignSystemShowcase() {
               <h3 className="text-lg font-medium">Font Weights</h3>
               <div className="grid grid-cols-4 gap-4">
                 {[
-                  { name: "Normal", weight: "font-normal" },
-                  { name: "Medium", weight: "font-medium" },
-                  { name: "Semibold", weight: "font-semibold" },
-                  { name: "Bold", weight: "font-bold" },
+                  { name: "Normal", weight: "font-normal", value: "400" },
+                  { name: "Medium", weight: "font-medium", value: "500" },
+                  { name: "Semibold", weight: "font-semibold", value: "600" },
+                  { name: "Bold", weight: "font-bold", value: "700" },
                 ].map((font) => (
-                  <div key={font.weight} className="border rounded-md p-3">
+                  <div key={font.weight} className="font-weight-sample">
                     <p className={font.weight}>{font.name}</p>
-                    <p className="text-xs text-muted-foreground mt-1">{font.weight}</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {font.weight} ({font.value})
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-lg font-medium">Letter Spacing</h3>
+              <div className="grid grid-cols-3 gap-4">
+                {[
+                  { name: "Tighter", class: "tracking-tighter", value: "-0.05em" },
+                  { name: "Tight", class: "tracking-tight", value: "-0.025em" },
+                  { name: "Normal", class: "tracking-normal", value: "0" },
+                  { name: "Wide", class: "tracking-wide", value: "0.025em" },
+                  { name: "Wider", class: "tracking-wider", value: "0.05em" },
+                  { name: "Widest", class: "tracking-widest", value: "0.1em" },
+                ].map((spacing) => (
+                  <div key={spacing.class} className="border rounded-md p-3">
+                    <p className={`${spacing.class} text-base`}>The quick brown fox</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {spacing.class} ({spacing.value})
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-lg font-medium">Line Heights</h3>
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { name: "Tight", class: "leading-tight", value: "1.2" },
+                  { name: "Snug", class: "leading-snug", value: "1.375" },
+                  { name: "Normal", class: "leading-normal", value: "1.5" },
+                  { name: "Relaxed", class: "leading-relaxed", value: "1.625" },
+                  { name: "Loose", class: "leading-loose", value: "2" },
+                ].map((leading) => (
+                  <div key={leading.class} className="border rounded-md p-3">
+                    <p className={`${leading.class} text-base`}>
+                      The quick brown fox jumps over the lazy dog. This text demonstrates the line height with multiple
+                      lines of content to show spacing between lines.
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-2">
+                      {leading.class} ({leading.value})
+                    </p>
                   </div>
                 ))}
               </div>
@@ -347,6 +409,7 @@ export function DesignSystemShowcase() {
                 <Badge className="bg-success text-success-foreground">Success</Badge>
                 <Badge className="bg-warning text-warning-foreground">Warning</Badge>
                 <Badge className="bg-info text-info-foreground">Info</Badge>
+                <Badge className="bg-error text-error-foreground">Error</Badge>
               </div>
             </div>
 
@@ -364,6 +427,10 @@ export function DesignSystemShowcase() {
                 <div className="flex items-center gap-2">
                   <div className="status-dot offline"></div>
                   <span className="text-sm">Offline</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="status-dot error"></div>
+                  <span className="text-sm">Error</span>
                 </div>
               </div>
             </div>

@@ -6,9 +6,7 @@ import { AssistantCapabilities } from "./assistant-capabilities"
 import { Button } from "@/components/ui/button"
 import { Info } from "lucide-react"
 import { FluxBranding } from "./flux-branding"
-import dynamic from "next/dynamic"
-
-const FluxAvatar = dynamic(() => import("./flux-avatar-enhanced"), { ssr: false })
+import { FluxAvatar } from "./flux-avatar-enhanced"
 
 interface WelcomePanelProps {
   onSuggestionSelect: (suggestion: string) => void
