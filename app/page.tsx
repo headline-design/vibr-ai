@@ -2,7 +2,7 @@
 
 import { Command } from "@/components/ui/command"
 
-import { useState, useEffect } from "react"
+import { Suspense, useState } from "react"
 import { FluxFloatingPanel } from "@/components/flux-floating-panel"
 import { FluxAssistant } from "@/components/flux-assistant"
 import { Button } from "@/components/ui/button"
@@ -13,33 +13,24 @@ import { Label } from "@/components/ui/label"
 import { useTheme } from "next-themes"
 // Update the import to use default import
 import ChatInterface from "@/components/flow-state/chat-interface"
-import {
-  MessageSquare,
-  Maximize2,
-  PanelLeft,
-  Moon,
-  Sun,
-  Laptop,
-  Bug,
-  Code,
-  Settings,
-  Info,
-  Keyboard,
-  Mic,
-  Paperclip,
-} from "lucide-react"
+import { MessageSquare, Maximize2, PanelLeft, Moon, Sun, Laptop, Info, Keyboard, Mic, Paperclip } from "lucide-react"
 import { useDemoState } from "@/components/flow-state/demo-state-provider"
+import dynamic from "next/dynamic"
+import ThemeTabsLoading from "@/components/theme-tabs-loading"
+import ThemeTabs from "@/components/theme-tabs"
+
 
 export default function ChatDemo() {
-
   const { theme, setTheme } = useTheme()
 
-  const { isCommandPaletteOpen,
+  const {
+    isCommandPaletteOpen,
     setIsCommandPaletteOpen,
     demoView,
     setDemoView,
     isFloatingPanelOpen,
-    setIsFloatingPanelOpen } = useDemoState();
+    setIsFloatingPanelOpen,
+  } = useDemoState()
 
   const [showAccessibilityPanel, setShowAccessibilityPanel] = useState(false)
 
@@ -55,7 +46,6 @@ export default function ChatDemo() {
     setTheme(newTheme)
   }
 
-
   return (
     <>
       <div>
@@ -68,10 +58,13 @@ export default function ChatDemo() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Controls Panel */}
-          <Card className="lg:col-span-4" style={{
-            containerName: "controls-panel",
-            containerType: "inline-size"
-          }}>
+          <Card
+            className="lg:col-span-4"
+            style={{
+              containerName: "controls-panel",
+              containerType: "inline-size",
+            }}
+          >
             <CardHeader>
               <CardTitle>Demo Controls</CardTitle>
               <CardDescription>Configure the demo experience</CardDescription>
@@ -96,7 +89,6 @@ export default function ChatDemo() {
                       <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
                         Floating
                       </span>
-
                     </TabsTrigger>
                     <TabsTrigger value="assistant">
                       <MessageSquare className="h-4 w-4 flex-shrink-0" />
@@ -104,7 +96,6 @@ export default function ChatDemo() {
                       <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
                         Assistant
                       </span>
-
                     </TabsTrigger>
                   </TabsList>
                 </Tabs>
@@ -113,28 +104,9 @@ export default function ChatDemo() {
               {/* Theme Selector */}
               <div className="space-y-2">
                 <h3 className="text-sm font-medium">Theme</h3>
-                <Tabs defaultValue={theme} onValueChange={handleThemeChange}>
-                  <TabsList className="grid w-full grid-cols-3">
-                    <TabsTrigger value="light">
-                      <Sun className="h-4 w-4" />
-                      <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
-                        Light
-                      </span>
-                    </TabsTrigger>
-                    <TabsTrigger value="dark">
-                      <Moon className="h-4 w-4" />
-                      <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
-                        Dark
-                      </span>
-                    </TabsTrigger>
-                    <TabsTrigger value="system">
-                      <Laptop className="h-4 w-4" />
-                      <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
-                        System
-                      </span>
-                    </TabsTrigger>
-                  </TabsList>
-                </Tabs>
+                <Suspense fallback={<ThemeTabsLoading />} >
+                  <ThemeTabs />
+                </Suspense>
               </div>
 
               {/* Feature Showcase */}
@@ -173,7 +145,6 @@ export default function ChatDemo() {
                     <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
                       Attachment
                     </span>
-
                   </Button>
                   <Button
                     variant="outline"
@@ -245,9 +216,7 @@ export default function ChatDemo() {
           {demoView === "embedded" && (
             <div className="lg:col-span-8">
               <Card className="h-[600px] overflow-hidden">
-                <CardHeader className="sr-only">
-                  Chat Module
-                </CardHeader>
+                <CardHeader className="sr-only">Chat Module</CardHeader>
                 <CardContent className="p-0 h-[calc(100%-73px)]">
                   <ChatInterface className="flex-1" setEmbeddedChatView={setEmbeddedChatView} />
                 </CardContent>
@@ -286,8 +255,8 @@ export default function ChatDemo() {
                     <h4 className="font-medium mb-2">Available Commands:</h4>
                     <ul className="space-y-2">
                       <li className="flex items-center">
-                        <span className="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded mr-2 text-sm">/help</span>{" "}
-                        Show help information
+                        <span className="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded mr-2 text-sm">/help</span> Show
+                        help information
                       </li>
                       <li className="flex items-center">
                         <span className="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded mr-2 text-sm">/clear</span>{" "}
@@ -302,9 +271,7 @@ export default function ChatDemo() {
                         Attach a file
                       </li>
                       <li className="flex items-center">
-                        <span className="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded mr-2 text-sm">
-                          /settings
-                        </span>{" "}
+                        <span className="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded mr-2 text-sm">/settings</span>{" "}
                         Open settings
                       </li>
                     </ul>
@@ -315,9 +282,8 @@ export default function ChatDemo() {
               {activeFeature === "voice" && (
                 <div>
                   <p className="mb-4">
-                    Voice Input allows you to speak your messages instead of typing them. Click the microphone icon
-                    or press <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded">Ctrl+Shift+V</kbd> to
-                    start.
+                    Voice Input allows you to speak your messages instead of typing them. Click the microphone icon or
+                    press <kbd className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded">Ctrl+Shift+V</kbd> to start.
                   </p>
                   <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-md">
                     <h4 className="font-medium mb-2">Voice Commands:</h4>
@@ -333,8 +299,8 @@ export default function ChatDemo() {
               {activeFeature === "file" && (
                 <div>
                   <p className="mb-4">
-                    File Attachment allows you to share files with the AI assistant for analysis or reference. Click
-                    the paperclip icon to attach files.
+                    File Attachment allows you to share files with the AI assistant for analysis or reference. Click the
+                    paperclip icon to attach files.
                   </p>
                   <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-md">
                     <h4 className="font-medium mb-2">Supported File Types:</h4>

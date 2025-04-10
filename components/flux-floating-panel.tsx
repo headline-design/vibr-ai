@@ -4,7 +4,7 @@ import { useState } from "react"
 import { X, ChevronLeft, Settings } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import ChatInterface from "./flow-state/chat-interface"
+import RefinedChatInterface from "@/components/flow-state/chat-interface"
 
 interface FluxFloatingPanelProps {
   isOpen: boolean
@@ -68,7 +68,7 @@ export function FluxFloatingPanel({ isOpen, onClose }: FluxFloatingPanelProps) {
       </div>
 
       <div className="flex-1 overflow-hidden">
-        <ChatInterface
+        <RefinedChatInterface
           currentView={currentView}
           onOpenSettings={openSettings}
           onCloseSettings={closeSettings}

@@ -88,7 +88,7 @@ export function AccessibilityOverlay({ isOpen, onClose }: AccessibilityOverlayPr
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px] max-h-[80vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-[500px] max-h-[80vh] overflow-y-auto bg-background dark:bg-gray-800">
         <DialogHeader>
           <DialogTitle className="flex items-center">
             <Eye className="h-5 w-5 mr-2" />
@@ -184,7 +184,7 @@ export function AccessibilityOverlay({ isOpen, onClose }: AccessibilityOverlayPr
               <Switch id="keyboard-navigation" checked={keyboardNavigation} onCheckedChange={setKeyboardNavigation} />
             </div>
 
-            <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-md">
+            <div className="p-3 bg-muted dark:bg-gray-800 rounded-md">
               <h4 className="text-sm font-medium mb-2">Keyboard Shortcuts</h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">

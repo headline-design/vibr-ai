@@ -66,7 +66,7 @@ export function KnowledgeBaseManager({
   onRemoveSource,
   onUpdateSource,
   onSearch,
-  className
+  className,
 }: KnowledgeBaseManagerProps) {
   // State
   const [activeTab, setActiveTab] = useState<string>("sources")
@@ -99,7 +99,7 @@ export function KnowledgeBaseManager({
       documentCount: 15,
       lastUpdated: "2023-06-15T10:30:00",
       description: "Official product documentation and user guides",
-      tags: ["documentation", "guides", "official"]
+      tags: ["documentation", "guides", "official"],
     },
     {
       id: "source-2",
@@ -109,7 +109,7 @@ export function KnowledgeBaseManager({
       documentCount: 42,
       lastUpdated: "2023-06-10T14:20:00",
       url: "https://example.com",
-      tags: ["website", "public"]
+      tags: ["website", "public"],
     },
     {
       id: "source-3",
@@ -119,7 +119,7 @@ export function KnowledgeBaseManager({
       documentCount: 1250,
       lastUpdated: "2023-06-05T09:15:00",
       description: "Database of customer support tickets and resolutions",
-      tags: ["support", "internal"]
+      tags: ["support", "internal"],
     },
     {
       id: "source-4",
@@ -129,7 +129,7 @@ export function KnowledgeBaseManager({
       size: 1800000,
       lastUpdated: "2023-06-18T16:45:00",
       description: "Technical documentation for API endpoints",
-      tags: ["api", "technical", "development"]
+      tags: ["api", "technical", "development"],
     },
     {
       id: "source-5",
@@ -139,7 +139,7 @@ export function KnowledgeBaseManager({
       documentCount: 78,
       lastUpdated: "2023-05-20T11:30:00",
       description: "Internal company knowledge base",
-      tags: ["internal", "knowledge"]
+      tags: ["internal", "knowledge"],
     },
     {
       id: "source-6",
@@ -149,55 +149,55 @@ export function KnowledgeBaseManager({
       size: 3200000,
       lastUpdated: "2023-06-12T13:10:00",
       description: "Analysis of competitor products and features",
-      tags: ["competitors", "analysis", "confidential"]
-    }
+      tags: ["competitors", "analysis", "confidential"],
+    },
   ])
 
   // Filter and sort sources
-  const filteredSources = sources.filter(source => {
-    // Filter by type
-    if (filterType !== "all" && source.type !== filterType) {
-      return false
-    }
+  const filteredSources = sources
+    .filter((source) => {
+      // Filter by type
+      if (filterType !== "all" && source.type !== filterType) {
+        return false
+      }
 
-    // Filter by status
-    if (filterStatus !== "all" && source.status !== filterStatus) {
-      return false
-    }
+      // Filter by status
+      if (filterStatus !== "all" && source.status !== filterStatus) {
+        return false
+      }
 
-    // Filter by search query
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase()
-      return (
-        source.name.toLowerCase().includes(query) ||
-        (source.description && source.description.toLowerCase().includes(query)) ||
-        (source.tags && source.tags.some(tag => tag.toLowerCase().includes(query)))
-      )
-    }
+      // Filter by search query
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase()
+        return (
+          source.name.toLowerCase().includes(query) ||
+          (source.description && source.description.toLowerCase().includes(query)) ||
+          (source.tags && source.tags.some((tag) => tag.toLowerCase().includes(query)))
+        )
+      }
 
-    return true
-  }).sort((a, b) => {
-    // Sort by selected field
-    if (sortBy === "name") {
-      return sortDirection === "asc"
-        ? a.name.localeCompare(b.name)
-        : b.name.localeCompare(a.name)
-    } else if (sortBy === "lastUpdated") {
-      return sortDirection === "asc"
-        ? new Date(a.lastUpdated).getTime() - new Date(b.lastUpdated).getTime()
-        : new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime()
-    } else if (sortBy === "documentCount") {
-      const countA = a.documentCount || 0
-      const countB = b.documentCount || 0
-      return sortDirection === "asc" ? countA - countB : countB - countA
-    } else if (sortBy === "size") {
-      const sizeA = a.size || 0
-      const sizeB = b.size || 0
-      return sortDirection === "asc" ? sizeA - sizeB : sizeB - sizeA
-    }
+      return true
+    })
+    .sort((a, b) => {
+      // Sort by selected field
+      if (sortBy === "name") {
+        return sortDirection === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
+      } else if (sortBy === "lastUpdated") {
+        return sortDirection === "asc"
+          ? new Date(a.lastUpdated).getTime() - new Date(b.lastUpdated).getTime()
+          : new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime()
+      } else if (sortBy === "documentCount") {
+        const countA = a.documentCount || 0
+        const countB = b.documentCount || 0
+        return sortDirection === "asc" ? countA - countB : countB - countA
+      } else if (sortBy === "size") {
+        const sizeA = a.size || 0
+        const sizeB = b.size || 0
+        return sortDirection === "asc" ? sizeA - sizeB : sizeB - sizeA
+      }
 
-    return 0
-  })
+      return 0
+    })
 
   // Search knowledge base
   const searchKnowledgeBase = async () => {
@@ -227,7 +227,7 @@ export function KnowledgeBaseManager({
       url: newSourceUrl,
       tags: newSourceTags,
       isPublic: newSourceIsPublic,
-      documentCount: 0
+      documentCount: 0,
     }
 
     setSources([...sources, newSource])
@@ -254,12 +254,10 @@ export function KnowledgeBaseManager({
       url: newSourceUrl,
       tags: newSourceTags,
       isPublic: newSourceIsPublic,
-      lastUpdated: new Date().toISOString()
+      lastUpdated: new Date().toISOString(),
     }
 
-    setSources(sources.map(source =>
-      source.id === updatedSource.id ? updatedSource : source
-    ))
+    setSources(sources.map((source) => (source.id === updatedSource.id ? updatedSource : source)))
 
     onUpdateSource(updatedSource)
     setIsEditSourceDialogOpen(false)
@@ -269,7 +267,7 @@ export function KnowledgeBaseManager({
   const deleteSource = () => {
     if (!selectedSource) return
 
-    setSources(sources.filter(source => source.id !== selectedSource.id))
+    setSources(sources.filter((source) => source.id !== selectedSource.id))
     onRemoveSource(selectedSource.id)
     setIsDeleteSourceDialogOpen(false)
   }
@@ -288,9 +286,9 @@ export function KnowledgeBaseManager({
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
     return date.toLocaleDateString(undefined, {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
+      year: "numeric",
+      month: "short",
+      day: "numeric",
     })
   }
 
@@ -314,29 +312,13 @@ export function KnowledgeBaseManager({
   const getSourceStatusBadge = (status: KnowledgeSource["status"]) => {
     switch (status) {
       case "active":
-        return (
-          <Badge className="bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">
-            Active
-          </Badge>
-        )
+        return <Badge className="bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">Active</Badge>
       case "processing":
-        return (
-          <Badge className="bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
-            Processing
-          </Badge>
-        )
+        return <Badge className="bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">Processing</Badge>
       case "error":
-        return (
-          <Badge className="bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400">
-            Error
-          </Badge>
-        )
+        return <Badge className="bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400">Error</Badge>
       case "inactive":
-        return (
-          <Badge className="bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400">
-            Inactive
-          </Badge>
-        )
+        return <Badge className="bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400">Inactive</Badge>
       default:
         return null
     }
@@ -564,21 +546,17 @@ export function KnowledgeBaseManager({
             </div>
           ) : (
             <div className="space-y-4">
-              {filteredSources.map(source => (
+              {filteredSources.map((source) => (
                 <Card key={source.id}>
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between">
                       <div className="flex items-start">
-                        <div className="mr-4 mt-1">
-                          {getSourceTypeIcon(source.type)}
-                        </div>
+                        <div className="mr-4 mt-1">{getSourceTypeIcon(source.type)}</div>
 
                         <div>
                           <div className="flex items-center">
                             <h3 className="font-medium">{source.name}</h3>
-                            <div className="ml-2">
-                              {getSourceStatusBadge(source.status)}
-                            </div>
+                            <div className="ml-2">{getSourceStatusBadge(source.status)}</div>
                             {source.isPublic && (
                               <Badge variant="outline" className="ml-2">
                                 <Globe className="h-3 w-3 mr-1" />
@@ -587,11 +565,7 @@ export function KnowledgeBaseManager({
                             )}
                           </div>
 
-                          {source.description && (
-                            <p className="text-sm text-gray-500">
-                              {source.description}
-                            </p>
-                          )}
+                          {source.description && <p className="text-sm text-gray-500">{source.description}</p>}
                         </div>
                       </div>
                       <div className="flex items-center space-x-2">
@@ -627,24 +601,14 @@ export function KnowledgeBaseManager({
                     </div>
                     <div className="mt-4 text-sm text-gray-500">
                       <div className="flex items-center space-x-2">
-                        <span>
-                          Last Updated: {formatDate(source.lastUpdated)}
-                        </span>
-                        {source.size !== undefined && (
-                          <span> | Size: {formatFileSize(source.size)}</span>
-                        )}
-                        {source.documentCount !== undefined && (
-                          <span> | Documents: {source.documentCount}</span>
-                        )}
+                        <span>Last Updated: {formatDate(source.lastUpdated)}</span>
+                        {source.size !== undefined && <span> | Size: {formatFileSize(source.size)}</span>}
+                        {source.documentCount !== undefined && <span> | Documents: {source.documentCount}</span>}
                       </div>
                       {source.tags && source.tags.length > 0 && (
                         <div className="mt-2 flex flex-wrap gap-1">
                           {source.tags.map((tag, index) => (
-                            <Badge
-                              key={index}
-                              variant="outline"
-                              className="text-xs"
-                            >
+                            <Badge key={index} variant="outline" className="text-xs">
                               {tag}
                             </Badge>
                           ))}
@@ -679,13 +643,7 @@ export function KnowledgeBaseManager({
                 </Button>
               )}
             </div>
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-8"
-              onClick={searchKnowledgeBase}
-              disabled={isSearching}
-            >
+            <Button variant="outline" size="sm" className="h-8" onClick={searchKnowledgeBase} disabled={isSearching}>
               {isSearching ? "Searching..." : "Search"}
             </Button>
           </div>
@@ -695,32 +653,24 @@ export function KnowledgeBaseManager({
               <Search className="h-12 w-12 mx-auto text-gray-300 dark:text-gray-600 mb-4" />
               <h3 className="text-lg font-medium mb-2">No results found</h3>
               {searchQuery ? (
-                <p className="text-gray-500 mb-4">
-                  Try adjusting your search query
-                </p>
+                <p className="text-gray-500 mb-4">Try adjusting your search query</p>
               ) : (
-                <p className="text-gray-500 mb-4">
-                  Enter a search query to find knowledge sources
-                </p>
+                <p className="text-gray-500 mb-4">Enter a search query to find knowledge sources</p>
               )}
             </div>
           ) : (
             <div className="space-y-4">
-              {searchResults.map(result => (
+              {searchResults.map((result) => (
                 <Card key={result.id}>
                   <CardContent className="p-6">
                     <h3 className="font-medium">{result.title}</h3>
-                    <p className="text-sm text-gray-500 mt-2">
-                      {result.content.substring(0, 150)}...
-                    </p>
-                    <div className="mt-4 text-xs text-gray
-                      500">
+                    <p className="text-sm text-gray-500 mt-2">{result.content.substring(0, 150)}...</p>
+                    <div
+                      className="mt-4 text-xs text-gray
+                      500"
+                    >
                       <span>Source: {result.source}</span>
-                      {result.metadata && (
-                        <span className="ml-2">
-                          | Relevance: {result.relevance.toFixed(2)}
-                        </span>
-                      )}
+                      {result.metadata && <span className="ml-2">| Relevance: {result.relevance.toFixed(2)}</span>}
                     </div>
                   </CardContent>
                 </Card>
@@ -729,7 +679,6 @@ export function KnowledgeBaseManager({
           )}
         </TabsContent>
       </Tabs>
-
     </div>
   )
 }

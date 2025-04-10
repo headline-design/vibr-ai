@@ -75,7 +75,7 @@ export function SettingsPanel({ isOpen, onClose, className }: SettingsPanelProps
   return (
     <motion.div
       className={cn(
-        "fixed inset-0 bg-white dark:bg-gray-900 z-50 flex flex-col overflow-hidden",
+        "fixed inset-0 bg-white dark:bg-neutral-900 z-50 flex flex-col overflow-hidden",
         !isOpen && "pointer-events-none opacity-0",
         className,
       )}
@@ -83,20 +83,20 @@ export function SettingsPanel({ isOpen, onClose, className }: SettingsPanelProps
       animate={{ opacity: isOpen ? 1 : 0, y: isOpen ? 0 : 20 }}
       transition={{ duration: 0.2 }}
     >
-      <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-gray-800">
-        <h2 className="text-lg font-medium flex items-center">
-          <Palette className="h-5 w-5 mr-2 text-gray-500" />
+      <div className="flex items-center justify-between p-4 border-b border-neutral-100 dark:border-neutral-800">
+        <h2 className="text-base font-medium flex items-center">
+          <Palette className="h-4 w-4 mr-2 text-neutral-500" />
           Settings
         </h2>
         <div className="flex items-center space-x-2">
           {hasUnsavedChanges && (
             <>
-              <Button variant="outline" size="sm" onClick={discardChanges} className="h-8 text-xs">
-                <X className="h-3.5 w-3.5 mr-1.5" />
+              <Button variant="outline" size="sm" onClick={discardChanges} className="h-7 text-xs">
+                <X className="h-3 w-3 mr-1.5" />
                 Discard
               </Button>
-              <Button size="sm" onClick={saveChanges} className="h-8 text-xs">
-                <Check className="h-3.5 w-3.5 mr-1.5" />
+              <Button size="sm" onClick={saveChanges} className="h-7 text-xs">
+                <Check className="h-3 w-3 mr-1.5" />
                 Save
               </Button>
             </>
@@ -108,31 +108,31 @@ export function SettingsPanel({ isOpen, onClose, className }: SettingsPanelProps
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 overflow-hidden">
-        <TabsList className="w-full justify-start px-4 pt-2 bg-transparent border-b border-gray-100 dark:border-gray-800">
+        <TabsList className="w-full justify-start px-4 pt-2 bg-transparent border-b border-neutral-100 dark:border-neutral-800">
           <TabsTrigger
             value="appearance"
-            className="data-[state=active]:bg-gray-100 dark:data-[state=active]:bg-gray-800 rounded-t-md"
+            className="data-[state=active]:bg-neutral-100 dark:data-[state=active]:bg-neutral-800 rounded-t-md"
           >
             <Palette className="h-4 w-4 mr-2" />
             Appearance
           </TabsTrigger>
           <TabsTrigger
             value="notifications"
-            className="data-[state=active]:bg-gray-100 dark:data-[state=active]:bg-gray-800 rounded-t-md"
+            className="data-[state=active]:bg-neutral-100 dark:data-[state=active]:bg-neutral-800 rounded-t-md"
           >
             <Bell className="h-4 w-4 mr-2" />
             Notifications
           </TabsTrigger>
           <TabsTrigger
             value="language"
-            className="data-[state=active]:bg-gray-100 dark:data-[state=active]:bg-gray-800 rounded-t-md"
+            className="data-[state=active]:bg-neutral-100 dark:data-[state=active]:bg-neutral-800 rounded-t-md"
           >
             <Globe className="h-4 w-4 mr-2" />
             Language
           </TabsTrigger>
           <TabsTrigger
             value="privacy"
-            className="data-[state=active]:bg-gray-100 dark:data-[state=active]:bg-gray-800 rounded-t-md"
+            className="data-[state=active]:bg-neutral-100 dark:data-[state=active]:bg-neutral-800 rounded-t-md"
           >
             <Shield className="h-4 w-4 mr-2" />
             Privacy
@@ -147,48 +147,48 @@ export function SettingsPanel({ isOpen, onClose, className }: SettingsPanelProps
                 <Button
                   variant="outline"
                   className={cn(
-                    "flex flex-col items-center justify-center h-24 p-2 transition-all",
-                    theme === "light" && "border-blue-500 ring-2 ring-blue-500/20",
+                    "flex flex-col items-center justify-center h-20 p-2 transition-all",
+                    theme === "light" && "border-neutral-900 ring-1 ring-neutral-900/10",
                   )}
                   onClick={() => {
                     setTheme("light")
                     trackChanges()
                   }}
                 >
-                  <div className="h-12 w-12 rounded-full bg-white border border-gray-200 flex items-center justify-center mb-2 shadow-sm">
-                    <Sun className="h-6 w-6 text-amber-500" />
+                  <div className="h-10 w-10 rounded-full bg-white border border-neutral-200 flex items-center justify-center mb-2 shadow-sm">
+                    <Sun className="h-5 w-5 text-neutral-700" />
                   </div>
                   <span className="text-xs">Light</span>
                 </Button>
                 <Button
                   variant="outline"
                   className={cn(
-                    "flex flex-col items-center justify-center h-24 p-2 transition-all",
-                    theme === "dark" && "border-blue-500 ring-2 ring-blue-500/20",
+                    "flex flex-col items-center justify-center h-20 p-2 transition-all",
+                    theme === "dark" && "border-neutral-900 ring-1 ring-neutral-900/10",
                   )}
                   onClick={() => {
                     setTheme("dark")
                     trackChanges()
                   }}
                 >
-                  <div className="h-12 w-12 rounded-full bg-gray-900 border border-gray-700 flex items-center justify-center mb-2 shadow-sm">
-                    <Moon className="h-6 w-6 text-blue-400" />
+                  <div className="h-10 w-10 rounded-full bg-neutral-900 border border-neutral-700 flex items-center justify-center mb-2 shadow-sm">
+                    <Moon className="h-5 w-5 text-neutral-300" />
                   </div>
                   <span className="text-xs">Dark</span>
                 </Button>
                 <Button
                   variant="outline"
                   className={cn(
-                    "flex flex-col items-center justify-center h-24 p-2 transition-all",
-                    theme === "system" && "border-blue-500 ring-2 ring-blue-500/20",
+                    "flex flex-col items-center justify-center h-20 p-2 transition-all",
+                    theme === "system" && "border-neutral-900 ring-1 ring-neutral-900/10",
                   )}
                   onClick={() => {
                     setTheme("system")
                     trackChanges()
                   }}
                 >
-                  <div className="h-12 w-12 rounded-full bg-gradient-to-br from-white to-gray-900 border border-gray-300 flex items-center justify-center mb-2 shadow-sm">
-                    <Laptop className="h-6 w-6 text-gray-700" />
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-white to-neutral-900 border border-neutral-300 flex items-center justify-center mb-2 shadow-sm">
+                    <Laptop className="h-5 w-5 text-neutral-700" />
                   </div>
                   <span className="text-xs">System</span>
                 </Button>
@@ -198,7 +198,7 @@ export function SettingsPanel({ isOpen, onClose, className }: SettingsPanelProps
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <Label htmlFor="density" className="flex items-center cursor-pointer">
-                  <MessageSquare className="h-4 w-4 mr-2 text-gray-500" />
+                  <MessageSquare className="h-4 w-4 mr-2 text-neutral-500" />
                   <span>Message Density</span>
                 </Label>
               </div>
@@ -228,7 +228,7 @@ export function SettingsPanel({ isOpen, onClose, className }: SettingsPanelProps
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <Label htmlFor="font-size" className="flex items-center cursor-pointer">
-                  <Type className="h-4 w-4 mr-2 text-gray-500" />
+                  <Type className="h-4 w-4 mr-2 text-neutral-500" />
                   <span>Font Size ({fontSize}%)</span>
                 </Label>
               </div>
@@ -243,7 +243,7 @@ export function SettingsPanel({ isOpen, onClose, className }: SettingsPanelProps
                   trackChanges()
                 }}
               />
-              <div className="flex justify-between text-xs text-gray-500">
+              <div className="flex justify-between text-xs text-neutral-500">
                 <span>Small</span>
                 <span>Medium</span>
                 <span>Large</span>
@@ -269,9 +269,9 @@ export function SettingsPanel({ isOpen, onClose, className }: SettingsPanelProps
               </div>
 
               <div className="pt-2">
-                <Label className="text-xs text-gray-500 mb-1 block">Volume</Label>
+                <Label className="text-xs text-neutral-500 mb-1 block">Volume</Label>
                 <div className="flex items-center space-x-2">
-                  <VolumeX className="h-4 w-4 text-gray-400" />
+                  <VolumeX className="h-4 w-4 text-neutral-400" />
                   <Slider
                     value={[volume]}
                     min={0}
@@ -284,7 +284,7 @@ export function SettingsPanel({ isOpen, onClose, className }: SettingsPanelProps
                     className="flex-1"
                     disabled={!soundEnabled}
                   />
-                  <Volume2 className="h-4 w-4 text-gray-400" />
+                  <Volume2 className="h-4 w-4 text-neutral-400" />
                 </div>
               </div>
             </div>
@@ -305,7 +305,7 @@ export function SettingsPanel({ isOpen, onClose, className }: SettingsPanelProps
                 />
               </div>
 
-              <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-md text-xs text-gray-500 dark:text-gray-400">
+              <div className="p-3 bg-neutral-50 dark:bg-neutral-800 rounded-md text-xs text-neutral-500 dark:text-neutral-400">
                 Desktop notifications will alert you when you receive new messages while the app is in the background.
               </div>
             </div>
@@ -356,7 +356,7 @@ export function SettingsPanel({ isOpen, onClose, className }: SettingsPanelProps
                 </SelectContent>
               </Select>
 
-              <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-md text-xs text-gray-500 dark:text-gray-400">
+              <div className="p-3 bg-neutral-50 dark:bg-neutral-800 rounded-md text-xs text-neutral-500 dark:text-neutral-400">
                 Different models have different capabilities and response styles. GPT-4o offers the best overall
                 performance.
               </div>
@@ -385,7 +385,7 @@ export function SettingsPanel({ isOpen, onClose, className }: SettingsPanelProps
                 <Switch id="improve-model" defaultChecked onChange={trackChanges} />
               </div>
 
-              <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-md text-xs text-gray-500 dark:text-gray-400">
+              <div className="p-3 bg-neutral-50 dark:bg-neutral-800 rounded-md text-xs text-neutral-500 dark:text-neutral-400">
                 Your privacy is important to us. We only use your data to improve your experience and our services. You
                 can export or delete your data at any time.
               </div>

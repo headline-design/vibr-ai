@@ -3,7 +3,7 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
 
 type FluxTheme = "light" | "dark" | "system"
-type FluxAccent = "indigo" | "violet" | "blue" | "emerald" | "amber"
+type FluxAccent = "neutral" | "blue" | "violet" | "amber"
 
 interface FluxThemeContextType {
   theme: FluxTheme
@@ -16,7 +16,7 @@ const FluxThemeContext = createContext<FluxThemeContextType | undefined>(undefin
 
 export function FluxThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<FluxTheme>("system")
-  const [accent, setAccent] = useState<FluxAccent>("indigo")
+  const [accent, setAccent] = useState<FluxAccent>("neutral")
 
   // Initialize theme from localStorage or system preference
   useEffect(() => {
@@ -59,7 +59,7 @@ export function FluxThemeProvider({ children }: { children: ReactNode }) {
     const root = document.documentElement
 
     // Remove all accent classes
-    root.classList.remove("accent-indigo", "accent-violet", "accent-blue", "accent-emerald", "accent-amber")
+    root.classList.remove("accent-neutral", "accent-blue", "accent-violet", "accent-amber")
 
     // Add the current accent class
     root.classList.add(`accent-${accent}`)

@@ -117,7 +117,7 @@ export function PerformanceMonitor({ isOpen, onClose, className }: PerformanceMo
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           className={cn(
-            "fixed bottom-4 right-4 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden z-40",
+            "fixed bottom-4 right-4 w-80 bg-card dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden z-40",
             className,
           )}
         >

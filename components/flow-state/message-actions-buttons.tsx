@@ -8,7 +8,7 @@ interface MessageActionButtonsProps {
   actions: Array<{
     id: string
     label: string
-    variant?: "secondary" | "default" | "outline" | "destructive" | "ghost" | "link"
+    variant?: "default" | "secondary"  | "outline" | "destructive"
   }>
   onAction: (actionId: string) => void
   className?: string

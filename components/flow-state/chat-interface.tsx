@@ -7,13 +7,16 @@ import { Check, X, ChevronLeft } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
-import { FluxAvatar } from "@/components/flow-state/flux-avatar-enhanced"
 import { useFlowState } from "@/components/flow-state/flow-state-context"
 import { ChatSettings } from "./chat-settings"
 import ReactMarkdown from "react-markdown"
 import MessageActions from "@/components/flow-state/message-actions"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { MessageInput } from "./message-input"
+import { useToast } from "@/components/ui/use-toast"
+import dynamic from "next/dynamic"
+
+const FluxAvatar = dynamic(() => import("./flux-avatar-enhanced"), { ssr: false })
 
 export type ChatRole = "user" | "assistant" | "system"
 
@@ -74,6 +77,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
   setEmbeddedChatView,
 }) => {
   const { messages, handleSendMessage, isWaitingForResponse, clearMessages, setMessages } = useFlowState()
+  const { toast } = useToast()
 
   // State for user input
   const [editingMessageId, setEditingMessageId] = useState<string | null>(null)
@@ -89,6 +93,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
   const [isComposing, setIsComposing] = useState(false)
   const [selectedMessageId, setSelectedMessageId] = useState<string | null>(null)
   const [reaction, setReaction] = useState<"like" | "dislike" | null>(null)
+  const [copiedMessageId, setCopiedMessageId] = useState<string | null>(null)
 
   // Use external view state if provided, otherwise use internal
   const currentView = externalView || internalView
@@ -171,6 +176,10 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
       }
       handleSendMessage(editedContent, messageId)
       cancelEdit()
+      toast({
+        title: "Message updated",
+        description: "Your message has been updated successfully.",
+      })
     }
   }
 
@@ -229,15 +238,28 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
         console.log("No user message found")
       }
     },
-    [handleSendMessage, messages, setMessages],
+    [handleSendMessage, messages, setMessages, toast],
   )
 
   // Copy message to clipboard
-  const copyMessageToClipboard = (content: string) => {
-    navigator.clipboard.writeText(content).then(() => {
-      // Show toast notification (not implemented here)
-      console.log("Copied to clipboard")
-    })
+  const copyMessageToClipboard = (content: string, messageId: string) => {
+    navigator.clipboard
+      .writeText(content)
+      .then(() => {
+        setCopiedMessageId(messageId)
+        setTimeout(() => setCopiedMessageId(null), 2000)
+        toast({
+          title: "Message copied",
+          description: "Message copied to clipboard.",
+        })
+      })
+      .catch(() => {
+        toast({
+          title: "Error",
+          description: "Failed to copy message to clipboard.",
+          variant: "destructive",
+        })
+      })
   }
 
   // Handle suggestion selection
@@ -288,8 +310,10 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
   const hasMarkdown = false // Or determine this dynamically
   const MarkdownRenderer = ({ content }: { content: string }) => {
     return (
-      <div className="markdown">
-        <ReactMarkdown>{content}</ReactMarkdown>
+      <div className="prose prose-sm dark:prose-invert prose-ul:my-2 prose-ol:my-2 prose-headings:font-medium prose-headings:text-foreground">
+        <ReactMarkdown >
+          {content}
+        </ReactMarkdown>
       </div>
     )
   }
@@ -304,14 +328,14 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
     <div className={cn("flex flex-col h-full relative", className)}>
       {/* Optional Header - only shown if hideHeader is false */}
       {!hideHeader && (
-        <header className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
+        <header className="flex items-center justify-between px-4 py-3.5 border-b border-muted bg-background">
           <div className="flex items-center">
             {currentView === "settings" && (
               <Button variant="ghost" size="icon" onClick={closeSettings} className="mr-2">
                 <ChevronLeft className="h-5 w-5" />
               </Button>
             )}
-            <h1 className="text-lg font-medium">{currentView === "chat" ? title : "Settings"}</h1>
+            <h1 className="text-base font-medium">{currentView === "chat" ? title : "Settings"}</h1>
           </div>
         </header>
       )}
@@ -332,7 +356,11 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
               {/* Scrollable container for messages */}
               <div
                 ref={chatContainerRef}
-                className="relative flex-1 overflow-y-auto px-3 py-3 bg-white"
+                className={cn(
+                  "relative flex-1 overflow-y-auto px-4 py-4",
+                  "bg-background bg-[url('/subtle-pattern.png')] bg-repeat bg-opacity-5",
+                  "scrollbar-thin scrollbar-thumb-rounded-md scrollbar-track-transparent scrollbar-thumb-neutral-300/80 dark:scrollbar-thumb-neutral-700/80", // Refined scrollbars
+                )}
                 role="log"
                 aria-live="polite"
                 aria-label="Chat messages"
@@ -340,7 +368,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                 {/* Welcome message */}
                 {messages.length === 0 && (
                   <div className="mb-6">
-                    <div className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                    <div className="text-sm text-muted-foreground mb-3">
                       <h2 className="font-medium mb-1">Welcome to the AI Assistant</h2>
                       <p>Ask questions, request information, or get help with tasks.</p>
                     </div>
@@ -356,7 +384,13 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
 
                 {/* Message groups */}
                 {groupedMessages.map((group, groupIndex) => (
-                  <div key={`group-${groupIndex}`} className="mb-4">
+                  <motion.div
+                    key={`group-${groupIndex}`}
+                    className="space-y-6"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.2, delay: groupIndex * 0.05, ease: "easeOut" }}
+                  >
                     {group.map((message, messageIndex) => {
                       const isUser = message.role === "user"
                       const isAssistant = message.role === "assistant"
@@ -367,11 +401,11 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                       return (
                         <motion.div
                           key={message.id}
-                          initial={{ opacity: 0, y: 15, scale: 0.98 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -15, scale: 0.98 }}
-                          transition={{ duration: 0.25 }}
-                          className={cn("flex w-full mb-1", {
+                          transition={{ duration: 0.2, ease: "easeOut" }}
+                          className={cn("flex w-full space-y-1.5", {
                             "justify-end": isUser,
                             "justify-start": !isUser,
                             "mb-3": messageIndex === group.length - 1, // Add more space after last message in group
@@ -381,7 +415,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                           {isAssistant && isFirstInGroup && (
                             <motion.div
                               layout
-                              className="mr-2 mt-1 flex-shrink-0"
+                              className="mr-2.5 mt-0.5 flex-shrink-0 ring-1 ring-border/30"
                               initial={{ scale: 0.9 }}
                               animate={{ scale: 1 }}
                             >
@@ -400,27 +434,30 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                           {/* Chat bubble container with increased border radius */}
                           <div
                             className={cn(
-                              "relative leading-relaxed break-words p-3 shadow flex flex-col text-sm",
-                              "rounded-xl",
+                              "relative leading-relaxed break-words p-2.5 sm:p-3.5 shadow-sm flex flex-col transition-all duration-200",
+                              "rounded-2xl hover:shadow-md transition-shadow duration-200",
+                              "focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none",
                               {
-                                "max-w-[80%] sm:max-w-[75%]": isUser || isAssistant,
+                                "max-w-[85%] sm:max-w-[75%] md:max-w-[70%]": isUser || isAssistant,
                                 "max-w-full": isSystem,
-                                "bg-blue-50 text-gray-800 border border-blue-100": isUser,
-                                "bg-gray-50 text-gray-800 border border-gray-200": isAssistant,
-                                "bg-gray-100 text-gray-500 italic": isSystem,
+                                "bg-gradient-to-br from-primary/10 to-primary/15 text-foreground border border-primary/20":
+                                  isUser,
+                                "bg-muted text-foreground border border-border": isAssistant,
+                                "bg-muted/50 text-muted-foreground italic border-transparent": isSystem,
                                 "rounded-tr-sm": isUser && !isFirstInGroup, // Connected bubble effect for consecutive messages
                                 "rounded-tl-sm": isAssistant && !isFirstInGroup,
-                                "dark:bg-gray-800 dark:text-white dark:border-gray-700": isAssistant, // Dark mode support
-                                "dark:bg-blue-700": isUser,
+                                "dark:bg-muted dark:text-foreground dark:border-neutral-700": isAssistant, // Dark mode support
+                                "dark:bg-primary/30 dark:text-foreground dark:border-primary/30": isUser,
+                                "dark:bg-muted/50 dark:text-foreground/70 dark:border-transparent": isSystem,
                               },
                             )}
                             tabIndex={0}
-                            aria-label={`${isUser ? "You" : "AI Assistant"}: ${message.content}`}
+                            aria-label={`${isUser ? "Your message" : "Assistant's response"}: ${message.content.substring(0, 50)}...`}
                             onMouseEnter={() => setSelectedMessageId(message.id)}
                             onMouseLeave={() => setSelectedMessageId(null)}
                           >
                             {message.isThinking ? (
-                              <div className="flex items-center space-x-2">
+                              <div className="flex items-center space-x-1.5">
                                 <span className="font-medium text-xs">Processing your request</span>
                                 <div className="flex space-x-1 items-center">
                                   <motion.div
@@ -453,7 +490,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                                           [message.id]: e.target.value,
                                         })
                                       }
-                                      className="bg-transparent border-none outline-none shadow-none resize-none min-h-[50px] overflow-hidden text-sm p-0 focus:ring-1 focus:ring-blue-500/50 rounded"
+                                      className="bg-transparent border border-muted outline-none shadow-none resize-none min-h-[50px] overflow-hidden text-sm p-0 focus:ring-1 focus:ring-blue-500/50 rounded"
                                       autoFocus
                                     />
                                     <div className="absolute top-0 right-0 flex space-x-1 p-1">
@@ -461,7 +498,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                                         variant="ghost"
                                         size="icon"
                                         onClick={cancelEdit}
-                                        className="h-6 w-6 rounded-full bg-gray-200/50 hover:bg-gray-200"
+                                        className="h-6 w-6 rounded-full bg-muted/50 hover:bg-muted"
                                       >
                                         <X className="h-3 w-3" />
                                       </Button>
@@ -479,14 +516,14 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                                   <div
                                     className={cn("whitespace-pre-wrap", {
                                       "prose prose-sm max-w-none dark:prose-invert": hasCode && isAssistant,
-                                      "prose-code:bg-gray-100 prose-code:p-1 prose-code:rounded prose-code:text-xs":
+                                      "prose-code:bg-background prose-code:border prose-code:border-border/30 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:text-xs prose-code:font-medium prose-pre:bg-muted prose-pre:border prose-pre:border-border prose-pre:rounded-lg":
                                         hasCode && isAssistant,
                                     })}
                                   >
                                     {hasCode && isAssistant ? (
                                       <MarkdownRenderer content={message.content} />
                                     ) : (
-                                      message.content
+                                      <div className="text-sm leading-relaxed">{message.content}</div>
                                     )}
                                   </div>
                                 )}
@@ -495,8 +532,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                                 {message.timestamp && messageIndex === group.length - 1 && (
                                   <motion.div
                                     className={cn("mt-1 text-[11px]", {
-                                      "text-gray-400 dark:text-gray-500": isAssistant || isSystem,
-                                      "text-blue-200": isUser,
+                                      "text-foreground/60": isAssistant || isSystem || isUser,
                                     })}
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
@@ -513,7 +549,20 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                                     role={message.role}
                                     onEdit={isUser ? () => startEditMessage(message.id, message.content) : undefined}
                                     onRegenerate={isAssistant ? () => handleRegenerate(message.id) : undefined}
+                                    onCopy={
+                                      isAssistant
+                                        ? () => copyMessageToClipboard(message.content, message.id)
+                                        : undefined
+                                    }
                                   />
+                                )}
+                                {copiedMessageId === message.id && (
+                                  <motion.div
+                                    animate={{ scale: [1, 1.1, 1], opacity: [0, 1, 0] }}
+                                    className="absolute -top-8 right-0 bg-foreground text-background text-xs py-1 px-2 rounded"
+                                  >
+                                    Copied!
+                                  </motion.div>
                                 )}
                               </>
                             )}
@@ -536,7 +585,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                         </motion.div>
                       )
                     })}
-                  </div>
+                  </motion.div>
                 ))}
 
                 {/* Bottom anchor for scrolling */}

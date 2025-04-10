@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useEffect, useRef, JSX } from "react"
-import { X, Mic, MicOff } from "lucide-react"
+import { useState, useEffect, useRef, type JSX } from "react"
+import { StopCircle, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { SpeechRecognitionService } from "@/utils/speech-recognition"
@@ -18,7 +18,6 @@ export function VoiceRecorder({ onRecordingComplete, onCancel, className }: Voic
   const [recordingTime, setRecordingTime] = useState(0)
   const [audioLevel, setAudioLevel] = useState(0)
   const [error, setError] = useState<string | null>(null)
-  const [status, setStatus] = useState<"inactive" | "listening" | "processing">("inactive")
 
   const recognitionRef = useRef<SpeechRecognitionService | null>(null)
   const timerRef = useRef<NodeJS.Timeout | null>(null)
@@ -36,10 +35,13 @@ export function VoiceRecorder({ onRecordingComplete, onCancel, className }: Voic
       },
       onError: (error) => {
         console.error("Speech recognition error:", error)
-        setError(error)
+        setError("Could not recognize speech. Please try again.")
         stopRecording()
       },
     })
+
+    // Start recording immediately
+    startRecording()
 
     return () => {
       stopRecording()
@@ -74,7 +76,7 @@ export function VoiceRecorder({ onRecordingComplete, onCancel, className }: Voic
 
         // Calculate average level
         const average = dataArray.reduce((acc, val) => acc + val, 0) / dataArray.length
-        setAudioLevel(average / 255) // Scale to 0-1
+        setAudioLevel(average / 255) // Normalize to 0-1
 
         if (isRecording) {
           requestAnimationFrame(analyseAudio)
@@ -103,10 +105,9 @@ export function VoiceRecorder({ onRecordingComplete, onCancel, className }: Voic
         recognitionRef.current.start()
         setIsRecording(true)
         setError(null)
-        setStatus("listening")
       }
     } catch (err) {
-      console.error("Error starting voice recording", err)
+      console.error("Error accessing microphone:", err)
       setError("Could not access microphone. Please check permissions.")
     }
   }
@@ -114,7 +115,10 @@ export function VoiceRecorder({ onRecordingComplete, onCancel, className }: Voic
   const stopRecording = () => {
     // Stop speech recognition
     if (recognitionRef.current) {
-      recognitionRef.current.stop()
+      const finalTranscript = recognitionRef.current.stop()
+      if (finalTranscript || transcript) {
+        onRecordingComplete(finalTranscript || transcript)
+      }
     }
 
     // Stop audio visualization
@@ -137,18 +141,11 @@ export function VoiceRecorder({ onRecordingComplete, onCancel, className }: Voic
     }
 
     setIsRecording(false)
-    setStatus("inactive")
   }
 
   const handleCancel = () => {
     stopRecording()
     onCancel()
-  }
-
-  const handleSubmit = () => {
-    setStatus("processing")
-    stopRecording()
-    onRecordingComplete(transcript)
   }
 
   const formatTime = (seconds: number) => {
@@ -185,15 +182,16 @@ export function VoiceRecorder({ onRecordingComplete, onCancel, className }: Voic
 
   return (
     <div
-      className={cn("p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800", className)}
+      className={cn(
+        "p-3 rounded-lg border border-blue-200 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-800",
+        className,
+      )}
     >
       <div className="flex flex-col space-y-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <div className={cn("h-3 w-3 rounded-full", isRecording ? "bg-red-500 animate-pulse" : "bg-gray-300")} />
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-              {status === "listening" ? "Listening..." : status === "processing" ? "Processing..." : "Voice Input"}
-            </span>
+            <span className="text-sm font-medium">{isRecording ? "Recording..." : "Processing..."}</span>
           </div>
           <div className="flex items-center space-x-2">
             <span className="text-xs text-gray-500">{formatTime(recordingTime)}</span>
@@ -209,43 +207,35 @@ export function VoiceRecorder({ onRecordingComplete, onCancel, className }: Voic
           </div>
         </div>
 
-        {/* Transcript display */}
-        <div className="mb-3 min-h-[60px] p-2 bg-gray-100 dark:bg-gray-800 rounded text-sm text-gray-700 dark:text-gray-300">
-          {transcript ? (
-            <p>{transcript}</p>
-          ) : (
-            <p className="text-gray-500 dark:text-gray-400">
-              {status === "listening" ? "Speak now..." : "Press the microphone button to start"}
-            </p>
-          )}
-        </div>
-
-        {/* Audio Visualizer */}
-        <div className="mb-3 h-10 flex items-end justify-center space-x-0.5">
+        {/* Waveform visualization */}
+        <div className="h-12 flex items-center justify-center space-x-0.5">
           <div className="flex-1 h-full flex items-center justify-between">{generateWaveform()}</div>
         </div>
 
-        <div className="flex items-center justify-between">
-          <Button variant="outline" size="sm" onClick={handleSubmit} disabled={!transcript || status === "processing"}>
-            Send
-          </Button>
+        {/* Transcript preview */}
+        <div className="min-h-[40px] text-sm text-gray-600 dark:text-gray-300 bg-white/50 dark:bg-gray-800/50 rounded p-2 overflow-y-auto max-h-20">
+          {transcript || "Listening..."}
+        </div>
 
+        {error && <div className="text-xs text-red-500 mt-1">{error}</div>}
+
+        <div className="flex justify-between pt-1">
+          <Button variant="ghost" size="sm" className="text-xs" onClick={handleCancel}>
+            Cancel
+          </Button>
           <Button
-            onClick={startRecording}
             variant={isRecording ? "destructive" : "default"}
             size="sm"
-            className={isRecording ? "animate-pulse" : ""}
+            className="text-xs"
+            onClick={stopRecording}
           >
             {isRecording ? (
               <>
-                <MicOff className="h-4 w-4 mr-2" />
-                Stop
+                <StopCircle className="h-3.5 w-3.5 mr-1.5" />
+                Stop Recording
               </>
             ) : (
-              <>
-                <Mic className="h-4 w-4 mr-2" />
-                {status === "inactive" ? "Start" : "Restart"}
-              </>
+              "Send"
             )}
           </Button>
         </div>

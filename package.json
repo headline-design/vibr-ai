@@ -68,8 +68,8 @@
     "remark-math": "latest",
     "rehype-katex": "latest",
     "katex": "latest",
-    "tailwindcss": "^3.4.17",
-    "uuid": "latest"
+    "uuid": "latest",
+    "tailwindcss": "^3.4.17"
   },
   "devDependencies": {
     "@types/node": "^22",

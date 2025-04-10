@@ -1,6 +1,7 @@
 "use client"
 
-import { EnhancedCodeBlock } from "./enhanced-code-block"
+import type React from "react"
+
 import { useEffect, useState } from "react"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
@@ -8,6 +9,7 @@ import remarkMath from "remark-math"
 import rehypeKatex from "rehype-katex"
 import "katex/dist/katex.min.css"
 import { cn } from "@/lib/utils"
+import { EnhancedCodeBlock } from "./enhanced-code-block"
 
 interface MarkdownRendererProps {
   content: string
@@ -31,7 +33,13 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
         remarkPlugins={[remarkGfm, remarkMath]}
         rehypePlugins={[rehypeKatex]}
         components={{
-          code({ node, inline, className, children, ...props }: { node?: any; inline?: boolean; className?: string; children?: React.ReactNode }) {
+          code({
+            node,
+            inline,
+            className,
+            children,
+            ...props
+          }: { node?: any; inline?: boolean; className?: string; children?: React.ReactNode }) {
             const match = /language-(\w+)/.exec(className || "")
             const language = match ? match[1] : ""
 

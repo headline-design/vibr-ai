@@ -1,8 +1,8 @@
 import type { Config } from "tailwindcss"
-import fontFamily from "tailwindcss/defaultTheme"
+import { fontFamily } from "tailwindcss/defaultTheme"
 
 const config = {
-  darkMode: ["class", "dark"],
+  darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -70,26 +70,27 @@ const config = {
           foreground: "hsl(var(--info-foreground))",
         },
         neutral: {
-          50: "hsl(210, 20%, 98%)",
-          100: "hsl(210, 16%, 93%)",
-          200: "hsl(214, 15%, 91%)",
-          300: "hsl(213, 16%, 83%)",
-          400: "hsl(214, 13%, 65%)",
-          500: "hsl(215, 12%, 50%)",
-          600: "hsl(215, 14%, 34%)",
-          700: "hsl(215, 19%, 27%)",
-          800: "hsl(215, 28%, 17%)",
-          900: "hsl(221, 39%, 11%)",
-          950: "hsl(224, 71%, 4%)",
+          50: "hsl(0, 0%, 98%)",
+          100: "hsl(0, 0%, 96%)",
+          200: "hsl(0, 0%, 90%)",
+          300: "hsl(0, 0%, 83%)",
+          400: "hsl(0, 0%, 65%)",
+          500: "hsl(0, 0%, 45%)",
+          600: "hsl(0, 0%, 32%)",
+          700: "hsl(0, 0%, 25%)",
+          800: "hsl(0, 0%, 15%)",
+          900: "hsl(0, 0%, 10%)",
+          950: "hsl(0, 0%, 5%)",
         },
       },
       borderRadius: {
+        DEFAULT: "var(--radius)",
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        md: "calc(var(--radius) - 0.125rem)",
+        sm: "calc(var(--radius) - 0.1875rem)",
       },
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.fontFamily.sans],
+        sans: ["var(--font-sans)", ...fontFamily.sans],
       },
       keyframes: {
         "accordion-down": {

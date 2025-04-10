@@ -71,4 +71,18 @@ const DialogContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTML
 )
 DialogContent.displayName = "DialogContent"
 
-export { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription }
+const DialogClose = React.forwardRef<
+  HTMLButtonElement,
+  React.ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean }
+>(({ className, asChild, ...props }, ref) => (
+  <Button
+    ref={ref}
+    variant="ghost"
+    asChild={asChild}
+    className={cn("absolute top-2 right-2 rounded-sm opacity-70 hover:opacity-100", className)}
+    {...props}
+  />
+))
+DialogClose.displayName = "DialogClose"
+
+export { Dialog, DialogTrigger, DialogContent, DialogClose, DialogHeader, DialogFooter, DialogTitle, DialogDescription }

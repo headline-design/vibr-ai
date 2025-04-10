@@ -11,15 +11,15 @@ import { useMetaSession } from "./meta-session-provider"
 export interface FlowStateMessage {
   id: string
   role: "user" | "assistant" | "system"
-parentId?: string
+  parentId?: string
   content: string
   isThinking?: boolean
   timestamp?: string
   actions?: Array<{
-      id: string
-      label: string
-      variant?: "default" | "secondary" | "default" | "outline" | "destructive"
-    }>
+    id: string
+    label: string
+    variant?: "default" | "secondary" | "default" | "outline" | "destructive"
+  }>
 }
 
 // Define the context type
@@ -125,9 +125,15 @@ export function FlowStateProvider({ children, initialShowSuggestions = true }: F
                   content: response,
                   isThinking: false, // Set to false immediately
                   timestamp: new Date().toISOString(),
-                  actions: actions?.map(action => ({
+                  actions: actions?.map((action) => ({
                     ...action,
-                    variant: action.variant as "default" | "secondary" | "default" | "outline" | "destructive" | undefined,
+                    variant: action.variant as
+                      | "default"
+                      | "secondary"
+                      | "default"
+                      | "outline"
+                      | "destructive"
+                      | undefined,
                   })),
                 }
               : msg,

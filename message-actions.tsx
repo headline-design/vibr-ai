@@ -6,7 +6,7 @@ import { Copy, Edit, ThumbsUp, ThumbsDown, Share, Repeat, MoreHorizontal } from 
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { ChatMessage } from "./components/flow-state/chat-interface"
+import type { ChatMessage } from "./chat-interface-type"
 
 interface MessageActionsProps {
   message: ChatMessage

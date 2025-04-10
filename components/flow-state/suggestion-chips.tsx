@@ -19,7 +19,7 @@ export function SuggestionChips({ suggestions, onSelect, className }: Suggestion
           key={index}
           variant="outline"
           size="sm"
-          className="text-sm bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full px-3.5 py-1.5 h-auto transition-colors duration-200 hover:border-gray-300 dark:hover:border-gray-600 shadow-sm"
+          className="text-xs bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-md px-3 py-1 h-auto transition-colors duration-200 hover:border-neutral-300 dark:hover:border-neutral-700"
           onClick={() => onSelect(suggestion)}
         >
           {suggestion}

@@ -14,9 +14,7 @@ export function FluxAssistant() {
   return (
     <>
       <FluxFloatingButton onClick={toggleOpen} isOpen={isOpen} />
-      {isOpen && (
-        <FluxFloatingPanel isOpen={isOpen} onClose={toggleOpen} />
-      )}
+      {isOpen && <FluxFloatingPanel isOpen={isOpen} onClose={toggleOpen} />}
     </>
   )
 }

@@ -2,8 +2,10 @@
 
 import { cn } from "@/lib/utils"
 import { MessageBubble } from "./message-bubble"
-import { FluxAvatar } from "./flux-avatar-enhanced"
 import type { ChatMessage } from "./chat-interface"
+import dynamic from "next/dynamic"
+
+const FluxAvatar = dynamic(() => import("./flux-avatar-enhanced"), { ssr: false })
 
 interface MessageBubbleContainerProps {
   message: ChatMessage

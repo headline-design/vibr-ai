@@ -1,17 +1,9 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import {
-  Code,
-  Settings,
-  Cpu,
-  Database,
-  Sparkles,
-  BarChart2,
-  ChevronLeft,
-} from "lucide-react"
+import { Code, Settings, Cpu, Database, Sparkles, BarChart2 } from "lucide-react"
 import { AIModelSelector } from "@/components/flow-state/ai-model-selector"
 import { AIModelConfiguration } from "@/components/flow-state/ai-model-configuration"
 import { CodeGenerationAssistant } from "@/components/flow-state/code-generation-assistant"
@@ -22,16 +14,16 @@ import { useDemoState } from "@/components/flow-state/demo-state-provider"
 import { useTheme } from "next-themes"
 
 export default function ChatTools() {
-
   const { theme, setTheme } = useTheme()
 
-  const { isCommandPaletteOpen,
+  const {
+    isCommandPaletteOpen,
     setIsCommandPaletteOpen,
     demoView,
     setDemoView,
     isFloatingPanelOpen,
-    setIsFloatingPanelOpen } = useDemoState();
-
+    setIsFloatingPanelOpen,
+  } = useDemoState()
 
   const [activeAITool, setActiveAITool] = useState<
     "model-selector" | "model-config" | "code-gen" | "knowledge-base" | "prompt-engineering" | "analytics" | null
@@ -172,9 +164,7 @@ export default function ChatTools() {
                     <Database className="h-5 w-5 mr-2 text-primary" />
                     Knowledge Base Integration
                   </CardTitle>
-                  <CardDescription>
-                    Connect and manage your knowledge sources for enhanced AI responses
-                  </CardDescription>
+                  <CardDescription>Connect and manage your knowledge sources for enhanced AI responses</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <KnowledgeBaseIntegration />
@@ -213,9 +203,7 @@ export default function ChatTools() {
                     <BarChart2 className="h-5 w-5 mr-2 text-primary" />
                     Analytics & Insights
                   </CardTitle>
-                  <CardDescription>
-                    Track usage, performance, and trends to optimize your AI experience
-                  </CardDescription>
+                  <CardDescription>Track usage, performance, and trends to optimize your AI experience</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <DataVisualizationDashboard />

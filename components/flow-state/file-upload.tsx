@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useState, useRef } from "react"
-import { Paperclip, File, Image, X, Upload, Loader2, AlertCircle } from "lucide-react"
+import { Paperclip, File, ImageIcon, X, Upload, Loader2, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
@@ -176,19 +176,22 @@ export function FileUpload({
   // Get file icon based on type
   const getFileIcon = (file: File) => {
     if (file.type.startsWith("image/")) {
-      return <Image className="h-4 w-4" />
+      return <ImageIcon className="h-4 w-4" />
     }
     return <File className="h-4 w-4" />
   }
 
   return (
     <div
-      className={cn("p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700", className)}
+      className={cn(
+        "p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 bg-background",
+        className,
+      )}
     >
       {/* Drag and drop area */}
       <div
         className={cn(
-          "border-2 border-dashed rounded-lg p-6 text-center transition-colors",
+          "p-4 bg-card dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700",
           isDragging
             ? "border-blue-400 bg-blue-50 dark:border-blue-500 dark:bg-blue-900/20"
             : "border-gray-300 dark:border-gray-600",

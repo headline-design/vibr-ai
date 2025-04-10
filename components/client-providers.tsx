@@ -20,9 +20,7 @@ export function ClientProviders({ children, initialShowSuggestions = true }: Cli
         <MetaSessionProvider>
           <ConversationTreeProvider>
             <FlowStateProvider initialShowSuggestions={initialShowSuggestions}>
-              <DemoStateProvider>
-                {children}
-              </DemoStateProvider>
+              <DemoStateProvider>{children}</DemoStateProvider>
             </FlowStateProvider>
           </ConversationTreeProvider>
         </MetaSessionProvider>
