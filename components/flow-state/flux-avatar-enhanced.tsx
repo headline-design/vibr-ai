@@ -189,7 +189,7 @@ export function FluxAvatar({
       case "happy":
         return "255, 220, 100"
       case "thinking":
-        return "100, 180, 255"
+        return "200, 200, 200"
       case "focused":
         return "180, 120, 255"
       case "excited":
@@ -207,7 +207,7 @@ export function FluxAvatar({
       case "happy":
         return ["#FFE082", "#FFD54F"]
       case "thinking":
-        return ["#BBDEFB", "#90CAF9"]
+        return ["#F5F5F5", "#E0E0E0"]
       case "focused":
         return ["#D1C4E9", "#B39DDB"]
       case "excited":
@@ -253,28 +253,24 @@ export function FluxAvatar({
         break
 
       case "thinking":
-        // Circular eyes with raised eyebrow
+        // Eyes - alert, neutral
         ctx.beginPath()
         ctx.arc(centerX - eyeDistance, eyeY, 1.5 * scale, 0, Math.PI * 2)
         ctx.arc(centerX + eyeDistance, eyeY, 1.5 * scale, 0, Math.PI * 2)
         ctx.fill()
 
-        // Raised eyebrow with subtle animation
+        // Eyebrows - flat and parallel, higher above eyes
         ctx.beginPath()
-        ctx.arc(
-          centerX + eyeDistance,
-          eyeY - 3 * scale + animationOffset * 0.5,
-          4 * scale,
-          0.7 * Math.PI,
-          1.3 * Math.PI,
-          true,
-        )
+        ctx.moveTo(centerX - eyeDistance - 2 * scale, eyeY - 4.5 * scale)
+        ctx.lineTo(centerX - eyeDistance + 2 * scale, eyeY - 4.5 * scale)
+        ctx.moveTo(centerX + eyeDistance - 2 * scale, eyeY - 4.5 * scale)
+        ctx.lineTo(centerX + eyeDistance + 2 * scale, eyeY - 4.5 * scale)
         ctx.stroke()
 
-        // Thinking mouth (slight curve)
+        // Mouth - flat and tight
         ctx.beginPath()
-        ctx.moveTo(centerX - 5 * scale, centerY + 5 * scale)
-        ctx.lineTo(centerX + 5 * scale, centerY + 5 * scale)
+        ctx.moveTo(centerX - 5 * scale, centerY + 5.5 * scale)
+        ctx.lineTo(centerX + 5 * scale, centerY + 5.5 * scale)
         ctx.stroke()
         break
 
@@ -362,3 +358,232 @@ export function FluxAvatar({
 }
 
 export default FluxAvatar
+
+export function StaticFluxAvatar({
+  size = "md",
+  mood = "neutral",
+  animate = true,
+  className,
+  pulseOnHover = true,
+  onClick,
+  label,
+}: FluxAvatarProps) {
+  const [isAnimating, setIsAnimating] = useState(animate)
+  const [isHovering, setIsHovering] = useState(false)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const requestRef = useRef<number | null>(null)
+  const previousTimeRef = useRef<number | undefined>(undefined)
+  const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 })
+
+  useEffect(() => {
+    if (!canvasRef.current) return
+
+    const canvas = canvasRef.current
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
+    const pixelSize = sizePxMap[size]
+    const scale = window.devicePixelRatio || 1
+    canvas.width = pixelSize * scale
+    canvas.height = pixelSize * scale
+    ctx.scale(scale, scale)
+    setCanvasSize({ width: pixelSize, height: pixelSize })
+  }, [size])
+
+  useEffect(() => {
+    if (!isAnimating && !isHovering) return
+
+    const animate = (time: number) => {
+      if (!canvasRef.current) return
+      const canvas = canvasRef.current
+      const ctx = canvas.getContext("2d")
+      if (!ctx) return
+
+      if (previousTimeRef.current !== undefined) {
+        ctx.clearRect(0, 0, canvasSize.width, canvasSize.height)
+
+        // Draw avatar background with gradient
+        const gradient = ctx.createRadialGradient(
+          canvasSize.width / 2,
+          canvasSize.height / 2,
+          0,
+          canvasSize.width / 2,
+          canvasSize.height / 2,
+          canvasSize.width / 2,
+        )
+
+        const [baseColor, gradientColor] = getAvatarGradientColors(mood)
+        gradient.addColorStop(0, baseColor)
+        gradient.addColorStop(1, gradientColor)
+
+        ctx.beginPath()
+        ctx.arc(canvasSize.width / 2, canvasSize.height / 2, canvasSize.width / 2 - 1, 0, Math.PI * 2)
+        ctx.fillStyle = gradient
+        ctx.fill()
+
+        drawFace(ctx, mood, canvasSize.width, canvasSize.height, time)
+      }
+
+      previousTimeRef.current = time
+      requestRef.current = requestAnimationFrame(animate)
+    }
+
+    requestRef.current = requestAnimationFrame(animate)
+    return () => {
+      if (requestRef.current) {
+        cancelAnimationFrame(requestRef.current)
+      }
+    }
+  }, [isAnimating, isHovering, canvasSize, mood])
+
+  useEffect(() => {
+    setIsAnimating(animate)
+  }, [animate])
+
+  function getAvatarGradientColors(mood: AvatarMood): [string, string] {
+    switch (mood) {
+      case "happy": return ["#FFE082", "#FFD54F"]
+      case "thinking":
+        return ["#F5F5F5", "#E0E0E0"]
+      case "focused": return ["#D1C4E9", "#B39DDB"]
+      case "excited": return ["#FFCCBC", "#FFAB91"]
+      case "sad": return ["#B3E5FC", "#81D4FA"]
+      default: return ["#F5F5F5", "#E0E0E0"]
+    }
+  }
+
+  function drawFace(ctx: CanvasRenderingContext2D, mood: AvatarMood, width: number, height: number, time: number) {
+    const centerX = width / 2
+    const centerY = height / 2
+    const scale = width / 48
+    const animationOffset = Math.sin(time * 0.002) * 0.5 * scale
+
+    ctx.fillStyle = "#333"
+    ctx.strokeStyle = "#333"
+    ctx.lineWidth = 1.5 * scale
+    ctx.lineCap = "round"
+    ctx.lineJoin = "round"
+
+    // Draw eyes
+    const eyeY = centerY - 2 * scale
+    const eyeDistance = 8 * scale
+
+    switch (mood) {
+      case "happy":
+        // Smiling eyes
+        ctx.beginPath()
+        ctx.arc(centerX - eyeDistance, eyeY, 1.5 * scale, 0, Math.PI * 2)
+        ctx.arc(centerX + eyeDistance, eyeY, 1.5 * scale, 0, Math.PI * 2)
+        ctx.fill()
+
+        // Smiling mouth with subtle animation
+        ctx.beginPath()
+        ctx.arc(centerX, centerY + 5 * scale + animationOffset * 0.3, 6 * scale, 0.1 * Math.PI, 0.9 * Math.PI)
+        ctx.stroke()
+        break
+
+      case "thinking":
+        // Eyes - alert, neutral
+        ctx.beginPath()
+        ctx.arc(centerX - eyeDistance, eyeY, 1.5 * scale, 0, Math.PI * 2)
+        ctx.arc(centerX + eyeDistance, eyeY, 1.5 * scale, 0, Math.PI * 2)
+        ctx.fill()
+
+        // Eyebrows - flat and parallel, higher above eyes
+        ctx.beginPath()
+        ctx.moveTo(centerX - eyeDistance - 2 * scale, eyeY - 4.5 * scale)
+        ctx.lineTo(centerX - eyeDistance + 2 * scale, eyeY - 4.5 * scale)
+        ctx.moveTo(centerX + eyeDistance - 2 * scale, eyeY - 4.5 * scale)
+        ctx.lineTo(centerX + eyeDistance + 2 * scale, eyeY - 4.5 * scale)
+        ctx.stroke()
+
+        // Mouth - flat and tight
+        ctx.beginPath()
+        ctx.moveTo(centerX - 5 * scale, centerY + 5.5 * scale)
+        ctx.lineTo(centerX + 5 * scale, centerY + 5.5 * scale)
+        ctx.stroke()
+        break
+
+      case "focused":
+        // Narrowed eyes with subtle animation
+        ctx.beginPath()
+        ctx.ellipse(centerX - eyeDistance, eyeY, 2 * scale, 1 * scale + animationOffset * 0.2, 0, 0, Math.PI * 2)
+        ctx.ellipse(centerX + eyeDistance, eyeY, 2 * scale, 1 * scale + animationOffset * 0.2, 0, 0, Math.PI * 2)
+        ctx.fill()
+
+        // Straight mouth
+        ctx.beginPath()
+        ctx.moveTo(centerX - 4 * scale, centerY + 5 * scale)
+        ctx.lineTo(centerX + 4 * scale, centerY + 5 * scale)
+        ctx.stroke()
+        break
+
+      case "excited":
+        // Wide eyes with subtle animation
+        ctx.beginPath()
+        ctx.arc(centerX - eyeDistance, eyeY, 2 * scale + animationOffset * 0.2, 0, Math.PI * 2)
+        ctx.arc(centerX + eyeDistance, eyeY, 2 * scale + animationOffset * 0.2, 0, Math.PI * 2)
+        ctx.fill()
+
+        // Open mouth with subtle animation
+        ctx.beginPath()
+        ctx.ellipse(centerX, centerY + 5 * scale, 4 * scale, 3 * scale + animationOffset * 0.5, 0, 0, Math.PI * 2)
+        ctx.fill()
+        break
+
+      case "sad":
+        // Droopy eyes
+        ctx.beginPath()
+        ctx.arc(centerX - eyeDistance, eyeY, 1.5 * scale, 0, Math.PI * 2)
+        ctx.arc(centerX + eyeDistance, eyeY, 1.5 * scale, 0, Math.PI * 2)
+        ctx.fill()
+
+        // Sad mouth with subtle animation
+        ctx.beginPath()
+        ctx.arc(centerX, centerY + 9 * scale + animationOffset * 0.3, 6 * scale, 1.1 * Math.PI, 1.9 * Math.PI)
+        ctx.stroke()
+        break
+
+      default:
+
+        const blinkOffset = 0
+
+        ctx.beginPath()
+        ctx.ellipse(centerX - eyeDistance, eyeY, 1.5 * scale, 1.5 * scale * (1 - blinkOffset * 0.9), 0, 0, Math.PI * 2)
+        ctx.ellipse(centerX + eyeDistance, eyeY, 1.5 * scale, 1.5 * scale * (1 - blinkOffset * 0.9), 0, 0, Math.PI * 2)
+        ctx.fill()
+
+        // Neutral mouth with subtle animation
+        ctx.beginPath()
+        ctx.moveTo(centerX - 5 * scale, centerY + 5 * scale + animationOffset * 0.2)
+        ctx.lineTo(centerX + 5 * scale, centerY + 5 * scale + animationOffset * 0.2)
+        ctx.stroke()
+    }
+  }
+
+  return (
+    <motion.div
+      className={cn("relative rounded-full overflow-hidden", sizeMap[size], onClick && "cursor-pointer", className)}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+      onClick={onClick}
+      whileHover={pulseOnHover ? { scale: 1.05 } : {}}
+      whileTap={{ scale: 0.95 }}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.2, type: "spring", stiffness: 500, damping: 25 }}
+      role={onClick ? "button" : "img"}
+      aria-label={label || `Avatar with ${mood} mood`}
+    >
+      <canvas ref={canvasRef} className="w-full h-full" style={{ width: "100%", height: "100%" }} aria-hidden="true" />
+      {/* Add subtle ring effect */}
+      <motion.div
+        className="absolute inset-0 rounded-full ring-2 ring-white/10 dark:ring-black/10"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isHovering ? 1 : 0 }}
+        transition={{ duration: 0.2 }}
+      />
+    </motion.div>
+  )
+}
+

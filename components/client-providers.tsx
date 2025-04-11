@@ -1,5 +1,7 @@
 "use client"
 
+import type React from "react"
+import { AuthProvider } from "./auth/auth-provider"
 import { AccessibilityProvider } from "./flow-state/accessibility-provider"
 import { ThemeProvider } from "next-themes"
 import { MetaSessionProvider } from "@/components/flow-state/meta-session-provider"
@@ -7,6 +9,7 @@ import { ConversationTreeProvider } from "@/components/flow-state/conversation-t
 import { FlowStateProvider } from "@/components/flow-state/flow-state-context"
 import type { ReactNode } from "react"
 import { DemoStateProvider } from "./flow-state/demo-state-provider"
+import { FlareColorProvider } from "@/providers/flare-color-provider"
 
 interface ClientProvidersProps {
   children: ReactNode
@@ -20,7 +23,13 @@ export function ClientProviders({ children, initialShowSuggestions = true }: Cli
         <MetaSessionProvider>
           <ConversationTreeProvider>
             <FlowStateProvider initialShowSuggestions={initialShowSuggestions}>
-              <DemoStateProvider>{children}</DemoStateProvider>
+              <DemoStateProvider>
+                <AuthProvider>
+                  <FlareColorProvider>
+                    {children}
+                  </FlareColorProvider>
+                </AuthProvider>
+              </DemoStateProvider>
             </FlowStateProvider>
           </ConversationTreeProvider>
         </MetaSessionProvider>

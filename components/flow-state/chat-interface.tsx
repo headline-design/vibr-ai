@@ -7,6 +7,7 @@ import { Check, X, ChevronLeft } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
+import { FluxAvatar, StaticFluxAvatar } from "@/components/flow-state/flux-avatar-enhanced"
 import { useFlowState } from "@/components/flow-state/flow-state-context"
 import { ChatSettings } from "./chat-settings"
 import ReactMarkdown from "react-markdown"
@@ -14,9 +15,6 @@ import MessageActions from "@/components/flow-state/message-actions"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { MessageInput } from "./message-input"
 import { useToast } from "@/components/ui/use-toast"
-import dynamic from "next/dynamic"
-
-const FluxAvatar = dynamic(() => import("./flux-avatar-enhanced"), { ssr: false })
 
 export type ChatRole = "user" | "assistant" | "system"
 
@@ -67,7 +65,7 @@ const SuggestionChips: React.FC<SuggestionChipsProps> = ({ suggestions, onSelect
   )
 }
 
-const ChatInterface: React.FC<ChatInterfaceProps> = ({
+export const ChatInterface: React.FC<ChatInterfaceProps> = ({
   className,
   title = "Flux AI Assistant",
   hideHeader = false,
@@ -145,6 +143,13 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
 
     return acc
   }, [])
+
+  const lastAssistantGroupIndex = (() => {
+    for (let i = groupedMessages.length - 1; i >= 0; i--) {
+      if (groupedMessages[i][0]?.role === "assistant") return i
+    }
+    return -1
+  })()
 
   // Scroll to bottom on new messages
   useEffect(() => {
@@ -358,8 +363,8 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                 ref={chatContainerRef}
                 className={cn(
                   "relative flex-1 overflow-y-auto px-4 py-4",
-                  "bg-background bg-[url('/subtle-pattern.png')] bg-repeat bg-opacity-5",
-                  "scrollbar-thin scrollbar-thumb-rounded-md scrollbar-track-transparent scrollbar-thumb-neutral-300/80 dark:scrollbar-thumb-neutral-700/80", // Refined scrollbars
+                  "bg-background chat-bg bg-repeat bg-opacity-5",
+                  "scrollbar-thin scrollbar-thumb-rounded-md scrollbar-track-transparent scrollbar-thumb-neutral-300/80 dark:scrollbar-thumb-neutral-700/80",
                 )}
                 role="log"
                 aria-live="polite"
@@ -415,16 +420,24 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                           {isAssistant && isFirstInGroup && (
                             <motion.div
                               layout
-                              className="mr-2.5 mt-0.5 flex-shrink-0 ring-1 ring-border/30"
+                              className="mr-2.5 mt-0.5 flex-shrink-0 ring-1 ring-border/30 rounded-full h-8 w-8"
                               initial={{ scale: 0.9 }}
                               animate={{ scale: 1 }}
                             >
-                              <FluxAvatar
-                                size="xs"
-                                mood={getAvatarMood(message)}
-                                animate={!isWaitingForResponse}
-                                aria-hidden="true"
-                              />
+                              {groupIndex !== lastAssistantGroupIndex ?
+                                <StaticFluxAvatar
+                                  size="xs"
+                                  mood="neutral"
+                                  animate={isFirstInGroup}
+                                  aria-hidden="true"
+                                /> :
+                                <FluxAvatar
+                                  size="xs"
+                                  mood={getAvatarMood(message)}
+                                  animate={groupIndex === lastAssistantGroupIndex}
+                                  aria-hidden="true"
+                                />
+                              }
                             </motion.div>
                           )}
 
@@ -596,10 +609,8 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
               <MessageInput
                 onSendMessage={handleSendMessage}
                 isWaitingForResponse={isWaitingForResponse}
-                onSettingsClick={openSettings}
-                onCommandPaletteOpen={() => {
-                  /* Implement command palette open */
-                }}
+                onSettingsClick={onOpenSettings || (() => setInternalView("settings"))}
+                onCommandPaletteOpen={() => { }}
               />
             </motion.div>
           ) : (
@@ -611,7 +622,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <ChatSettings isOpen={true} onClose={closeSettings} />
+              <ChatSettings isOpen={true} onClose={closeSettings || (() => setInternalView("chat"))} />
             </motion.div>
           )}
         </AnimatePresence>

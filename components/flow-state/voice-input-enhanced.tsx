@@ -28,20 +28,20 @@ export function VoiceInputEnhanced({ onClose, onTranscript }: VoiceInputEnhanced
   useEffect(() => {
     const speechRecognition = new SpeechRecognitionService({
       onStatusChange: (status) => {
-        setIsListening(status === "listening");
+        setIsListening(status === "listening")
         if (status === "error") {
-          setErrorMessage("Speech recognition error occurred");
+          setErrorMessage("Speech recognition error occurred")
         }
       },
       onResult: (transcript: string, isFinal: boolean) => {
-        setTranscript(transcript);
+        setTranscript(transcript)
       },
       onError: (error) => {
-        console.error(error);
-        setErrorMessage(error);
-        setIsListening(false);
+        console.error(error)
+        setErrorMessage(error)
+        setIsListening(false)
       },
-    });
+    })
 
     recognitionRef.current = speechRecognition
 
