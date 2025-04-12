@@ -37,7 +37,7 @@ export function EnhancedAccessibilityPanel({ isOpen, onClose }: EnhancedAccessib
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
       <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-lg w-full max-w-md overflow-hidden">
-        <div className="flex items-center justify-between border-b p-4 border-neutral-200 ">
+        <div className="flex items-center justify-between border-b p-4 border-neutral-200 dark:border-neutral-700">
           <h3 className="font-medium">Accessibility Options</h3>
           <Button variant="ghost" size="icon" onClick={onClose}>
             <X className="h-4 w-4" />

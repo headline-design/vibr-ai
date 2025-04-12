@@ -11,12 +11,10 @@ import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 import { useTheme } from "next-themes"
 import ChatInterface from "@/components/flow-state/chat-interface"
-import { MessageSquare, Maximize2, PanelLeft, Moon, Sun, Laptop, Info, Keyboard, Mic, Paperclip } from "lucide-react"
+import { MessageSquare, Maximize2, PanelLeft, Info, Keyboard, Mic, Paperclip } from "lucide-react"
 import { useDemoState } from "@/components/flow-state/demo-state-provider"
-import dynamic from "next/dynamic"
 import ThemeTabsLoading from "@/components/theme-tabs-loading"
 import ThemeTabs from "@/components/theme-tabs"
-
 
 export default function ChatDemo() {
   const { theme, setTheme } = useTheme()
@@ -102,7 +100,7 @@ export default function ChatDemo() {
               {/* Theme Selector */}
               <div className="space-y-2">
                 <h3 className="text-sm font-medium">Theme</h3>
-                <Suspense fallback={<ThemeTabsLoading />} >
+                <Suspense fallback={<ThemeTabsLoading />}>
                   <ThemeTabs />
                 </Suspense>
               </div>

@@ -17,7 +17,7 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none"></div>
       <div className="absolute top-0 left-0 right-0 h-[500px] bg-gradient-to-br from-primary/5 via-secondary/5 to-background pointer-events-none"></div>
 
-      <div className="container relative px-4 md:px-6">
+      <div className="relative px-4 md:px-6">
         <div className="flex flex-col items-center text-center space-y-10">
           <div className="space-y-6 max-w-3xl">
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600">

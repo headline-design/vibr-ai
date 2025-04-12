@@ -9,7 +9,7 @@ import { ConversationTreeProvider } from "@/components/flow-state/conversation-t
 import { FlowStateProvider } from "@/components/flow-state/flow-state-context"
 import type { ReactNode } from "react"
 import { DemoStateProvider } from "./flow-state/demo-state-provider"
-import { FlareColorProvider } from "@/providers/flare-color-provider"
+import { FlareColorProvider } from "@/components/providers/flare-color-provider"
 
 interface ClientProvidersProps {
   children: ReactNode

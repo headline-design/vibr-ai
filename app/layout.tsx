@@ -30,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html className={cn(geist.variable, geistMono.variable)}  lang="en" suppressHydrationWarning>
+    <html className={cn(geist.variable, geistMono.variable)} lang="en" suppressHydrationWarning>
       <body className={cn("min-h-screen transition-colors duration-200 text-rust-gray-900")}>
         <ClientProviders>
           <ClientLayout> {children}</ClientLayout>

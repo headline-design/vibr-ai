@@ -20,6 +20,7 @@ interface MessageBubbleContainerProps {
   onEdit?: () => void
   onRegenerate?: () => void
   onShare?: () => void
+  onAction?: (action: string, messageId: string) => void
   formatTimestamp: (timestamp?: string) => string
   isMobile: boolean
 }

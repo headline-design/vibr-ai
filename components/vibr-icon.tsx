@@ -1,6 +1,6 @@
 "use client"
 
-import { useFlareColor } from "@/providers/flare-color-provider"
+import { useFlareColor } from "@/components/providers/flare-color-provider"
 import type { HTMLAttributes } from "react"
 
 interface VibrIconProps extends HTMLAttributes<SVGElement> {
