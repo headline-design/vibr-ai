@@ -11,7 +11,7 @@ export function useMediaQuery(query: string): boolean {
     // Update the state initially
     setMatches(media.matches)
 
-    // Define callback for media query changes
+    // Define callback for media query change
     const listener = (e: MediaQueryListEvent) => {
       setMatches(e.matches)
     }

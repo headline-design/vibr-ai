@@ -14,12 +14,13 @@ import {
   OpenAiIcon,
   CursorIcon,
   TailwindIcon,
-} from "./integration-icons"
+} from "../integration-icons"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { SectionReveal } from "@/components/home/section-reveal"
 
 // Define the integration type
 type Integration = {
@@ -183,34 +184,19 @@ export function IntegrationsSection() {
   const otherIntegrations = filteredIntegrations.filter((integration) => !integration.featured)
 
   return (
-    <section className="py-20 bg-gradient-to-b from-background to-muted/30">
+    <section id="integrations" className="py-20 bg-gradient-to-b from-background to-muted/30">
       <div className="container px-4 md:px-6 mx-auto max-w-6xl">
-        <div className="text-center mb-12">
-          <motion.h2
-            className="text-4xl font-bold tracking-tight sm:text-5xl mb-4 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-gray-100 dark:to-gray-400"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
+        <SectionReveal className="text-center mb-12">
+          <h2 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-gray-100 dark:to-gray-400">
             Powerful Integrations
-          </motion.h2>
-          <motion.p
-            className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
+          </h2>
+          <p className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto">
             Seamlessly connect with the tools you already love and use
-          </motion.p>
-        </div>
+          </p>
+        </SectionReveal>
 
         {/* Search and filter */}
-        <motion.div
-          className="mb-10 flex flex-col sm:flex-row gap-4 items-center justify-between"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
+        <SectionReveal className="mb-10 flex flex-col sm:flex-row gap-4 items-center justify-between" delay={0.2}>
           <div className="relative w-full sm:w-72">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
@@ -243,18 +229,12 @@ export function IntegrationsSection() {
               ))}
             </TabsList>
           </Tabs>
-        </motion.div>
+        </SectionReveal>
 
         {/* Featured Integrations */}
         <AnimatePresence mode="wait">
           {featuredIntegrations.length > 0 && (
-            <motion.div
-              key="featured"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
+            <SectionReveal key="featured" delay={0.3}>
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-xl font-semibold">Featured Integrations</h3>
                 <Button variant="ghost" size="sm" className="gap-1">
@@ -263,111 +243,97 @@ export function IntegrationsSection() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
                 {featuredIntegrations.map((integration, index) => (
-                  <motion.div
-                    key={integration.id}
-                    className="relative group"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    onHoverStart={() => setHoveredIntegration(integration.id)}
-                    onHoverEnd={() => setHoveredIntegration(null)}
-                  >
-                    <Card className="h-full overflow-hidden border-2 transition-all duration-300 hover:border-primary/50 hover:shadow-lg">
-                      {(integration.new || integration.popular) && (
-                        <div className="absolute top-4 right-4 z-10 flex gap-2">
-                          {integration.new && (
-                            <Badge variant="default" className="bg-green-500 hover:bg-green-600">
-                              New
-                            </Badge>
-                          )}
-                          {integration.popular && (
-                            <Badge
-                              variant="outline"
-                              className="bg-orange-500/10 text-orange-600 hover:bg-orange-500/20 border-orange-500/20"
-                            >
-                              Popular
-                            </Badge>
-                          )}
-                        </div>
-                      )}
-                      <CardHeader className="pb-2">
-                        <div className="h-16 flex items-center justify-center mb-4">
-                          <integration.icon className="h-12 w-auto text-primary transition-transform duration-300 group-hover:scale-110" />
-                        </div>
-                        <CardTitle className="text-xl">{integration.name}</CardTitle>
-                        <CardDescription className="text-sm">{integration.description}</CardDescription>
-                      </CardHeader>
-                      <CardContent className="pb-2">
-                        <p className="text-sm text-muted-foreground">{integration.longDescription}</p>
-                      </CardContent>
-                      <CardFooter className="pt-2 flex justify-between items-center">
-                        <Button variant="ghost" size="sm" className="gap-1 text-primary">
-                          Learn more <ExternalLink className="h-3.5 w-3.5" />
-                        </Button>
-                        <Badge variant="outline" className="capitalize">
-                          {integration.category}
-                        </Badge>
-                      </CardFooter>
-
-                      {/* Hover details */}
-                      <AnimatePresence>
-                        {hoveredIntegration === integration.id && (
-                          <motion.div
-                            className="overflow-hidden rounded-lg absolute inset-1 bg-background/95 backdrop-blur-sm p-4 flex flex-col"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                          >
-                            <h4 className="font-medium text-lg mb-2">{integration.name} Benefits</h4>
-                            <ul className="space-y-2 flex-grow">
-                              {integration.benefits?.map((benefit, i) => (
-                                <li key={i} className="flex items-start gap-2 text-sm">
-                                  <Check className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
-                                  <span>{benefit}</span>
-                                </li>
-                              ))}
-                            </ul>
-                            <Button
-                              size="sm"
-                              className="mt-4 w-full"
-                              onClick={() => window.open(integration.documentation, "_blank")}
-                            >
-                              View Documentation
-                            </Button>
-                          </motion.div>
+                  <SectionReveal key={integration.id} className="relative group" delay={0.3 + index * 0.1}>
+                    <motion.div
+                      whileHover={{ y: -5 }}
+                      onHoverStart={() => setHoveredIntegration(integration.id)}
+                      onHoverEnd={() => setHoveredIntegration(null)}
+                    >
+                      <Card className="h-full overflow-hidden border-2 transition-all duration-300 hover:border-primary/50 hover:shadow-lg">
+                        {(integration.new || integration.popular) && (
+                          <div className="absolute top-4 right-4 z-10 flex gap-2">
+                            {integration.new && (
+                              <Badge variant="default" className="bg-green-500 hover:bg-green-600">
+                                New
+                              </Badge>
+                            )}
+                            {integration.popular && (
+                              <Badge
+                                variant="outline"
+                                className="bg-orange-500/10 text-orange-600 hover:bg-orange-500/20 border-orange-500/20"
+                              >
+                                Popular
+                              </Badge>
+                            )}
+                          </div>
                         )}
-                      </AnimatePresence>
-                    </Card>
-                  </motion.div>
+                        <CardHeader className="pb-2">
+                          <div className="h-16 flex items-center justify-center mb-4">
+                            <integration.icon className="h-12 w-auto text-primary transition-transform duration-300 group-hover:scale-110" />
+                          </div>
+                          <CardTitle className="text-xl">{integration.name}</CardTitle>
+                          <CardDescription className="text-sm">{integration.description}</CardDescription>
+                        </CardHeader>
+                        <CardContent className="pb-2">
+                          <p className="text-sm text-muted-foreground">{integration.longDescription}</p>
+                        </CardContent>
+                        <CardFooter className="pt-2 flex justify-between items-center">
+                          <Button variant="ghost" size="sm" className="gap-1 text-primary">
+                            Learn more <ExternalLink className="h-3.5 w-3.5" />
+                          </Button>
+                          <Badge variant="outline" className="capitalize">
+                            {integration.category}
+                          </Badge>
+                        </CardFooter>
+
+                        {/* Hover details */}
+                        <AnimatePresence>
+                          {hoveredIntegration === integration.id && (
+                            <motion.div
+                              className="overflow-hidden rounded-lg absolute inset-1 bg-background/95 backdrop-blur-sm p-4 flex flex-col"
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              exit={{ opacity: 0 }}
+                              transition={{ duration: 0.2 }}
+                            >
+                              <h4 className="font-medium text-lg mb-2">{integration.name} Benefits</h4>
+                              <ul className="space-y-2 flex-grow">
+                                {integration.benefits?.map((benefit, i) => (
+                                  <li key={i} className="flex items-start gap-2 text-sm">
+                                    <Check className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
+                                    <span>{benefit}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                              <Button
+                                size="sm"
+                                className="mt-4 w-full"
+                                onClick={() => window.open(integration.documentation, "_blank")}
+                              >
+                                View Documentation
+                              </Button>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </Card>
+                    </motion.div>
+                  </SectionReveal>
                 ))}
               </div>
-            </motion.div>
+            </SectionReveal>
           )}
         </AnimatePresence>
 
         {/* Other Integrations */}
         <AnimatePresence mode="wait">
           {otherIntegrations.length > 0 && (
-            <motion.div
-              key="other"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
+            <SectionReveal key="other" delay={0.4}>
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-xl font-semibold">All Integrations</h3>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
                 {otherIntegrations.map((integration, index) => (
-                  <motion.div
-                    key={integration.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.05 }}
-                    className="group"
-                  >
+                  <SectionReveal key={integration.id} delay={0.4 + index * 0.05} className="group">
                     <Card className="border hover:border-primary/50 transition-all duration-300 hover:shadow-md overflow-hidden h-full">
                       <CardHeader className="p-4 pb-2">
                         <div className="flex items-center justify-between mb-2">
@@ -398,21 +364,16 @@ export function IntegrationsSection() {
                         </Badge>
                       </CardFooter>
                     </Card>
-                  </motion.div>
+                  </SectionReveal>
                 ))}
               </div>
-            </motion.div>
+            </SectionReveal>
           )}
         </AnimatePresence>
 
         {/* No results */}
         {filteredIntegrations.length === 0 && (
-          <motion.div
-            className="text-center py-20"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          >
+          <SectionReveal className="text-center py-20">
             <h3 className="text-xl font-medium mb-2">No integrations found</h3>
             <p className="text-muted-foreground mb-6">Try adjusting your search or filter criteria</p>
             <Button
@@ -423,18 +384,11 @@ export function IntegrationsSection() {
             >
               Reset Filters
             </Button>
-          </motion.div>
-
+          </SectionReveal>
         )}
 
         {/* CTA Section */}
-        <motion.div
-          className="mt-20 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
+        <SectionReveal className="mt-20 text-center" delay={0.5}>
           <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl p-8 md:p-12">
             <h3 className="text-2xl md:text-3xl font-bold mb-4">Ready to integrate?</h3>
             <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
@@ -447,7 +401,7 @@ export function IntegrationsSection() {
               </Button>
             </div>
           </div>
-        </motion.div>
+        </SectionReveal>
       </div>
     </section>
   )

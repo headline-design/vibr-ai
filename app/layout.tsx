@@ -1,10 +1,12 @@
 import type React from "react"
-import { Geist as Geist_Sans, Geist_Mono } from "next/font/google"
-import "./globals.css"
 import type { Metadata } from "next"
+import { Inter, Geist as Geist_Sans, Geist_Mono } from "next/font/google"
+import "./globals.css"
+import { Navbar } from "@/components/layout/navbar"
+import { Footer } from "@/components/layout/footer"
 import { ClientProviders } from "@/components/client-providers"
-import ClientLayout from "@/components/client-layout"
-import { cn } from "@/lib/utils"
+
+const inter = Inter({ subsets: ["latin"] })
 
 const geist = Geist_Sans({
   subsets: ["latin"],
@@ -19,21 +21,22 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Vibr - Vibe coding platform",
-  description: "An intelligent coding platform with AI assistance",
-  generator: "v0.dev",
+  title: "Vibr AI - Intent-Based AI Chat",
+  description: "The AI chat that gets your vibe. Built for coders, by coders.",
 }
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
-    <html className={cn(geist.variable, geistMono.variable)} lang="en" suppressHydrationWarning>
-      <body className={cn("min-h-screen transition-colors duration-200 text-rust-gray-900")}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} ${geist.variable} ${geistMono.variable}`}>
         <ClientProviders>
-          <ClientLayout> {children}</ClientLayout>
+          <Navbar />
+          {children}
+          <Footer />
         </ClientProviders>
       </body>
     </html>

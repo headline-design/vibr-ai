@@ -345,7 +345,7 @@ export default function CompactAIDiagram() {
   useEffect(() => {
     if (mounted) {
       setNodes([...initialNodes])
-      setEdges([...initialEdges as any])
+      setEdges([...(initialEdges as any)])
     }
   }, [isDarkMode, mounted])
 
@@ -353,7 +353,7 @@ export default function CompactAIDiagram() {
   if (!mounted) return null
 
   return (
-    <div className="w-full h-[400px] border rounded-lg bg-white dark:bg-black">
+    <div className="w-full h-[400px] border rounded-lg bg-background">
       <ReactFlow
         nodes={nodes}
         edges={edges}

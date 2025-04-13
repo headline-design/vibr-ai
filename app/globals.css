@@ -607,3 +607,9 @@ body {
 .text-rust-gray-900 {
   color: var(--rust-gray-900);
 }
+
+body {
+  font-feature-settings: "rlig" 1, "calt" 1;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
