@@ -14,8 +14,6 @@ export function CTASection() {
       <div className="container px-4 md:px-6 mx-auto max-w-5xl relative">
         <SectionReveal className="bg-background border rounded-2xl p-8 md:p-12 shadow-xl relative overflow-hidden">
           {/* Decorative elements */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
 
           <div className="relative z-10">
             <SectionReveal className="text-center mb-10">
@@ -44,17 +42,6 @@ export function CTASection() {
               >
                 <Link href="https://github.com/yourusername/vibr" target="_blank" rel="noopener noreferrer">
                   <Github className="mr-2 h-4 w-4" /> View on GitHub
-                </Link>
-              </Button>
-
-              <Button
-                asChild
-                variant="ghost"
-                size="lg"
-                className="rounded-full h-12 px-6 hover:bg-background transition-all duration-300 w-full sm:w-auto"
-              >
-                <Link href="/docs">
-                  Documentation <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
             </SectionReveal>

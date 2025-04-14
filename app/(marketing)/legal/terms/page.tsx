@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { allLegals } from "contentlayer/generated"
-import { LegalLayout } from "@/components/layouts/legal-layout"
+import { LegalLayout } from "@/components/docs/legal-layout"
 import { Mdx } from "@/components/docs/mdx-components"
 
 export const metadata: Metadata = {

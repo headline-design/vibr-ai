@@ -155,14 +155,6 @@ export function Navbar() {
       description: "Explore our integrations",
       sectionId: "integrations",
     },
-    {
-      href: "/docs",
-      label: "Docs",
-      icon: Settings,
-      active: pathname === "/docs",
-      type: "public",
-      description: "Documentation and guides",
-    },
   ]
 
   const socialLinks: NavRoute[] = [

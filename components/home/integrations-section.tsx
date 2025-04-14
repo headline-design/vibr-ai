@@ -14,7 +14,7 @@ import {
   OpenAiIcon,
   CursorIcon,
   TailwindIcon,
-} from "../integration-icons"
+} from "./integration-icons"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"

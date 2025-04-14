@@ -72,7 +72,7 @@ export function HeroSection() {
 
           {/* CTA buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 w-full max-w-md"
+            className="flex flex-col sm:flex-row gap-4 w-full max-w-lg"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
             transition={{ duration: ANIMATION_DURATION, delay: ANIMATION_DELAY_INCREMENT, ease: ANIMATION_EASING }}
@@ -85,7 +85,7 @@ export function HeroSection() {
               <Link href="/chat">
                 <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary/10 to-primary/5 group-hover:opacity-80 transition-opacity"></span>
                 <span className="relative flex items-center justify-center">
-                  Try the AI Chat <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  Try Vibr Chat <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </span>
               </Link>
             </Button>
@@ -96,7 +96,7 @@ export function HeroSection() {
               className="rounded-full h-12 px-6 border-primary/20 hover:bg-primary/5 transition-all duration-300"
             >
               <Link href="https://github.com/yourusername/vibr" target="_blank" rel="noopener noreferrer">
-                <Github className="mr-2 h-4 w-4" /> View on GitHub
+                <Github className="h-4 w-4" /> View on GitHub
               </Link>
             </Button>
             <Button
@@ -106,7 +106,7 @@ export function HeroSection() {
               className="rounded-full h-12 px-6 hover:bg-primary/5 transition-all duration-300 hidden md:flex"
             >
               <Link href="/#solutions">
-                Learn more <ChevronRight className="ml-2 h-4 w-4" />
+                Learn more <ChevronRight className="h-4 w-4" />
               </Link>
             </Button>
           </motion.div>
@@ -218,7 +218,7 @@ export function HeroSection() {
                           className="w-10 h-10 flex-shrink-0 rounded-full bg-muted flex items-center justify-center text-sm font-medium shadow-sm"
                           style={
                             {
-                              backgroundImage: `url(${AVATAR_GRADIENT_API}/usertest-001)`,
+                              backgroundImage: `url(${AVATAR_GRADIENT_API}/usertest-0014123123123qweqe)`,
                             } as React.CSSProperties
                           }
                         />
@@ -305,7 +305,7 @@ export function HeroSection() {
                           className="w-10 h-10 flex-shrink-0 rounded-full bg-muted flex items-center justify-center text-sm font-medium shadow-sm"
                           style={
                             {
-                              backgroundImage: `url(${AVATAR_GRADIENT_API}/usertest-001)`,
+                              backgroundImage: `url(${AVATAR_GRADIENT_API}/usertest-0014123123123qweqe)`,
                             } as React.CSSProperties
                           }
                         />
@@ -394,7 +394,7 @@ export function HeroSection() {
                           className="w-10 h-10 flex-shrink-0 rounded-full bg-muted flex items-center justify-center text-sm font-medium shadow-sm"
                           style={
                             {
-                              backgroundImage: `url(${AVATAR_GRADIENT_API}/usertest-001)`,
+                              backgroundImage: `url(${AVATAR_GRADIENT_API}/usertest-0014123123123qweqe)`,
                             } as React.CSSProperties
                           }
                         />
