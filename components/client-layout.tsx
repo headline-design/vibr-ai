@@ -7,7 +7,6 @@ import { UserFeedbackSystem } from "@/components/flow-state/user-feedback-system
 import { CommandPaletteEnhanced } from "@/components/flow-state/command-palette-enhanced"
 import { useDemoState } from "./flow-state/demo-state-provider"
 import { usePathname } from "next/navigation"
-import { Navbar } from "./layout/navbar"
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -23,11 +22,9 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
   return (
     <div className="flex flex-col min-h-screen bg-background transition-colors duration-200">
-      {/* Navbar */}
-      <Navbar />
 
       {/* Main Content */}
-      <main className="flex-1">{children}</main>
+      <>{children}</>
 
       {/* User feedback system */}
       <UserFeedbackSystem />

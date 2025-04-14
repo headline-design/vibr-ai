@@ -1,7 +1,5 @@
 "use client"
 
-import type React from "react"
-
 import { useState } from "react"
 import {
   Dialog,
@@ -12,12 +10,23 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
 import { createProject, updateProject, type Project } from "@/lib/project-service"
 import { useToast } from "@/components/ui/use-toast"
 import { Loader2 } from "lucide-react"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { motion } from "framer-motion"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+
+const formSchema = z.object({
+  name: z.string().min(2, {
+    message: "Project name must be at least 2 characters.",
+  }),
+  description: z.string().optional(),
+})
 
 interface ProjectDialogProps {
   open: boolean
@@ -27,51 +36,45 @@ interface ProjectDialogProps {
 }
 
 export function ProjectDialog({ open, onOpenChange, project, onSave }: ProjectDialogProps) {
-  const [name, setName] = useState(project?.name || "")
-  const [description, setDescription] = useState(project?.description || "")
   const [loading, setLoading] = useState(false)
   const { toast } = useToast()
 
   const isEditing = !!project
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: project?.name || "",
+      description: project?.description || "",
+    },
+    mode: "onChange",
+  })
 
-    if (!name.trim()) {
-      toast({
-        title: "Project name required",
-        description: "Please enter a name for your project.",
-        variant: "destructive",
-      })
-      return
-    }
-
+  const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     setLoading(true)
 
     try {
       let savedProject: Project
 
       if (isEditing && project) {
-        savedProject = await updateProject(project.id, {
-          name,
-          description: description || undefined,
-        })
+        savedProject = await updateProject(project.id, values)
         toast({
           title: "Project updated",
           description: "Your project has been updated successfully.",
         })
       } else {
         savedProject = await createProject({
-          name,
-          description: description || undefined,
+          name: values.name,
+          description: values.description || "",
         })
         toast({
           title: "Project created",
-          description: "Your new project has been created successfully.",
+          description: "Your new project has been created successfully!",
         })
       }
 
       onSave(savedProject)
+      onOpenChange(false) // Close the dialog after successful save
     } catch (error) {
       console.error("Error saving project:", error)
       toast({
@@ -84,60 +87,75 @@ export function ProjectDialog({ open, onOpenChange, project, onSave }: ProjectDi
     }
   }
 
-  // Reset form when dialog opens
-  const handleOpenChange = (open: boolean) => {
-    if (open && project) {
-      setName(project.name)
-      setDescription(project.description || "")
-    } else if (open) {
-      setName("")
-      setDescription("")
-    }
-    onOpenChange(open)
-  }
-
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
-        <form onSubmit={handleSubmit}>
-          <DialogHeader>
-            <DialogTitle>{isEditing ? "Edit Project" : "Create Project"}</DialogTitle>
-            <DialogDescription>
-              {isEditing ? "Update your project details below." : "Add a new project to organize your conversations."}
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid gap-2">
-              <Label htmlFor="name">Name</Label>
-              <Input
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Project name"
-                autoFocus
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent asChild>
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.2 }}
+          className="sm:max-w-[500px]"
+        >
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+              <DialogHeader>
+                <DialogTitle>{isEditing ? "Edit Project" : "Create Project"}</DialogTitle>
+                <DialogDescription>
+                  {isEditing
+                    ? "Update your project details below."
+                    : "Add a new project to organize your conversations."}
+                </DialogDescription>
+              </DialogHeader>
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Project Name</FormLabel>
+                    <FormControl>
+                    <Input  placeholder="My Awesome Project" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="description">Description</Label>
-              <Textarea
-                id="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Project description (optional)"
-                rows={3}
+
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Description</FormLabel>
+                    <FormControl>
+
+                      <Textarea
+                        placeholder="A brief description of your project"
+                        rows={3}
+                        className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Describe your project for better organization.{" "}
+                      <span className="text-xs text-muted-foreground">{(field.value?.length || 0)}/200 characters</span>
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-              Cancel
-            </Button>
-            <Button type="submit" disabled={loading}>
-              {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              {isEditing ? "Update" : "Create"}
-            </Button>
-          </DialogFooter>
-        </form>
+              <DialogFooter>
+                <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+                  Cancel
+                </Button>
+                <Button type="submit" disabled={loading}>
+                  {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  {isEditing ? "Update" : "Create"}
+                </Button>
+              </DialogFooter>
+            </form>
+          </Form>
+        </motion.div>
       </DialogContent>
     </Dialog>
   )

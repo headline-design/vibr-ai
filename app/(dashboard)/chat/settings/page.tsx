@@ -1,15 +1,17 @@
 "use client"
 
-import { useState } from "react"
+import { Suspense, useState } from "react"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { useTheme } from "next-themes"
-import { Moon, Sun, Laptop } from "lucide-react"
 import { EnhancedAccessibilityPanel } from "@/components/flow-state/enhanced-accessibility-panel"
 import { useDemoState } from "@/components/flow-state/demo-state-provider"
+import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
+import ThemeTabs from "@/components/theme-tabs"
+import ThemeTabsLoading from "@/components/theme-tabs-loading"
 
 export default function ChatSettings() {
-  const { theme, setTheme } = useTheme()
 
   const {
     isCommandPaletteOpen,
@@ -22,11 +24,6 @@ export default function ChatSettings() {
 
   const [showAccessibilityPanel, setShowAccessibilityPanel] = useState(false)
 
-  // Handle theme changes using next-themes
-  const handleThemeChange = (newTheme: string) => {
-    setTheme(newTheme)
-  }
-
   return (
     <>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -36,24 +33,12 @@ export default function ChatSettings() {
             <CardDescription>Customize the look and feel</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
+            {/* Theme Selector */}
             <div className="space-y-2">
               <h3 className="text-sm font-medium">Theme</h3>
-              <Tabs defaultValue={theme} onValueChange={handleThemeChange}>
-                <TabsList className="grid w-full grid-cols-3">
-                  <TabsTrigger value="light">
-                    <Sun className="h-4 w-4 mr-2" />
-                    Light
-                  </TabsTrigger>
-                  <TabsTrigger value="dark">
-                    <Moon className="h-4 w-4 mr-2" />
-                    Dark
-                  </TabsTrigger>
-                  <TabsTrigger value="system">
-                    <Laptop className="h-4 w-4 mr-2" />
-                    System
-                  </TabsTrigger>
-                </TabsList>
-              </Tabs>
+              <Suspense fallback={<ThemeTabsLoading />}>
+                <ThemeTabs />
+              </Suspense>
             </div>
 
             <div className="space-y-2">
@@ -86,13 +71,23 @@ export default function ChatSettings() {
             <CardDescription>Configure accessibility settings</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <EnhancedAccessibilityPanel
-              isOpen={showAccessibilityPanel}
-              onClose={() => setShowAccessibilityPanel(false)}
-            />
+            <Button variant="outline"
+              onClick={() => setShowAccessibilityPanel(true)}
+            >
+              Open Accessibility Options
+            </Button>
+
           </CardContent>
         </Card>
       </div>
+      <Dialog open={showAccessibilityPanel} onOpenChange={setShowAccessibilityPanel}>
+        <DialogContent>
+          <DialogHeader>
+            <h3 className="text-lg font-medium">Enhanced Accessibility Options</h3>
+          </DialogHeader>
+          <EnhancedAccessibilityPanel isOpen={showAccessibilityPanel} onClose={() => setShowAccessibilityPanel(false)} />
+        </DialogContent>
+      </Dialog>
     </>
   )
 }

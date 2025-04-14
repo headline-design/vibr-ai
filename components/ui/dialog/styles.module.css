@@ -1,0 +1,162 @@
+@keyframes contentShow {
+    0% {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideFromBottom {
+    0% {
+        transform: translate3d(0,var(--initial-transform, 100%),0)
+    }
+
+    to {
+        transform: translate3d(0,0,0)
+    }
+}
+
+.dialogContent {
+    --modal-out-opacity: 1;
+    --modal-out-y: 100%;
+    --modal-enter-duration: .6s;
+    --modal-exit-duration: .3s;
+    max-height: 92%;
+    z-index: 111;
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 12px 12px 0 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: var(--elevated);
+    color: var(--text-default)
+}
+
+@media (max-width:767px) {
+    .dialogContent[data-state=open] {
+        animation-name: slideFromBottom;
+        position: fixed;
+        opacity: 1;
+        touch-action: none;
+        will-change: transform;
+        transition: transform .5s cubic-bezier(.32,.72,0,1);
+        animation-duration: .5s;
+        animation-timing-function: cubic-bezier(.32,.72,0,1)
+    }
+}
+
+@media (min-width:767px) {
+    .dialogContent[data-modal-scroll=inside],.dialogContent[data-state=open] {
+        max-height: calc(95vh - 40px);
+        overflow: hidden
+    }
+
+    .dialogContent[data-state=open] {
+        position: static;
+        max-width: var(--modal-max-width, 450px);
+        box-shadow: var(--shadow);
+        border-radius: 12px;
+        opacity: 1;
+        transition: opacity .35s cubic-bezier(.4,0,.2,1), transform .35s cubic-bezier(.4,0,.2,1);
+        animation: contentShow .3s cubic-bezier(.6,-.28,.735,.045);
+    }
+}
+
+[data-entering-active] .dialogContent,[data-state=open][data-interrupted] .dialogContent {
+    opacity: 1;
+    transform: translateY(0);
+    transition-duration: var(--modal-enter-duration);
+    transition-timing-function: var(--cubic-enter);
+    transition-property: opacity,transform
+}
+
+[data-exiting] .dialogContent {
+    opacity: 1;
+    transform: translateY(0)
+}
+
+[data-exiting-active] .dialogContent,[data-exiting][data-interrupted] .dialogContent {
+    opacity: var(--modal-out-opacity);
+    transform: translateY(var(--modal-out-y));
+    transition-duration: var(--modal-exit-duration);
+    transition-timing-function: var(--cubic-exit);
+    transition-property: opacity,transform
+}
+
+.dialogContentContainer,.dialogOverlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0
+}
+
+.dialogContentWrapper
+ {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0
+ }
+
+
+@media (min-width:767px) {
+    .dialogContentWrapper {
+        inset: unset;
+        padding: 20px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh
+    }
+}
+
+
+.dialogOverlay {
+    background-color: rgba(0,0,0,.3);
+    z-index: 100
+}
+
+:where(:root[data-theme=dark]) .dialogOverlay {
+    background-color: rgba(0,0,0,.5)
+}
+
+[data-modal-scroll=inside] .dialogContentChildWrapper {
+    flex: 1;
+    border-bottom: 1px solid transparent;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.dialogContentChildWrapper {
+    padding: 16px 20px;
+    position: relative;
+}
+
+.dialogFooterWrapper {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        flex-shrink: 0;
+        padding: 16px 20px;
+        position: relative;
+}
+
+.dialogFooter {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    flex-shrink: 0;
+    padding: 16px 20px;
+    position: relative;
+}
