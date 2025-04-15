@@ -5,7 +5,6 @@ import ClientLayout from "@/components/client-layout"
 export const metadata: Metadata = {
   title: "Vibr - Vibe coding platform",
   description: "An intelligent coding platform with AI assistance",
-  generator: "v0.dev",
 }
 
 export default function DashboardLayout({

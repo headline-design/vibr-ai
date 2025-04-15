@@ -2,10 +2,9 @@
 
 import type React from "react"
 
-import { useState, useEffect, useRef, createContext, useContext } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { UserProfile } from "@/components/auth/user-profile"
@@ -13,45 +12,20 @@ import { useAuthContext } from "@/components/auth/auth-provider"
 import { useTheme } from "next-themes"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { VibrIcon } from "@/components/vibr-icon"
-import { Home, MessageSquare, Menu, X, Github, Sun, Moon, ChevronRight } from "lucide-react"
+import { Home, MessageSquare, Menu, X, Github, Sun, Moon, ChevronRight, ArrowUp } from "lucide-react"
 
-interface ScrollContextType {
-  scrolled: boolean
-  scrollY: number
+// Animation constants for consistent timing
+const ANIMATION_CONSTANTS = {
+  SCROLL_THRESHOLD_START: 0,
+  SCROLL_THRESHOLD_END: 60,
+  SCROLL_TO_TOP_THRESHOLD: 300,
+  LOGO_SCALE_FINAL: 0.8,
+  LOGO_Y_OFFSET_FINAL: -8,
+  NAV_X_OFFSET_FINAL: 32, // Increased for better spacing
+  TRANSITION_DURATION: 150,
+  EASING: "cubic-bezier(0.33, 1, 0.68, 1)", // Easing function for smooth motion
+  HOMEPAGE_TRANSPARENCY_THRESHOLD: 20, // When to start transitioning homepage navbar
 }
-
-const ScrollContext = createContext<ScrollContextType>({
-  scrolled: false,
-  scrollY: 0,
-})
-
-export function ScrollProvider({ children }: { children: React.ReactNode }) {
-  const [scrolled, setScrolled] = useState(false)
-  const [scrollY, setScrollY] = useState(0)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const offset = window.scrollY
-      setScrollY(offset)
-      if (offset > 60) {
-        setScrolled(true)
-      } else {
-        setScrolled(false)
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    handleScroll()
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
-
-  return <ScrollContext.Provider value={{ scrolled, scrollY }}>{children}</ScrollContext.Provider>
-}
-
-export const useScrollContext = () => useContext(ScrollContext)
 
 export function Navbar() {
   const pathname = usePathname()
@@ -61,15 +35,37 @@ export function Navbar() {
   const [mounted, setMounted] = useState(false)
   const { resolvedTheme, setTheme } = useTheme()
   const navRef = useRef<HTMLDivElement>(null)
+  const logoRef = useRef<HTMLSpanElement>(null)
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const chatNavItemsRef = useRef<(HTMLDivElement | null)[]>([])
   const [hoveredChatIndex, setHoveredChatIndex] = useState<number | null>(null)
 
-  // Add a state to track scroll position
-  const [scrolled, setScrolled] = useState(false)
-  // Track if the main navbar is completely hidden (for secondary logo)
-  const [mainNavHidden, setMainNavHidden] = useState(false)
-  const mainNavHiddenTimerRef = useRef<NodeJS.Timeout | null>(null)
+  // Single source of truth for scroll position
+  const [scrollProgress, setScrollProgress] = useState(0)
+  const [showScrollToTop, setShowScrollToTop] = useState(false)
+  const [homepageScrolled, setHomepageScrolled] = useState(false)
+
+  // Determine if we're in the chat section or on homepage
+  const isInChatSection = pathname === "/chat" || pathname.startsWith("/chat/")
+  const isHomepage = pathname === "/"
+
+  // Derived styles from scroll progress
+  const logoStyle = {
+    position: scrollProgress > 0 ? "fixed" : "absolute",
+    transform:
+      scrollProgress > 0
+        ? `translateY(${ANIMATION_CONSTANTS.LOGO_Y_OFFSET_FINAL * scrollProgress}px) scale(${1 - (1 - ANIMATION_CONSTANTS.LOGO_SCALE_FINAL) * scrollProgress})`
+        : "none",
+    left: "24px",
+    top: "16px",
+    zIndex: 50,
+    transition:
+      scrollProgress === 0 || scrollProgress === 1
+        ? `transform ${ANIMATION_CONSTANTS.TRANSITION_DURATION}ms ${ANIMATION_CONSTANTS.EASING}`
+        : "none", // Only apply transition at the start and end points for smoother animation
+  } as React.CSSProperties
+
+  const navTranslateX = ANIMATION_CONSTANTS.NAV_X_OFFSET_FINAL * scrollProgress
 
   // Define main navigation items
   const mainNavItems = [
@@ -110,44 +106,60 @@ export function Navbar() {
     },
   ]
 
-  // Determine if we're in the chat section
-  const isInChatSection = pathname === "/chat" || pathname.startsWith("/chat/")
+  // Memoized scroll handler to prevent unnecessary re-renders
+  const handleScroll = useCallback(() => {
+    const currentScrollY = window.scrollY
 
-  // Add a scroll event listener to track when the page is scrolled
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY
+    // Show scroll-to-top button when scrolled down enough
+    setShowScrollToTop(currentScrollY > ANIMATION_CONSTANTS.SCROLL_TO_TOP_THRESHOLD)
 
-      // Basic scrolled state for navbar positioning
-      if (currentScrollY > 60) {
-        setScrolled(true)
-
-        // When scrolled, add a small delay before showing the secondary logo
-        // This ensures the main nav is fully hidden first
-        if (mainNavHiddenTimerRef.current) clearTimeout(mainNavHiddenTimerRef.current)
-        mainNavHiddenTimerRef.current = setTimeout(() => {
-          setMainNavHidden(true)
-        }, 150)
-      } else {
-        // When at the top, immediately hide the secondary logo and show the main nav
-        setScrolled(false)
-        setMainNavHidden(false)
-        if (mainNavHiddenTimerRef.current) {
-          clearTimeout(mainNavHiddenTimerRef.current)
-        }
-      }
+    // Handle homepage navbar transparency
+    if (isHomepage) {
+      setHomepageScrolled(currentScrollY > ANIMATION_CONSTANTS.HOMEPAGE_TRANSPARENCY_THRESHOLD)
     }
 
-    window.addEventListener("scroll", handleScroll)
-    handleScroll()
+    // Handle chat section animations
+    if (isInChatSection) {
+      // Calculate scroll progress (0 to 1)
+      const { SCROLL_THRESHOLD_START, SCROLL_THRESHOLD_END } = ANIMATION_CONSTANTS
+
+      if (currentScrollY <= SCROLL_THRESHOLD_START) {
+        setScrollProgress(0)
+      } else if (currentScrollY >= SCROLL_THRESHOLD_END) {
+        setScrollProgress(1)
+      } else {
+        // Smooth progress between thresholds
+        const progress = (currentScrollY - SCROLL_THRESHOLD_START) / (SCROLL_THRESHOLD_END - SCROLL_THRESHOLD_START)
+        setScrollProgress(progress)
+      }
+    }
+  }, [isInChatSection, isHomepage])
+
+  // Function to scroll to top with smooth animation
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+  }
+
+  // Add scroll event listener with debounce for performance
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout | null = null
+
+    const debouncedScrollHandler = () => {
+      if (timeoutId) clearTimeout(timeoutId)
+      timeoutId = setTimeout(handleScroll, 5) // Small timeout for smoother performance
+    }
+
+    window.addEventListener("scroll", debouncedScrollHandler, { passive: true })
+    handleScroll() // Initialize on mount
 
     return () => {
-      window.removeEventListener("scroll", handleScroll)
-      if (mainNavHiddenTimerRef.current) {
-        clearTimeout(mainNavHiddenTimerRef.current)
-      }
+      window.removeEventListener("scroll", debouncedScrollHandler)
+      if (timeoutId) clearTimeout(timeoutId)
     }
-  }, [])
+  }, [handleScroll])
 
   // Close mobile menu when clicking outside
   useEffect(() => {
@@ -200,132 +212,46 @@ export function Navbar() {
     return null
   }
 
-  // Animation variants for smoother transitions
-  const mainNavVariants = {
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 30,
-        mass: 1,
-      },
-    },
-    hidden: {
-      y: "-100%",
-      opacity: 0.8,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 30,
-        mass: 1,
-      },
-    },
-  }
-
-  const secondaryNavVariants = {
-    top: {
-      top: 0,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 30,
-        mass: 1,
-      },
-    },
-    below: {
-      top: "64px",
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 30,
-        mass: 1,
-      },
-    },
-  }
-
-  const logoVariants = {
-    visible: {
-      opacity: 1,
-      x: 0,
-      scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 500,
-        damping: 30,
-        delay: 0.05,
-      },
-    },
-    hidden: {
-      opacity: 0,
-      x: -10,
-      scale: 0.95,
-      transition: {
-        duration: 0.1,
-        ease: "easeOut",
-      },
-    },
-  }
-
-  const controlsVariants = {
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        type: "spring",
-        stiffness: 500,
-        damping: 30,
-        delay: 0.1, // Slightly delayed after logo
-      },
-    },
-    hidden: {
-      opacity: 0,
-      x: 10,
-      transition: {
-        duration: 0.1,
-        ease: "easeOut",
-      },
-    },
-  }
-
   return (
     <>
-      {/* Main Navbar */}
-      <motion.nav
+      {/* Main Navbar - sticky for non-chat pages, static for chat pages */}
+      <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50",
+          "w-full z-40 px-6 items-center h-16 min-h-16 flex",
+          // Make navbar sticky for non-chat pages
+          !isInChatSection ? "sticky top-0" : "",
+          // Background styles based on page and scroll state
           isInChatSection
             ? "bg-background"
-            : scrolled || pathname !== "/" || isOpen
-              ? "bg-background/80 backdrop-blur-md border-b shadow-sm"
-              : "bg-transparent",
+            : isHomepage && !homepageScrolled && !isOpen
+              ? "bg-transparent"
+              : "bg-background/80 backdrop-blur-md border-b shadow-sm transition-colors duration-200",
         )}
         ref={navRef}
-        variants={mainNavVariants}
-        animate={isInChatSection && scrolled ? "hidden" : "visible"}
-        initial="visible"
-        onAnimationComplete={(definition) => {
-          // When the main nav finishes animating to hidden, update the state
-          if (definition === "hidden") {
-            setMainNavHidden(true)
-          } else if (definition === "visible") {
-            setMainNavHidden(false)
-          }
-        }}
       >
-        <div className="container mx-auto px-4">
-          <div className="flex h-16 items-center justify-between">
+        <Link href="/" className="inline">
+          {isInChatSection ? (
+            // Animated logo for chat section
+            <span ref={logoRef} style={logoStyle} className="inline-flex">
+              <VibrIcon variant="circle" className="h-8 w-8" />
+            </span>
+          ) : (
+            // Static logo for other pages
+            <span className="inline-flex">
+              <VibrIcon variant="circle" className="h-8 w-8" />
+            </span>
+          )}
+        </Link>
+        <nav className="w-full pl-8">
+          <div className="flex h-auto items-center justify-between">
             {/* Left side: Brand logo and navigation links */}
             <div className="flex items-center space-x-4">
               {isInChatSection ? (
-                // Special header for chat section
+                // Special header for chat section with animated logo
                 <div className="flex items-center">
-                  <Link href="/" className="flex items-center gap-2">
-                    <VibrIcon variant="circle" className="h-8 w-8" />
-                  </Link>
                   <div className="flex items-center">
-                    <span className="font-bold text-xl ml-2">VIBR</span>
+                    {/* Added ml-4 for proper spacing from the logo */}
+                    <span className="font-bold text-xl ml-4">VIBR</span>
                     <span className="mx-2 text-muted-foreground">|</span>
                     <span className="text-lg">AI Chat</span>
                   </div>
@@ -333,13 +259,9 @@ export function Navbar() {
               ) : (
                 // Regular logo and navigation for other pages
                 <>
-                  <Link href="/" className="flex items-center gap-2 mr-4">
-                    <VibrIcon variant="circle" className="h-8 w-8" />
-                    <span className="font-bold text-xl">Vibr</span>
-                  </Link>
-
+                  <span className="font-bold text-xl">Vibr</span>
                   {/* Desktop navigation - only show when not in chat section */}
-                  <div className="hidden md:flex md:items-center md:space-x-2">
+                  <div className="hidden md:flex md:items-center md:space-x-2 ml-4">
                     {mainNavItems.map((item) => {
                       const isActive = item.href === "/" ? pathname === "/" : pathname === item.href
 
@@ -356,11 +278,7 @@ export function Navbar() {
                         >
                           {item.label}
                           {isActive && (
-                            <motion.span
-                              className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-primary rounded-full"
-                              layoutId="navIndicator"
-                              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                            />
+                            <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-primary rounded-full" />
                           )}
                         </Link>
                       )
@@ -409,136 +327,93 @@ export function Navbar() {
                   aria-expanded={isOpen}
                   className="relative rounded-md h-8 w-8"
                 >
-                  <AnimatePresence mode="wait" initial={false}>
-                    {isOpen ? (
-                      <motion.div
-                        key="close"
-                        initial={{ opacity: 0, rotate: -90 }}
-                        animate={{ opacity: 1, rotate: 0 }}
-                        exit={{ opacity: 0, rotate: 90 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <X className="h-6 w-6" />
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="menu"
-                        initial={{ opacity: 0, rotate: 90 }}
-                        animate={{ opacity: 1, rotate: 0 }}
-                        exit={{ opacity: 0, rotate: -90 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <Menu className="h-6 w-6" />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                 </Button>
               </div>
             </div>
           </div>
-        </div>
+        </nav>
+      </header>
 
-        {/* Mobile navigation - full height with animation - with icons */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "calc(100vh - 4rem)" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }} // Using Material Design easing
-              className="md:hidden fixed top-16 left-0 right-0 bottom-0 bg-background/95 backdrop-blur-sm border-b z-50 overflow-auto flex flex-col"
-            >
-              <div className="flex-1 p-4">
-                <div className="space-y-1 mb-6">
-                  <h3 className="text-sm font-medium text-muted-foreground px-3 py-2">Navigation</h3>
-                  {mainNavItems.map((item) => {
-                    const isActive =
-                      item.href === "/"
-                        ? pathname === "/"
-                        : pathname === item.href || (item.href === "/chat" && isInChatSection)
+      {/* Mobile navigation - fixed to viewport */}
+      {isOpen && (
+        <div className="md:hidden fixed inset-0 z-50 bg-background/95 backdrop-blur-sm pt-16 overflow-auto flex flex-col">
+          <div className="flex-1 p-4">
+            <div className="space-y-1 mb-6">
+              <h3 className="text-sm font-medium text-muted-foreground px-3 py-2">Navigation</h3>
+              {mainNavItems.map((item) => {
+                const isActive =
+                  item.href === "/"
+                    ? pathname === "/"
+                    : pathname === item.href || (item.href === "/chat" && isInChatSection)
 
-                    return (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        className={cn(
-                          "flex items-center justify-between px-3 py-3 text-base font-medium rounded-md transition-colors",
-                          isActive ? "bg-primary/10 text-primary" : "text-foreground hover:bg-accent",
-                        )}
-                        onClick={() => setIsOpen(false)}
-                      >
-                        <span className="flex items-center">
-                          <item.icon className="mr-3 h-5 w-5" />
-                          {item.label}
-                        </span>
-                        <span className="text-muted-foreground">
-                          <ChevronRight className="h-4 w-4" />
-                        </span>
-                      </Link>
-                    )
-                  })}
-                </div>
-              </div>
-
-              {/* Footer with sign in/out */}
-              <div className="p-4 border-t">
-                {user ? (
-                  <div className="flex flex-col space-y-2">
-                    <p className="text-sm text-muted-foreground">
-                      Signed in as <span className="font-medium text-foreground">{user.email}</span>
-                    </p>
-                    <Button
-                      variant="outline"
-                      className="w-full justify-start rounded-md"
-                      onClick={() => {
-                        signOut()
-                        setIsOpen(false)
-                      }}
-                    >
-                      <span className="flex items-center">Sign Out</span>
-                    </Button>
-                  </div>
-                ) : (
-                  <Button asChild variant="default" className="w-full rounded-md">
-                    <Link href="/login" onClick={() => setIsOpen(false)}>
-                      Sign In
-                    </Link>
-                  </Button>
-                )}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.nav>
-
-      {/* Chat Navigation - now integrated in the main component */}
-      {isInChatSection && (
-        <motion.div
-          className={cn("w-full bg-background border-b fixed left-0 right-0 z-10", scrolled ? "shadow-sm" : "")}
-          variants={secondaryNavVariants}
-          animate={scrolled ? "top" : "below"}
-          initial="below"
-        >
-          <div className="container mx-auto px-4">
-            <div className="relative flex items-center h-12 overflow-x-auto hide-scrollbar">
-              {/* Logo that appears when scrolled - only when main nav is hidden */}
-              <AnimatePresence mode="wait">
-                {mainNavHidden && (
-                  <motion.div
-                    className="flex items-center mr-4"
-                    variants={logoVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="hidden"
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={cn(
+                      "flex items-center justify-between px-3 py-3 text-base font-medium rounded-md transition-colors",
+                      isActive ? "bg-primary/10 text-primary" : "text-foreground hover:bg-accent",
+                    )}
+                    onClick={() => setIsOpen(false)}
                   >
-                    <Link href="/" className="flex items-center gap-2">
-                      <VibrIcon variant="circle" className="h-6 w-6" />
-                    </Link>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                    <span className="flex items-center">
+                      <item.icon className="mr-3 h-5 w-5" />
+                      {item.label}
+                    </span>
+                    <span className="text-muted-foreground">
+                      <ChevronRight className="h-4 w-4" />
+                    </span>
+                  </Link>
+                )
+              })}
+            </div>
+          </div>
 
-              <div className="flex space-x-1 items-center h-full">
+          {/* Footer with sign in/out */}
+          <div className="p-4 border-t">
+            {user ? (
+              <div className="flex flex-col space-y-2">
+                <p className="text-sm text-muted-foreground">
+                  Signed in as <span className="font-medium text-foreground">{user.email}</span>
+                </p>
+                <Button
+                  variant="outline"
+                  className="w-full justify-start rounded-md"
+                  onClick={() => {
+                    signOut()
+                    setIsOpen(false)
+                  }}
+                >
+                  <span className="flex items-center">Sign Out</span>
+                </Button>
+              </div>
+            ) : (
+              <Button asChild variant="default" className="w-full rounded-md">
+                <Link href="/login" onClick={() => setIsOpen(false)}>
+                  Sign In
+                </Link>
+              </Button>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Chat Navigation - now outside the main navbar with sticky positioning */}
+      {isInChatSection && (
+        <div className="sticky top-0 w-full bg-background border-b shadow-sm z-40">
+          <div className="container mx-auto px-6">
+            <div className="relative flex items-center h-[46px] overflow-hidden">
+              <div
+                className="flex space-x-2 items-center h-full"
+                style={{
+                  transform: `translateX(${navTranslateX}px)`,
+                  transition:
+                    scrollProgress === 0 || scrollProgress === 1
+                      ? `transform ${ANIMATION_CONSTANTS.TRANSITION_DURATION}ms ${ANIMATION_CONSTANTS.EASING}`
+                      : "none",
+                }}
+              >
                 {chatNavItems.map((item, index) => {
                   const isActive = pathname === item.href
                   return (
@@ -555,47 +430,34 @@ export function Navbar() {
                     >
                       <span className="text-sm font-medium">{item.label}</span>
 
-                      {isActive && (
-                        <motion.div
-                          className="absolute bottom-[-1px] left-0 right-0 h-[1px] bg-primary"
-                          layoutId="chatNavIndicator"
-                          transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                        />
-                      )}
+                      {isActive && <span className="absolute bottom-[-1px] left-0 right-0 h-[1px] bg-primary" />}
                     </div>
                   )
                 })}
               </div>
 
-              {/* Right side controls that appear when scrolled - only when main nav is hidden */}
-              <AnimatePresence mode="wait">
-                {mainNavHidden && (
-                  <motion.div
-                    className="ml-auto flex items-center space-x-2"
-                    variants={controlsVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="hidden"
-                  >
-                    {/* Theme toggle */}
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={toggleTheme}
-                      className="rounded-md h-7 w-7"
-                      aria-label={resolvedTheme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
-                    >
-                      {resolvedTheme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-                    </Button>
+              {/* Right side controls - Scroll to top button */}
+              <div className="ml-auto flex items-center space-x-2">
+                {/* Scroll to top button - only show when scrolled down */}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={scrollToTop}
+                  className={cn(
+                    "rounded-md h-7 w-7 transition-opacity duration-300",
+                    showScrollToTop ? "opacity-100" : "opacity-0 pointer-events-none",
+                  )}
+                  aria-label="Scroll to top"
+                >
+                  <ArrowUp className="h-4 w-4" />
+                </Button>
 
-                    {/* User profile */}
-                    {user && <UserProfile />}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                {/* User profile */}
+                {user && <UserProfile />}
+              </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       )}
     </>
   )
