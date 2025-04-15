@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { useTheme } from "next-themes"
 import { MetaSessionDebugger } from "@/components/flow-state/meta-session-debugger"
-import { ConversationTreeVisualizer } from "@/components/flow-state/conversation-tree-visualizer"
+import { ConversationTreeVisualizer } from "@/components/flow-state/conversation-tree/conversation-tree-visualizer"
 import { Input } from "@/components/ui/input"
 import {
   isGreetingToFlux,
@@ -17,7 +17,7 @@ import {
 } from "@/components/flow-state/greeting-patterns"
 import { detectIntent } from "@/components/flow-state/intent-patterns"
 import { IntentDebugger } from "@/components/flow-state/intent-debugger"
-import { useDemoState } from "@/components/flow-state/demo-state-provider"
+import { useDemoState } from "@/components/flow-state/providers/demo-state-provider"
 
 export default function ChatDebug() {
   const { theme, setTheme } = useTheme()

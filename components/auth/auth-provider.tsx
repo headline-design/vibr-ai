@@ -3,9 +3,10 @@
 import type React from "react"
 
 import { createContext, useContext, useEffect, useState, useRef } from "react"
-import { supabase } from "@/lib/supabase"
+
 import type { User, Session } from "@supabase/supabase-js"
 import { useRouter } from "next/navigation"
+import { createClient } from "@/utils/supabase/client"
 
 type AuthContextType = {
   user: User | null
@@ -24,6 +25,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true)
   const router = useRouter()
   const isInitialized = useRef(false)
+  const supabase = createClient()
+
+
 
   useEffect(() => {
     if (isInitialized.current) return

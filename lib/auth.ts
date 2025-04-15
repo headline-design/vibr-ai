@@ -14,7 +14,8 @@ export function getSearchParams(url: string): Record<string, string> {
 
 // Middleware for public routes
 export function withPublic(handler: any) {
-  return async (req: NextRequest, { params }: { params: Record<string, string> }) => {
+  return async (req: NextRequest, { params: localParams }) => {
+const params = await localParams
     const searchParams = getSearchParams(req.url)
     return handler({ req, params, searchParams, headers: {} })
   }

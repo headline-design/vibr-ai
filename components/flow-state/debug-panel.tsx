@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ChevronUp, ChevronDown } from "lucide-react"
 import { MetaSessionDebugger } from "./meta-session-debugger"
-import { ConversationTreeVisualizer } from "./conversation-tree-visualizer"
+import { ConversationTreeVisualizer } from "@/components/flow-state/conversation-tree/conversation-tree-visualizer"
 import { Input } from "@/components/ui/input"
 import { isGreetingToFlux } from "./greeting-patterns"
 

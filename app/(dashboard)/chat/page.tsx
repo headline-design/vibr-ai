@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label"
 import { useTheme } from "next-themes"
 import ChatInterface from "@/components/flow-state/chat-interface"
 import { MessageSquare, Maximize2, PanelLeft, Info, Keyboard, Mic, Paperclip } from "lucide-react"
-import { useDemoState } from "@/components/flow-state/demo-state-provider"
+import { useDemoState } from "@/components/flow-state/providers/demo-state-provider"
 import ThemeTabsLoading from "@/components/theme-tabs-loading"
 import ThemeTabs from "@/components/theme-tabs"
 
@@ -213,7 +213,7 @@ export default function ChatDemo() {
             <div className="lg:col-span-8">
               <Card className="h-[600px] overflow-hidden">
                 <CardHeader className="sr-only">Chat Module</CardHeader>
-                <CardContent className="p-0 h-[calc(100%-73px)]">
+                <CardContent className="p-0 h-full">
                   <ChatInterface className="flex-1" setEmbeddedChatView={setEmbeddedChatView} />
                 </CardContent>
               </Card>

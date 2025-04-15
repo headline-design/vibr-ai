@@ -3,21 +3,28 @@
 import type React from "react"
 import { useState, useRef, useEffect, useCallback } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { Check, X, ChevronLeft } from "lucide-react"
+import { ChevronLeft } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/textarea"
 import { FluxAvatar, StaticFluxAvatar } from "@/components/flow-state/flux-avatar-enhanced"
-import { useFlowState } from "@/components/flow-state/flow-state-context"
+import { useFlowState } from "@/components/flow-state/providers/flow-state-provider"
 import { ChatSettings } from "./chat-settings"
 import ReactMarkdown from "react-markdown"
-import MessageActions from "@/components/flow-state/message-actions"
 import { useMediaQuery } from "@/hooks/use-media-query"
-import { MessageInput } from "./message-input"
+import { MessageInput } from "@/components/flow-state/message/message-input"
 import { useToast } from "@/components/ui/use-toast"
+import { MessageBubble } from "@/components/flow-state/message/message-bubble"
 
 export type ChatRole = "user" | "assistant" | "system"
 
+export interface ChatAction {
+  id: string
+  label: string
+  variant?: "default" | "secondary" | "default" | "outline" | "destructive"
+  type?:  "local" | "response"
+}
+
+// Update the ChatMessage interface to include component
 export interface ChatMessage {
   parentId?: string
   id: string
@@ -25,11 +32,11 @@ export interface ChatMessage {
   content: string
   isThinking?: boolean
   timestamp?: string
-  actions?: Array<{
-    id: string
-    label: string
-    variant?: "default" | "secondary" | "default" | "outline" | "destructive"
-  }>
+  actions?: ChatAction[]
+  bubbleActions?: ChatAction[]
+  component?: React.ComponentType<any>
+  componentProps?: any
+  projectData?: any
 }
 
 export interface ChatInterfaceProps {
@@ -57,7 +64,13 @@ const SuggestionChips: React.FC<SuggestionChipsProps> = ({ suggestions, onSelect
   return (
     <div className="flex flex-wrap gap-2">
       {suggestions.map((suggestion, index) => (
-        <Button key={index} variant="outline" size="sm" onClick={() => onSelect(suggestion)}>
+        <Button
+          key={index}
+          variant="outline"
+          size="sm"
+          className="text-xs bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-md px-3 py-1 h-auto transition-colors duration-200 hover:border-neutral-300 dark:hover:border-neutral-700"
+          onClick={() => onSelect(suggestion)}
+        >
           {suggestion}
         </Button>
       ))}
@@ -316,9 +329,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
   const MarkdownRenderer = ({ content }: { content: string }) => {
     return (
       <div className="prose prose-sm dark:prose-invert prose-ul:my-2 prose-ol:my-2 prose-headings:font-medium prose-headings:text-foreground">
-        <ReactMarkdown >
-          {content}
-        </ReactMarkdown>
+        <ReactMarkdown>{content}</ReactMarkdown>
       </div>
     )
   }
@@ -346,7 +357,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
       )}
 
       {/* Main Content Area */}
-      <div className="flex-1 relative overflow-hidden">
+      <div className="flex-1 relative overflow-hidden h-full">
         {/* Chat View */}
         <AnimatePresence mode="wait">
           {currentView === "chat" ? (
@@ -424,20 +435,21 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
                               initial={{ scale: 0.9 }}
                               animate={{ scale: 1 }}
                             >
-                              {groupIndex !== lastAssistantGroupIndex ?
+                              {groupIndex !== lastAssistantGroupIndex ? (
                                 <StaticFluxAvatar
                                   size="xs"
                                   mood="neutral"
                                   animate={isFirstInGroup}
                                   aria-hidden="true"
-                                /> :
+                                />
+                              ) : (
                                 <FluxAvatar
                                   size="xs"
                                   mood={getAvatarMood(message)}
                                   animate={groupIndex === lastAssistantGroupIndex}
                                   aria-hidden="true"
                                 />
-                              }
+                              )}
                             </motion.div>
                           )}
 
@@ -445,141 +457,26 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
                           {isAssistant && !isFirstInGroup && <div className="w-8 flex-shrink-0" aria-hidden="true" />}
 
                           {/* Chat bubble container with increased border radius */}
-                          <div
-                            className={cn(
-                              "relative leading-relaxed break-words p-2.5 sm:p-3.5 shadow-sm flex flex-col transition-all duration-200",
-                              "rounded-2xl hover:shadow-md transition-shadow duration-200",
-                              "focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:outline-none",
-                              {
-                                "max-w-[85%] sm:max-w-[75%] md:max-w-[70%]": isUser || isAssistant,
-                                "max-w-full": isSystem,
-                                "bg-gradient-to-br from-primary/10 to-primary/15 text-foreground border border-primary/20":
-                                  isUser,
-                                "bg-muted text-foreground border border-border": isAssistant,
-                                "bg-muted/50 text-muted-foreground italic border-transparent": isSystem,
-                                "rounded-tr-sm": isUser && !isFirstInGroup, // Connected bubble effect for consecutive messages
-                                "rounded-tl-sm": isAssistant && !isFirstInGroup,
-                                "dark:bg-muted dark:text-foreground dark:border-neutral-700": isAssistant, // Dark mode support
-                                "dark:bg-primary/30 dark:text-foreground dark:border-primary/30": isUser,
-                                "dark:bg-muted/50 dark:text-foreground/70 dark:border-transparent": isSystem,
-                              },
-                            )}
-                            tabIndex={0}
-                            aria-label={`${isUser ? "Your message" : "Assistant's response"}: ${message.content.substring(0, 50)}...`}
-                            onMouseEnter={() => setSelectedMessageId(message.id)}
-                            onMouseLeave={() => setSelectedMessageId(null)}
-                          >
-                            {message.isThinking ? (
-                              <div className="flex items-center space-x-1.5">
-                                <span className="font-medium text-xs">Processing your request</span>
-                                <div className="flex space-x-1 items-center">
-                                  <motion.div
-                                    className="w-1.5 h-1.5 rounded-full bg-gray-400"
-                                    animate={{ opacity: [0.4, 1, 0.4] }}
-                                    transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY }}
-                                  />
-                                  <motion.div
-                                    className="w-1.5 h-1.5 rounded-full bg-gray-400"
-                                    animate={{ opacity: [0.4, 1, 0.4] }}
-                                    transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY, delay: 0.15 }}
-                                  />
-                                  <motion.div
-                                    className="w-1.5 h-1.5 rounded-full bg-gray-400"
-                                    animate={{ opacity: [0.4, 1, 0.4] }}
-                                    transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY, delay: 0.3 }}
-                                  />
-                                </div>
-                              </div>
-                            ) : (
-                              <>
-                                {/* Editable user text */}
-                                {editingMessageId === message.id ? (
-                                  <div className="relative">
-                                    <Textarea
-                                      value={draftMessages[message.id] || ""}
-                                      onChange={(e) =>
-                                        setDraftMessages({
-                                          ...draftMessages,
-                                          [message.id]: e.target.value,
-                                        })
-                                      }
-                                      className="bg-transparent border border-muted outline-none shadow-none resize-none min-h-[50px] overflow-hidden text-sm p-0 focus:ring-1 focus:ring-blue-500/50 rounded"
-                                      autoFocus
-                                    />
-                                    <div className="absolute top-0 right-0 flex space-x-1 p-1">
-                                      <Button
-                                        variant="ghost"
-                                        size="icon"
-                                        onClick={cancelEdit}
-                                        className="h-6 w-6 rounded-full bg-muted/50 hover:bg-muted"
-                                      >
-                                        <X className="h-3 w-3" />
-                                      </Button>
-                                      <Button
-                                        variant="ghost"
-                                        size="icon"
-                                        onClick={() => saveEditedMessage(message.id)}
-                                        className="h-6 w-6 rounded-full bg-blue-500/10 hover:bg-blue-500/20"
-                                      >
-                                        <Check className="h-3 w-3" />
-                                      </Button>
-                                    </div>
-                                  </div>
-                                ) : (
-                                  <div
-                                    className={cn("whitespace-pre-wrap", {
-                                      "prose prose-sm max-w-none dark:prose-invert": hasCode && isAssistant,
-                                      "prose-code:bg-background prose-code:border prose-code:border-border/30 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:text-xs prose-code:font-medium prose-pre:bg-muted prose-pre:border prose-pre:border-border prose-pre:rounded-lg":
-                                        hasCode && isAssistant,
-                                    })}
-                                  >
-                                    {hasCode && isAssistant ? (
-                                      <MarkdownRenderer content={message.content} />
-                                    ) : (
-                                      <div className="text-sm leading-relaxed">{message.content}</div>
-                                    )}
-                                  </div>
-                                )}
-
-                                {/* Timestamp, if present */}
-                                {message.timestamp && messageIndex === group.length - 1 && (
-                                  <motion.div
-                                    className={cn("mt-1 text-[11px]", {
-                                      "text-foreground/60": isAssistant || isSystem || isUser,
-                                    })}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ duration: 0.2 }}
-                                  >
-                                    {formatTimestamp(message.timestamp)}
-                                  </motion.div>
-                                )}
-
-                                {/* Message actions - only visible on hover or when selected */}
-                                {(selectedMessageId === message.id || isMobile) && (
-                                  <MessageActions
-                                    messageId={message.id}
-                                    role={message.role}
-                                    onEdit={isUser ? () => startEditMessage(message.id, message.content) : undefined}
-                                    onRegenerate={isAssistant ? () => handleRegenerate(message.id) : undefined}
-                                    onCopy={
-                                      isAssistant
-                                        ? () => copyMessageToClipboard(message.content, message.id)
-                                        : undefined
-                                    }
-                                  />
-                                )}
-                                {copiedMessageId === message.id && (
-                                  <motion.div
-                                    animate={{ scale: [1, 1.1, 1], opacity: [0, 1, 0] }}
-                                    className="absolute -top-8 right-0 bg-foreground text-background text-xs py-1 px-2 rounded"
-                                  >
-                                    Copied!
-                                  </motion.div>
-                                )}
-                              </>
-                            )}
-                          </div>
+                          <MessageBubble
+                            message={message}
+                            isFirstInGroup={isFirstInGroup}
+                            messageIndex={messageIndex}
+                            group={group}
+                            hasCode={hasCode}
+                            selectedMessageId={selectedMessageId}
+                            setSelectedMessageId={setSelectedMessageId}
+                            draftContent={draftMessages[message.id] || message.content}
+                            onCancelEdit={cancelEdit}
+                            onEditChange={(content: string) => {
+                              setDraftMessages({ ...draftMessages, [message.id]: content })
+                            }}
+                            onSaveEdit={saveEditedMessage}
+                            handleRegenerate={handleRegenerate}
+                            copiedMessageId={copiedMessageId}
+                            copyMessageToClipboard={copyMessageToClipboard}
+                            formatTimestamp={formatTimestamp}
+                            isMobile={isMobile}
+                          />
 
                           {/* If user bubble, add an avatar for first message in group */}
                           {isUser && isFirstInGroup && (
@@ -610,7 +507,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
                 onSendMessage={handleSendMessage}
                 isWaitingForResponse={isWaitingForResponse}
                 onSettingsClick={onOpenSettings || (() => setInternalView("settings"))}
-                onCommandPaletteOpen={() => { }}
+                onCommandPaletteOpen={() => {}}
               />
             </motion.div>
           ) : (

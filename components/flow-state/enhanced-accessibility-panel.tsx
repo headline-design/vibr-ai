@@ -7,7 +7,7 @@ import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { useAccessibility } from "./accessibility-provider"
+import { useAccessibility } from "@/components/flow-state/providers/accessibility-provider"
 
 interface EnhancedAccessibilityPanelProps {
   isOpen: boolean

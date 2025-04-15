@@ -1,6 +1,6 @@
 "use client"
 
-import { useMetaSession } from "./meta-session-provider"
+import { useMetaSession } from "@/components/flow-state/providers/meta-session-provider"
 import { Button } from "@/components/ui/button"
 
 interface MetaSessionDebuggerProps {

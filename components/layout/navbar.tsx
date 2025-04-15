@@ -419,7 +419,7 @@ export function Navbar() {
                   return (
                     <div
                       key={item.href}
-                      ref={(el) => (chatNavItemsRef.current[index] = el)}
+                      ref={(el) => (chatNavItemsRef.current[index] = el) as any}
                       className={cn(
                         "relative px-3 py-1.5 rounded-full cursor-pointer transition-colors whitespace-nowrap h-full flex items-center",
                         isActive ? "text-primary" : "text-muted-foreground hover:text-foreground",

@@ -10,7 +10,7 @@ import { CodeGenerationAssistant } from "@/components/flow-state/code-generation
 import { KnowledgeBaseIntegration } from "@/components/flow-state/knowledge-base-integration"
 import { PromptEngineeringTool } from "@/components/flow-state/prompt-engineering-tool"
 import { DataVisualizationDashboard } from "@/components/flow-state/data-visualization-dashboard"
-import { useDemoState } from "@/components/flow-state/demo-state-provider"
+import { useDemoState } from "@/components/flow-state/providers/demo-state-provider"
 import { useTheme } from "next-themes"
 
 export default function ChatTools() {

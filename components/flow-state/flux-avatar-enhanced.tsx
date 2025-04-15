@@ -442,13 +442,18 @@ export function StaticFluxAvatar({
 
   function getAvatarGradientColors(mood: AvatarMood): [string, string] {
     switch (mood) {
-      case "happy": return ["#FFE082", "#FFD54F"]
+      case "happy":
+        return ["#FFE082", "#FFD54F"]
       case "thinking":
         return ["#F5F5F5", "#E0E0E0"]
-      case "focused": return ["#D1C4E9", "#B39DDB"]
-      case "excited": return ["#FFCCBC", "#FFAB91"]
-      case "sad": return ["#B3E5FC", "#81D4FA"]
-      default: return ["#F5F5F5", "#E0E0E0"]
+      case "focused":
+        return ["#D1C4E9", "#B39DDB"]
+      case "excited":
+        return ["#FFCCBC", "#FFAB91"]
+      case "sad":
+        return ["#B3E5FC", "#81D4FA"]
+      default:
+        return ["#F5F5F5", "#E0E0E0"]
     }
   }
 
@@ -545,7 +550,6 @@ export function StaticFluxAvatar({
         break
 
       default:
-
         const blinkOffset = 0
 
         ctx.beginPath()
@@ -586,4 +590,3 @@ export function StaticFluxAvatar({
     </motion.div>
   )
 }
-

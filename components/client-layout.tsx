@@ -4,9 +4,9 @@ import type React from "react"
 
 import { FluxFloatingPanel } from "@/components/flux-floating-panel"
 import { UserFeedbackSystem } from "@/components/flow-state/user-feedback-system"
-import { CommandPaletteEnhanced } from "@/components/flow-state/command-palette-enhanced"
-import { useDemoState } from "./flow-state/demo-state-provider"
+import CommandPalette from "./flow-state/command-palette"
 import { usePathname } from "next/navigation"
+import { useDemoState } from "@/components/flow-state/providers/demo-state-provider"
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -26,11 +26,12 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       {/* Main Content */}
       <>{children}</>
 
+
       {/* User feedback system */}
       <UserFeedbackSystem />
       {/* Command Palette */}
       {isCommandPaletteOpen && (
-        <CommandPaletteEnhanced
+        <CommandPalette
           isOpen={isCommandPaletteOpen}
           onClose={() => setIsCommandPaletteOpen(false)}
           onSelect={(command) => console.log(`Selected command: ${command}`)}

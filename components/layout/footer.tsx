@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { VibrIcon } from "../../vibr-icon"
+import { VibrIcon } from "../vibr-icon"
 import { Github, Twitter, Linkedin, Mail } from "lucide-react"
 
 export function Footer() {

@@ -20,10 +20,10 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { AVATAR_GRADIENT_API } from "@/lib/constants"
-import { VibrIcon } from "../../vibr-icon"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ANIMATION_DURATION, ANIMATION_DELAY_INCREMENT, ANIMATION_EASING } from "@/lib/constants"
+import { VibrIcon } from "../vibr-icon"
 
 export function HeroSection() {
   const [activeTab, setActiveTab] = useState("high-proximity")

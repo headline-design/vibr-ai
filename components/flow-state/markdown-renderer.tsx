@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { EnhancedCodeBlock } from "./enhanced-code-block"
+import { CodeBlock } from "./code-block"
 import { useEffect, useState } from "react"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
@@ -44,7 +44,7 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
             const language = match ? match[1] : ""
 
             if (!inline && language) {
-              return <EnhancedCodeBlock code={String(children).replace(/\n$/, "")} language={language} />
+              return <CodeBlock code={String(children).replace(/\n$/, "")} language={language} />
             }
 
             return (

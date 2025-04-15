@@ -1,14 +1,29 @@
 "use client"
 
+import { getPendingIntent } from "./conversation-tree/conditions/intent-conditions"
+
 // Define intent patterns for different user needs
 export interface IntentPattern {
   keywords: string[]
   requiredWords?: string[] // Words that MUST be present
   minMatchCount?: number // Minimum number of keywords that must match
   confirmationMessage?: string // Message to confirm intent
+  actions?: Array<{ id: string; label: string; variant?: string }>
 }
 
 export const intentPatterns: Record<string, IntentPattern> = {
+  // Project creation intent
+  create_project: {
+    keywords: ["create", "new", "project", "start", "make", "setup", "initialize", "build"],
+    requiredWords: ["project"],
+    minMatchCount: 2,
+    confirmationMessage: "Would you like to create a new project? I can help you set that up.",
+    actions: [
+      { id: "yes", label: "Yes", variant: "default" },
+      { id: "no", label: "No", variant: "outline" },
+    ],
+  },
+
   // Billing-related intents
   billing_inquiry: {
     keywords: [
@@ -32,6 +47,10 @@ export const intentPatterns: Record<string, IntentPattern> = {
     requiredWords: ["bill"], // Only require "bill" not "my bill"
     minMatchCount: 1, // Only need 1 match
     confirmationMessage: "Would you like to see your billing details?",
+    actions: [
+      { id: "yes", label: "Yes", variant: "default" },
+      { id: "no", label: "No", variant: "outline" },
+    ],
   },
 
   // Account-related intents
@@ -40,6 +59,10 @@ export const intentPatterns: Record<string, IntentPattern> = {
     requiredWords: ["my", "account"],
     minMatchCount: 2,
     confirmationMessage: "Would you like to access your account settings?",
+    actions: [
+      { id: "yes", label: "Yes", variant: "default" },
+      { id: "no", label: "No", variant: "outline" },
+    ],
   },
 
   // Feature-related intents
@@ -48,6 +71,10 @@ export const intentPatterns: Record<string, IntentPattern> = {
     requiredWords: ["you", "can"],
     minMatchCount: 2,
     confirmationMessage: "Are you asking about what features are available in this application?",
+    actions: [
+      { id: "yes", label: "Yes", variant: "default" },
+      { id: "no", label: "No", variant: "outline" },
+    ],
   },
 
   // Help-related intents
@@ -56,6 +83,10 @@ export const intentPatterns: Record<string, IntentPattern> = {
     requiredWords: ["help"],
     minMatchCount: 1,
     confirmationMessage: "Would you like me to show you how to use this application?",
+    actions: [
+      { id: "yes", label: "Yes", variant: "default" },
+      { id: "no", label: "No", variant: "outline" },
+    ],
   },
 
   // Project-related intents
@@ -64,10 +95,13 @@ export const intentPatterns: Record<string, IntentPattern> = {
     requiredWords: ["my", "project"],
     minMatchCount: 2,
     confirmationMessage: "Would you like to see your project status?",
+    actions: [
+      { id: "yes", label: "Yes", variant: "default" },
+      { id: "no", label: "No", variant: "outline" },
+    ],
   },
 }
 
-// Function to detect intent from a message
 export function detectIntent(message: string): {
   intent: string | null
   confidence: number
@@ -77,6 +111,31 @@ export function detectIntent(message: string): {
   const normalizedMessage = message.toLowerCase().trim()
   const words = normalizedMessage.split(/\s+/)
 
+  console.log("Detecting intent for message:", normalizedMessage)
+
+  // Check for pending intent first
+  const pendingIntent = getPendingIntent()
+  console.log("pending intent", pendingIntent)
+  if (pendingIntent) {
+    // If there's a pending intent, prioritize confirmation or denial
+    if (isConfirmationIntent(normalizedMessage) || pendingIntent?.isConfirmation) {
+      console.log("Prioritizing confirmation for pending intent:", pendingIntent.intent)
+      return {
+        intent: pendingIntent.intent,
+        confidence: 1,
+        confirmationMessage: pendingIntent.confirmationMessage,
+        actions: pendingIntent.actions,
+      }
+    } else if (isDenialIntent(normalizedMessage)) {
+      console.log("Prioritizing denial for pending intent:", pendingIntent.intent)
+      return {
+        intent: "denial",
+        confidence: 1,
+        confirmationMessage: "Action cancelled.",
+      }
+    }
+  }
+
   let bestMatch = {
     intent: null as string | null,
     confidence: 0,
@@ -85,9 +144,12 @@ export function detectIntent(message: string): {
   }
 
   // Check each intent pattern
+  console.log("Starting intent pattern matching...")
   for (const [intent, pattern] of Object.entries(intentPatterns)) {
+    console.log(`Checking intent: ${intent}`)
     // Check if required words are present
     if (pattern.requiredWords && !pattern.requiredWords.every((word) => words.includes(word))) {
+      console.log(`Intent ${intent} skipped: missing required words`)
       continue
     }
 
@@ -102,28 +164,28 @@ export function detectIntent(message: string): {
       // Calculate confidence (0-1)
       const confidence = matchCount / Math.min(pattern.keywords.length, 5) // Cap the denominator
 
+      console.log(`Intent ${intent} matched with confidence ${confidence}`)
+
       // If this is the best match so far, update bestMatch
       if (confidence > bestMatch.confidence) {
         bestMatch = {
           intent,
           confidence,
           confirmationMessage: pattern.confirmationMessage || null,
-          actions: pattern.confirmationMessage
-            ? [
-                { id: "yes", label: "Yes" },
-                { id: "no", label: "No" },
-              ]
-            : undefined,
+          actions: pattern.actions,
         }
       }
+    } else {
+      console.log(`Intent ${intent} skipped: not enough keywords matched`)
     }
   }
 
+  console.log("Best match:", bestMatch)
   return bestMatch
 }
 
 // Function to check if a message is a confirmation response
-export function isConfirmation(message: string): boolean {
+export function isConfirmationIntent(message: string): boolean {
   const normalizedMessage = message.toLowerCase().trim()
   const confirmationPatterns = [
     "yes",
@@ -151,7 +213,7 @@ export function isConfirmation(message: string): boolean {
 }
 
 // Function to check if a message is a denial response
-export function isDenial(message: string): boolean {
+export function isDenialIntent(message: string): boolean {
   const normalizedMessage = message.toLowerCase().trim()
   const denialPatterns = [
     "no",

@@ -40,7 +40,6 @@
     "@radix-ui/react-toggle-group": "^1.1.1",
     "@radix-ui/react-tooltip": "^1.2.0",
     "@shikijs/compat": "^2.5.0",
-    "@supabase/supabase-js": "^2.49.4",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -76,15 +75,20 @@
     "remark-code-import": "^1.2.0",
     "remark-gfm": "^4.0.1",
     "remark-math": "^6.0.0",
-    "sharp": "^0.34.1",
     "shiki": "^3.0.0",
     "sonner": "^1.7.1",
     "tailwind-merge": "^2.5.5",
     "tailwindcss": "^3.4.17",
     "tailwindcss-animate": "^1.0.7",
-    "uuid": "^11.1.0",
     "vaul": "^0.9.9",
-    "zod": "^3.24.1"
+    "zod": "^3.24.1",
+
+    "@supabase/supabase-js": "latest",
+    "@supabase/ssr": "0.6.1",
+    "sharp": "latest",
+    "uuid": "latest",
+    "ai": "latest",
+    "@ai-sdk/openai": "latest"
   },
   "devDependencies": {
     "@types/node": "^22",

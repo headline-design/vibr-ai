@@ -9,7 +9,7 @@ import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useFlowState } from "./flow-state-context"
+import { useFlowState } from "@/components/flow-state/providers/flow-state-provider"
 import {
   Trash2,
   RefreshCw,
