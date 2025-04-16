@@ -1,12 +1,12 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import Image from "next/image"
 import { allBlogs } from "contentlayer/generated"
 import { compareDesc } from "date-fns"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, Clock, ArrowRight } from "lucide-react"
 import { BackToTop } from "@/components/back-to-top"
+import { OgCardImage } from "@/components/blog/og-card-image"
 
 export const metadata: Metadata = {
   title: "Blog | Vibr",
@@ -17,6 +17,8 @@ export default function BlogPage() {
   const posts = allBlogs
     .filter((post) => post.published)
     .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
+
+
 
   return (
     <div className="container py-12">
@@ -32,17 +34,17 @@ export default function BlogPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {posts.map((post) => (
               <Card key={post.slug} className="overflow-hidden flex flex-col h-full">
-                {post.image && (
-                  <div className="relative w-full h-48 overflow-hidden">
-                    <Image
-                      src={post.image || "/placeholder.svg"}
-                      alt={post.title}
-                      fill
-                      className="object-cover transition-transform hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
+                <div className="aspect-video relative overflow-hidden">
+                  <OgCardImage
+                    title={post.title}
+                    description={post.description}
+                    fallbackImage={"/placeholder.svg?height=400&width=600"}
+                    width={600}
+                    height={340}
+                    className="h-full w-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                    alt={post.title}
+                  />
                   </div>
-                )}
                 <CardHeader>
                   <div className="flex items-center gap-2 mb-2">
                     {post.tags?.map((tag) => (

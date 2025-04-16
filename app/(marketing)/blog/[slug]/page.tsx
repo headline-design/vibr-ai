@@ -1,6 +1,4 @@
-import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import Image from "next/image"
 import Link from "next/link"
 import { allBlogs } from "contentlayer/generated"
 import { format, parseISO } from "date-fns"
@@ -8,6 +6,8 @@ import { ChevronLeft, Calendar, User, Tag } from "lucide-react"
 import { Mdx } from "@/components/docs/mdx-components"
 import { Badge } from "@/components/ui/badge"
 import { BackToTop } from "@/components/back-to-top"
+import { OgPostImage } from "@/components/blog/og-post-image"
+
 
 interface BlogPostPageProps {
   params: {
@@ -21,8 +21,10 @@ export async function generateStaticParams() {
   }))
 }
 
-export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
-  const post = allBlogs.find((post) => post.slugAsParams === params.slug)
+export async function generateMetadata({ params }) {
+  const localParams = await params
+  const slug = localParams.slug
+  const post = allBlogs.find((post) => post.slugAsParams === slug)
 
   if (!post) {
     return {
@@ -57,8 +59,10 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   }
 }
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = allBlogs.find((post) => post.slugAsParams === params.slug)
+export default async function BlogPostPage({ params }) {
+  const localParams = await params
+  const slug = localParams.slug
+  const post = allBlogs.find((post) => post.slugAsParams === slug)
 
   if (!post) {
     notFound()
@@ -76,18 +80,13 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
         <article>
           <div className="mb-8">
-            {post.image && (
-              <div className="relative w-full h-[400px] mb-8 rounded-lg overflow-hidden">
-                <Image
-                  src={post.image || "/placeholder.svg"}
-                  alt={post.title}
-                  fill
-                  className="object-cover"
-                  priority
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-              </div>
-            )}
+
+            <div className="my-8 overflow-hidden rounded-xl border shadow-sm">
+              <OgPostImage
+                title={post.title}
+              />
+            </div>
+
 
             <h1 className="text-4xl font-bold tracking-tight mb-4">{post.title}</h1>
             <p className="text-xl text-muted-foreground mb-6">{post.description}</p>
