@@ -3,7 +3,6 @@
 import type React from "react"
 
 import { createContext, useContext, useEffect, useState, useRef } from "react"
-
 import type { User, Session } from "@supabase/supabase-js"
 import { useRouter } from "next/navigation"
 import { createClient } from "@/utils/supabase/client"
@@ -12,9 +11,6 @@ type AuthContextType = {
   user: User | null
   session: Session | null
   loading: boolean
-  signIn: (email: string, password: string) => Promise<any>
-  signUp: (email: string, password: string) => Promise<any>
-  signOut: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -25,7 +21,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true)
   const router = useRouter()
   const isInitialized = useRef(false)
-  const supabase = createClient()
 
 
 
@@ -34,6 +29,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     isInitialized.current = true
 
     console.log("AuthProvider: Initializing auth state")
+    const supabase = createClient()
 
     // Get the current session
     const getCurrentSession = async () => {
@@ -77,66 +73,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
-  const signIn = async (email: string, password: string) => {
-    console.log("AuthProvider: Attempting to sign in with email:", email)
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({ email, password })
-
-      if (error) {
-        console.error("AuthProvider: Sign in error:", error)
-        throw error
-      }
-
-      console.log("AuthProvider: Sign in successful:", data)
-      return data
-    } catch (err) {
-      console.error("AuthProvider: Unexpected sign in error:", err)
-      throw err
-    }
-  }
-
-  const signUp = async (email: string, password: string) => {
-    console.log("AuthProvider: Attempting to sign up with email:", email)
-    try {
-      const { data, error } = await supabase.auth.signUp({ email, password })
-
-      if (error) {
-        console.error("AuthProvider: Sign up error:", error)
-        throw error
-      }
-
-      console.log("AuthProvider: Sign up successful:", data)
-      return data
-    } catch (err) {
-      console.error("AuthProvider: Unexpected sign up error:", err)
-      throw err
-    }
-  }
-
-  const signOut = async () => {
-    console.log("AuthProvider: Attempting to sign out")
-    try {
-      const { error } = await supabase.auth.signOut()
-
-      if (error) {
-        console.error("AuthProvider: Sign out error:", error)
-        throw error
-      }
-
-      console.log("AuthProvider: Sign out successful")
-
-      // Use setTimeout to break the render cycle
-      setTimeout(() => {
-        router.push("/login")
-      }, 0)
-    } catch (err) {
-      console.error("AuthProvider: Unexpected sign out error:", err)
-      throw err
-    }
-  }
 
   return (
-    <AuthContext.Provider value={{ user, session, loading, signIn, signUp, signOut }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, session, loading }}>{children}</AuthContext.Provider>
   )
 }
 

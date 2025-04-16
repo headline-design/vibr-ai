@@ -55,7 +55,7 @@ export function Navbar({
 } = {}) {
   const pathname = usePathname()
   const router = useRouter()
-  const { user, signOut } = useAuthContext()
+  const { user } = useAuthContext()
   const [isOpen, setIsOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
   const { resolvedTheme, setTheme } = useTheme()
@@ -80,7 +80,7 @@ export function Navbar({
   const isHomepage = pathname === "/"
 
   // First, let's modify the isAuthPage check to include both login and signup pages
-  const isAuthPage = pathname === "/login" || pathname === "/signup" || pathname === "/forgot-password"
+  const isAuthPage = pathname === "/login" || pathname === "/signup" || pathname === "/forgot-password" || pathname === "/error"
 
   // Derived styles from scroll progress
   const logoStyle = {
@@ -718,16 +718,6 @@ export function Navbar({
                     <p className="text-sm text-muted-foreground">
                       Signed in as <span className="font-medium text-foreground">{user.email}</span>
                     </p>
-                    <Button
-                      variant="outline"
-                      className="w-full justify-start rounded-md"
-                      onClick={() => {
-                        // Handle sign out
-                        signOut()
-                      }}
-                    >
-                      <span className="flex items-center">Sign Out</span>
-                    </Button>
                   </div>
                 ) : (
                   <Button asChild variant="default" className="w-full rounded-md">
@@ -780,7 +770,11 @@ export function Navbar({
                 {chatNavItems.map((item, index) => (
                   <div
                     key={item.href}
-                    ref={(el) => (chatNavItemsRef.current[index] = el) as any}
+                    ref={(el) => {
+                      if (el) {
+                        chatNavItemsRef.current[index] = el;
+                      }
+                    }}
                     className={cn(
                       "px-3 py-2 cursor-pointer transition-colors duration-300 h-[30px]",
                       index === activeIndex

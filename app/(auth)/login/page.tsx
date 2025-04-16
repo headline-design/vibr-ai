@@ -4,7 +4,6 @@ import type React from "react"
 
 import { useState } from "react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { Mail, Lock, Loader2, Github, Check, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -13,10 +12,9 @@ import { Card } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Separator } from "@/components/ui/separator"
 import { VibrIcon } from "@/components/vibr-icon"
-import { signIn } from "./actions"
+import { signIn } from "@/utils/supabase/actions"
 
 export default function LoginPage() {
-  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -43,27 +41,11 @@ export default function LoginPage() {
       return
     }
 
-    await signIn(formData).then((result: any) => {
-      if (result.error) {
-        setMessage({ type: "error", text: result.error })
-        setIsLoading(false)
-      } else {
-        // Simulate successful login
-        setMessage({ type: "success", text: "Login successful! Redirecting..." })
-        setTimeout(() => {
-          router.push("/account")
-        }, 1000)
-      }
-    }
-    ).catch((error) => {
-      console.error("Login error:", error)
-      setMessage({ type: "error", text: "An unexpected error occurred. Please try again." })
-      setIsLoading(false)
-    }
-    )
+    await signIn(formData)
   }
 
-    const handleGithubLogin = () => {
+
+  const handleGithubLogin = () => {
       setIsLoading(true)
       setMessage({ type: "success", text: "Redirecting to GitHub..." })
 
@@ -74,9 +56,7 @@ export default function LoginPage() {
     }
 
     return (
-      <div className="flex flex-col  min-h-screen items-center justify-center bg-background-200 px-4 pt-28 md:pt-32 -mt-[--header-height]">
-
-
+      <>
         <Card className="flex w-[32rem] max-w-full flex-col items-center rounded-lg bg-background-100 p-3 shadow">
           {/* Add logo in circle at the top of the card */}
           <div className="flex flex-col items-center gap-6 py-14">
@@ -188,7 +168,6 @@ export default function LoginPage() {
             </div>
           </div>
         </Card>
-        <div className="h-24 w-full" />
-      </div>
+      </>
     )
   }

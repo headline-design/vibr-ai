@@ -14,9 +14,10 @@ import {
 import { LogOut, User, Settings, CreditCard } from "lucide-react"
 import Link from "next/link"
 import { AVATAR_GRADIENT_API } from "@/lib/constants"
+import { signOut } from "@/utils/supabase/actions"
 
 export function UserProfile() {
-  const { user, signOut } = useAuthContext()
+  const { user } = useAuthContext()
 
   if (!user) {
     return null
