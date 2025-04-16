@@ -112,10 +112,31 @@
     --rust-background: #fff;
     --rust-gray-900: hsl(240 5.88% 10%);
 
-    --header-height: 64px;
+    --rust-gray-1000-value: 0, 0%, 9%;
+    --rust-gray-100-value: 0, 0%, 95%;
+    --rust-gray-200-value: 0, 0%, 92%;
+    --rust-gray-100: hsla(var(--rust-gray-100-value), 1);
+    --rust-gray-200: hsla(var(--rust-gray-200-value), 1);
+    --rust-gray-1000: hsla(var(--rust-gray-1000-value), 1);
 
+    --header-height: 64px;
+    --rust-gray-alpha-200: rgba(0, 0, 0, .08);
+    --rust-gray-alpha-300: rgba(0, 0, 0, .1);
+    --rust-gray-alpha-400: rgba(0, 0, 0, .08);
     --background-100: 0, 0%, 100%;
     --background-200:  0, 0%, 98%;
+
+    --themed-bg: #fff;
+    --themed-bg-alt: #0a0a0a;
+    --themed-foreground: hsla(0, 0%, 9%, 1);
+    --themed-border: rgba(0, 0, 0, .08);
+    --themed-hover-bg: var(--rust-gray-100);
+    --themed-hover-border: rgba(0, 0, 0, .12);
+
+    --shadow-border: 0 0 0 1px var(--themed-border, transparent);
+
+    --accent-muted-2: var(--rust-background-200);
+    --accent-muted: var(--rust-gray-100-value);
   }
 
   .dark {
@@ -201,11 +222,31 @@
 
     --rust-foreground: #fff;
     --rust-background: #000;
-
+    --rust-gray-100-value: 0, 0%, 10%;
+    --rust-gray-200-value: 0, 0%, 12%;
+    --rust-gray-1000-value: 0, 0%, 93%;
+    --rust-gray-100: hsla(var(--rust-gray-100-value), 1);
+--rust-gray-200: hsla(var(--rust-gray-200-value), 1);
+    --rust-gray-1000: hsla(var(--rust-gray-1000-value), 1);
+    --rust-gray-alpha-200: hsla(0, 0%, 100%, .09);
+    --rust-gray-alpha-300: hsla(0, 0%, 100%, .13);
+    --rust-gray-alpha-400: hsla(0, 0%, 100%, .14);
     --rust-gray-900: hsl(0 0% 100%);
 
     --background-100: 0, 0%, 4%;
     --background-200: 0, 0%, 0%;
+
+    --themed-foreground: hsla(0, 0%, 93%, 1);
+    --themed-bg: #0a0a0a;
+    --themed-bg-alt: #fff;
+    --themed-border: hsla(0, 0%, 100%, .14);
+    --shadow-border: 0 0 0 1px var(--themed-border, transparent);
+
+    --themed-hover-bg: var(--rust-gray-200);
+    --themed-hover-border: hsla(0, 0%, 100%, .17);
+
+    --accent-muted-2: #0a0a0a;
+    --accent-muted: var(--rust-gray-100-value);
   }
 }
 
@@ -692,6 +733,10 @@ body {
   color: var(--rust-gray-900);
 }
 
+.text-rust-gray-1000 {
+  color: hsl(var(--rust-gray-1000));
+}
+
 body {
   font-feature-settings: "rlig"1, "calt"1;
   background-color: hsl(var(--background));
@@ -712,4 +757,42 @@ body, html {
   text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.rust-background-100 {
+  background-color: hsl(var(--background-100));
+}
+.rust-background-200 {
+  background-color: hsl(var(--background-200));
+}
+
+
+.themed-border {
+  --themed-bg: var(--rust-background-100);
+  --themed-fg: var(--rust-gray-1000);
+  --themed-border: var(--rust-gray-alpha-400);
+}
+
+.themed-border:hover {
+  background-color: var(--themed-hover-bg);
+  --themed-border: var(--themed-hover-border);
+  color: var(--themed-fg);
+}
+
+.themed-bg {
+  --themed-bg: var(--rust-background-100);
+  --themed-fg: var(--rust-gray-1000);
+
+}
+
+.themed-bg:hover {
+  background: var(--accents-2) !important;
+  color: var(--themed-fg);
+  --themed-border: var(--rust-gray-alpha-200) !important;
+}
+
+
+
+.border-shadow {
+  box-shadow: 0 0 0 1px var(--themed-border, transparent);
 }

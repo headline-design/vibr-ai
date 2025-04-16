@@ -12,7 +12,22 @@ import { useAuthContext } from "@/components/auth/auth-provider"
 import { useTheme } from "next-themes"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { VibrIcon } from "@/components/vibr-icon"
-import { Home, MessageSquare, Menu, X, Github, Sun, Moon, ChevronRight, ArrowUp } from "lucide-react"
+import {
+  Home,
+  MessageSquare,
+  Menu,
+  X,
+  Github,
+  Sun,
+  Moon,
+  ChevronRight,
+  ArrowUp,
+  LogIn,
+  UserPlus,
+  Cpu,
+  Server,
+} from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 
 // Animation constants for consistent timing
 const ANIMATION_CONSTANTS = {
@@ -28,7 +43,16 @@ const ANIMATION_CONSTANTS = {
   HOMEPAGE_TRANSPARENCY_THRESHOLD: 20, // When to start transitioning homepage navbar
 }
 
-export function Navbar() {
+// Update the props definition to include default values
+export function Navbar({
+  visibleRoutes = [],
+  activeSection = "",
+  socialLinks = [],
+}: {
+  visibleRoutes?: any[]
+  activeSection?: string
+  socialLinks?: any[]
+} = {}) {
   const pathname = usePathname()
   const router = useRouter()
   const { user, signOut } = useAuthContext()
@@ -38,7 +62,7 @@ export function Navbar() {
   const navRef = useRef<HTMLDivElement>(null)
   const logoRef = useRef<HTMLSpanElement>(null)
   const isDesktop = useMediaQuery("(min-width: 768px)")
-  const chatNavItemsRef = useRef<(HTMLDivElement | null)[]>([])
+  const chatNavItemsRef = useRef <HTMLDivElement[]>([])
 
   // Added for hover and active indicators - exactly like reference code
   const [hoveredChatIndex, setHoveredChatIndex] = useState<number | null>(null)
@@ -48,11 +72,15 @@ export function Navbar() {
   // Single source of truth for scroll position
   const [scrollProgress, setScrollProgress] = useState(0)
   const [showScrollToTop, setShowScrollToTop] = useState(false)
-  const [homepageScrolled, setHomepageScrolled] = useState(false)
+  const [navbarScrolled, setNavbarScrolled] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   // Determine if we're in the chat section or on homepage
   const isInChatSection = pathname === "/chat" || pathname.startsWith("/chat/")
   const isHomepage = pathname === "/"
+
+  // First, let's modify the isAuthPage check to include both login and signup pages
+  const isAuthPage = pathname === "/login" || pathname === "/signup" || pathname === "/forgot-password"
 
   // Derived styles from scroll progress
   const logoStyle = {
@@ -123,8 +151,8 @@ export function Navbar() {
     setShowScrollToTop(currentScrollY > ANIMATION_CONSTANTS.SCROLL_TO_TOP_THRESHOLD)
 
     // Handle homepage navbar transparency
-    if (isHomepage) {
-      setHomepageScrolled(currentScrollY > ANIMATION_CONSTANTS.HOMEPAGE_TRANSPARENCY_THRESHOLD)
+    if (isHomepage || isAuthPage) {
+      setNavbarScrolled(currentScrollY > ANIMATION_CONSTANTS.HOMEPAGE_TRANSPARENCY_THRESHOLD)
     }
 
     // Handle chat section animations
@@ -142,7 +170,9 @@ export function Navbar() {
         setScrollProgress(progress)
       }
     }
-  }, [isInChatSection, isHomepage])
+
+    setScrolled(currentScrollY > 0)
+  }, [isInChatSection, isHomepage, isAuthPage])
 
   // Function to scroll to top with smooth animation
   const scrollToTop = () => {
@@ -279,34 +309,34 @@ export function Navbar() {
         className={cn(
           "w-full z-40 px-6 items-center h-16 min-h-16 flex",
           // Make navbar sticky for non-chat pages
-          !isInChatSection ? "sticky top-0" : "",
+          (!isInChatSection && !isOpen) ? "sticky top-0" : "",
           // Background styles based on page and scroll state
           isInChatSection
             ? "bg-background-100"
-            : isHomepage && !homepageScrolled && !isOpen
+            : (isHomepage || isAuthPage) && !navbarScrolled && !isOpen
               ? "bg-transparent"
               : "bg-background/80 backdrop-blur-md border-b shadow-sm transition-colors duration-200",
-          isOpen ? "relative z-[120]" : "z-40",
+          isOpen ? "z-[120] fixed top-0" : "z-40",
         )}
         ref={navRef}
       >
-        <Link href="/" className="inline">
+        <Link href="/" className="inline h-8">
           {isInChatSection ? (
             // Animated logo for chat section
-            <span ref={logoRef} style={logoStyle} className="inline-flex">
+            <span ref={logoRef} style={logoStyle} className="inline-flex absolute">
               <VibrIcon variant="circle" className="h-8 w-8" />
             </span>
           ) : (
             // Static logo for other pages
-            <span className="inline-flex">
+            <span className="inline-flex absolute">
               <VibrIcon variant="circle" className="h-8 w-8" />
             </span>
           )}
         </Link>
-        <nav className="w-full pl-8">
-          <div className="flex h-auto items-center justify-between">
+        <nav className="w-full pl-10">
+          <div className="flex h-auto items-center justify-between w-full">
             {/* Left side: Brand logo and navigation links */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 w-full">
               {isInChatSection ? (
                 // Special header for chat section with animated logo
                 <div className="flex items-center">
@@ -320,62 +350,82 @@ export function Navbar() {
               ) : (
                 // Regular logo and navigation for other pages
                 <>
-                  <span className="font-bold text-xl">Vibr</span>
-                  {/* Desktop navigation - only show when not in chat section */}
-                  <div className="hidden md:flex md:items-center md:space-x-2 ml-4">
-                    {mainNavItems.map((item) => {
-                      const isActive = item.href === "/" ? pathname === "/" : pathname === item.href
+                  <span className="font-bold text-xl">VIBR</span>
+                  {/* Desktop navigation */}
+                  {isAuthPage ? (
+                    <div className="hidden md:flex md:items-center justify-end w-full md:space-x-4 ml-auto">
+                      {pathname === "/login" ? (
+                        <Button asChild variant="outline" size="sm" className="rounded-md h-8">
+                          <Link href="/signup">Sign Up</Link>
+                        </Button>
+                      ) : (
+                        <Button asChild variant="outline" size="sm" className="rounded-md h-8">
+                          <Link href="/login">Sign In</Link>
+                        </Button>
+                      )}
+                      <Button asChild variant="default" size="sm" className="rounded-md h-8">
+                        <Link href="/#contact">Contact</Link>
+                      </Button>
+                    </div>
+                  ) : (
+                    !isAuthPage && (
+                      <div className="hidden md:flex md:items-center md:space-x-2">
+                        {visibleRoutes && visibleRoutes.map((route) => {
+                          // Existing route rendering code...
+                          const isActive =
+                            route.active || (pathname === "/" && route.sectionId && route.sectionId === activeSection)
 
-                      return (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          className={cn(
-                            "inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-[30px] px-4 relative",
-                            isActive
-                              ? "bg-primary/10 text-primary hover:bg-primary/15"
-                              : "text-muted-foreground hover:text-foreground hover:bg-accent",
-                          )}
-                        >
-                          {item.label}
-                          {isActive && (
-                            <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-primary rounded-full" />
-                          )}
-                        </Link>
-                      )
-                    })}
-                  </div>
+                          return (
+                            <Link
+                              key={route.href}
+                              href={route.href}
+                              className={cn(
+                                "inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-[30px] px-4 relative",
+                                isActive
+                                  ? "bg-primary/10 text-primary hover:bg-primary/15"
+                                  : "text-muted-foreground hover:text-foreground hover:bg-accent",
+                              )}
+                              title={route.description}
+                            >
+                              {route.label}
+                              {isActive && (
+                                <motion.span
+                                  className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-primary rounded-full"
+                                  layoutId="navIndicator"
+                                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                />
+                              )}
+                            </Link>
+                          )
+                        })}
+                      </div>
+                    )
+                  )}
                 </>
               )}
             </div>
 
-            {/* Right side: Theme toggle, buttons, etc. - change to rounded-md */}
-            <div className="flex items-center space-x-2">
-              {/* Theme toggle */}
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={toggleTheme}
-                className="rounded-md h-8 w-8"
-                aria-label={resolvedTheme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
-              >
-                {resolvedTheme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-              </Button>
+            {/* Right side: Theme toggle, buttons, etc. */}
+            <div className="flex  space-x-2">
 
-              {/* GitHub button */}
-              <Button asChild variant="outline" size="sm" className="rounded-md hidden md:flex h-8">
-                <Link href="https://github.com/yourusername/vibr" target="_blank" rel="noopener noreferrer">
-                  <Github className="mr-2 h-3 w-3" /> GitHub
-                </Link>
-              </Button>
+              {!isAuthPage && (
+                <>
+                  {/* GitHub button */}
+                  <Button asChild variant="outline" size="sm" className="rounded-md hidden md:flex h-8">
+                    <Link href="https://github.com/yourusername/vibr" target="_blank" rel="noopener noreferrer">
+                      <Github className="h-3.5 w-3.5" /> GitHub
+                    </Link>
+                  </Button>
 
-              {/* User profile or sign in */}
-              {user ? (
-                <UserProfile />
-              ) : (
-                <Button asChild variant="default" size="sm" className="rounded-md hidden md:flex h-8">
-                  <Link href="/login">Sign In</Link>
-                </Button>
+                  {/* User profile or sign in */}
+                  {user ? (
+                    <UserProfile />
+                  ) : (
+                    <Button asChild variant="default" size="sm" className="rounded-md hidden md:flex h-8">
+                      <Link href="/login">Sign In</Link>
+                    </Button>
+                  )}
+                </>
               )}
 
               {/* Mobile menu button */}
@@ -388,7 +438,29 @@ export function Navbar() {
                   aria-expanded={isOpen}
                   className="relative rounded-md h-8 w-8"
                 >
-                  {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                  <AnimatePresence mode="wait" initial={false}>
+                    {isOpen ? (
+                      <motion.div
+                        key="close"
+                        initial={{ opacity: 0, rotate: -90 }}
+                        animate={{ opacity: 1, rotate: 0 }}
+                        exit={{ opacity: 0, rotate: 90 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <X className="h-6 w-6" />
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="menu"
+                        initial={{ opacity: 0, rotate: 90 }}
+                        animate={{ opacity: 1, rotate: 0 }}
+                        exit={{ opacity: 0, rotate: -90 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <Menu className="h-6 w-6" />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </Button>
               </div>
             </div>
@@ -396,69 +468,277 @@ export function Navbar() {
         </nav>
       </header>
 
-      {/* Mobile navigation - fixed to viewport */}
-      {isOpen && (
-        <div className="md:hidden fixed inset-0 z-50 bg-background/95 backdrop-blur-sm pt-16 overflow-auto flex flex-col">
-          <div className="flex-1 p-4">
-            <div className="space-y-1 mb-6">
-              <h3 className="text-sm font-medium text-muted-foreground px-3 py-2">Navigation</h3>
-              {mainNavItems.map((item) => {
-                const isActive =
-                  item.href === "/"
-                    ? pathname === "/"
-                    : pathname === item.href || (item.href === "/chat" && isInChatSection)
-
-                return (
+      {/* Mobile navigation */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "calc(100vh - 4rem)" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+            className="md:hidden fixed top-16 left-0 right-0 bottom-0 bg-background/95 backdrop-blur-sm border-b z-50 overflow-auto flex flex-col"
+          >
+            <div className="flex-1 p-4">
+              {isAuthPage ? (
+                <div className="space-y-1 mb-6">
+                  <h3 className="text-sm font-medium text-muted-foreground px-3 py-2">Navigation</h3>
                   <Link
-                    key={item.href}
-                    href={item.href}
-                    className={cn(
-                      "flex items-center justify-between px-3 py-3 text-base font-medium rounded-md transition-colors",
-                      isActive ? "bg-primary/10 text-primary" : "text-foreground hover:bg-accent",
-                    )}
+                    href="/"
+                    className="flex items-center justify-between px-3 py-3 text-base font-medium rounded-md transition-colors text-foreground hover:bg-accent"
                     onClick={() => setIsOpen(false)}
                   >
                     <span className="flex items-center">
-                      <item.icon className="mr-3 h-5 w-5" />
-                      {item.label}
+                      <Home className="mr-3 h-5 w-5" />
+                      Home
                     </span>
                     <span className="text-muted-foreground">
                       <ChevronRight className="h-4 w-4" />
                     </span>
                   </Link>
-                )
-              })}
-            </div>
-          </div>
+                  {pathname === "/login" ? (
+                    <Link
+                      href="/signup"
+                      className="flex items-center justify-between px-3 py-3 text-base font-medium rounded-md transition-colors text-foreground hover:bg-accent"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <span className="flex items-center">
+                        <UserPlus className="mr-3 h-5 w-5" />
+                        Sign Up
+                      </span>
+                      <span className="text-muted-foreground">
+                        <ChevronRight className="h-4 w-4" />
+                      </span>
+                    </Link>
+                  ) : (
+                    <Link
+                      href="/login"
+                      className="flex items-center justify-between px-3 py-3 text-base font-medium rounded-md transition-colors text-foreground hover:bg-accent"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <span className="flex items-center">
+                        <LogIn className="mr-3 h-5 w-5" />
+                        Sign In
+                      </span>
+                      <span className="text-muted-foreground">
+                        <ChevronRight className="h-4 w-4" />
+                      </span>
+                    </Link>
+                  )}
+                  <Link
+                    href="/#contact"
+                    className="flex items-center justify-between px-3 py-3 text-base font-medium rounded-md transition-colors text-foreground hover:bg-accent"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <span className="flex items-center">
+                      <MessageSquare className="mr-3 h-5 w-5" />
+                      Contact
+                    </span>
+                    <span className="text-muted-foreground">
+                      <ChevronRight className="h-4 w-4" />
+                    </span>
+                  </Link>
+                </div>
+              ) : (
+                // Original mobile menu content for non-auth pages
+                <>
+                  <div className="space-y-1 mb-6">
+                    <h3 className="text-sm font-medium text-muted-foreground px-3 py-2">Navigation</h3>
+                    {/* Include Home link in mobile menu for clarity */}
+                    <Link
+                      href="/"
+                      className={cn(
+                        "flex items-center justify-between px-3 py-3 text-base font-medium rounded-md transition-colors",
+                        pathname === "/" && !activeSection
+                          ? "bg-primary/10 text-primary"
+                          : "text-foreground hover:bg-accent",
+                      )}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <span className="flex items-center">
+                        <Home className="mr-3 h-5 w-5" />
+                        Home
+                      </span>
+                      <span className="text-muted-foreground">
+                        <ChevronRight className="h-4 w-4" />
+                      </span>
+                    </Link>
+                    {!isAuthPage && visibleRoutes && visibleRoutes.map((route) => {
+                      // Existing mobile route rendering code...
+                      const isActive =
+                        route.active || (pathname === "/" && route.sectionId && route.sectionId === activeSection)
 
-          {/* Footer with sign in/out */}
-          <div className="p-4 border-t">
-            {user ? (
-              <div className="flex flex-col space-y-2">
-                <p className="text-sm text-muted-foreground">
-                  Signed in as <span className="font-medium text-foreground">{user.email}</span>
-                </p>
-                <Button
-                  variant="outline"
-                  className="w-full justify-start rounded-md"
-                  onClick={() => {
-                    signOut()
-                    setIsOpen(false)
-                  }}
-                >
-                  <span className="flex items-center">Sign Out</span>
+                      return (
+                        <Link
+                          key={route.href}
+                          href={route.href}
+                          className={cn(
+                            "flex items-center justify-between px-3 py-3 text-base font-medium rounded-md transition-colors",
+                            isActive ? "bg-primary/10 text-primary" : "text-foreground hover:bg-accent",
+                          )}
+                          onClick={() => setIsOpen(false)}
+                        >
+                          <span className="flex items-center">
+                            {route.icon && <route.icon className="mr-3 h-5 w-5" />}
+                            {route.label}
+                          </span>
+                          <span className="text-muted-foreground">
+                            <ChevronRight className="h-4 w-4" />
+                          </span>
+                        </Link>
+                      )
+                    })}
+                  </div>
+
+                  {/* Section links for homepage */}
+                  {pathname === "/" && (
+                    <div className="space-y-1 mb-6">
+                      <h3 className="text-sm font-medium text-muted-foreground px-3 py-2">Sections</h3>
+                      <Link
+                        href="/#solutions"
+                        className={cn(
+                          "flex items-center justify-between px-3 py-3 text-base font-medium rounded-md transition-colors",
+                          activeSection === "solutions"
+                            ? "bg-primary/10 text-primary"
+                            : "text-foreground hover:bg-accent",
+                        )}
+                        onClick={() => setIsOpen(false)}
+                      >
+                        <span className="flex items-center">
+                          <Cpu className="mr-3 h-5 w-5" />
+                          Features
+                        </span>
+                        <span className="text-muted-foreground">
+                          <ChevronRight className="h-4 w-4" />
+                        </span>
+                      </Link>
+                      <Link
+                        href="/#integrations"
+                        className={cn(
+                          "flex items-center justify-between px-3 py-3 text-base font-medium rounded-md transition-colors",
+                          activeSection === "integrations"
+                            ? "bg-primary/10 text-primary"
+                            : "text-foreground hover:bg-accent",
+                        )}
+                        onClick={() => setIsOpen(false)}
+                      >
+                        <span className="flex items-center">
+                          <Cpu className="mr-3 h-5 w-5" />
+                          Integrations
+                        </span>
+                        <span className="text-muted-foreground">
+                          <ChevronRight className="h-4 w-4" />
+                        </span>
+                      </Link>
+                      <Link
+                        href="/#architecture"
+                        className={cn(
+                          "flex items-center justify-between px-3 py-3 text-base font-medium rounded-md transition-colors",
+                          activeSection === "architecture"
+                            ? "bg-primary/10 text-primary"
+                            : "text-foreground hover:bg-accent",
+                        )}
+                        onClick={() => setIsOpen(false)}
+                      >
+                        <span className="flex items-center">
+                          <Server className="mr-3 h-5 w-5" />
+                          Architecture
+                        </span>
+                        <span className="text-muted-foreground">
+                          <ChevronRight className="h-4 w-4" />
+                        </span>
+                      </Link>
+                      <Link
+                        href="/#contact"
+                        className={cn(
+                          "flex items-center justify-between px-3 py-3 text-base font-medium rounded-md transition-colors",
+                          activeSection === "contact"
+                            ? "bg-primary/10 text-primary"
+                            : "text-foreground hover:bg-accent",
+                        )}
+                        onClick={() => setIsOpen(false)}
+                      >
+                        <span className="flex items-center">
+                          <MessageSquare className="mr-3 h-5 w-5" />
+                          Contact
+                        </span>
+                        <span className="text-muted-foreground">
+                          <ChevronRight className="h-4 w-4" />
+                        </span>
+                      </Link>
+                    </div>
+                  )}
+
+                  {/* Social links section */}
+                  <div className="space-y-1">
+                    <h3 className="text-sm font-medium text-muted-foreground px-3 py-2">Connect</h3>
+                    {socialLinks && socialLinks.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-between px-3 py-3 text-base font-medium rounded-md text-foreground hover:bg-accent transition-colors"
+                      >
+                        <span className="flex items-center">
+                          {link.icon && <link.icon className="mr-3 h-5 w-5" />}
+                          {link.label}
+                        </span>
+                        <span className="text-muted-foreground">
+                          <ChevronRight className="h-4 w-4" />
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                </>
+              )}
+
+              {/* Theme toggle in mobile menu */}
+              <div className="mt-6 px-3">
+                <Button variant="outline" className="w-full justify-start rounded-md" onClick={toggleTheme}>
+                  <span className="flex items-center">
+                    {resolvedTheme === "dark" ? (
+                      <>
+                        <Sun className="mr-2 h-5 w-5" /> Light Mode
+                      </>
+                    ) : (
+                      <>
+                        <Moon className="mr-2 h-5 w-5" /> Dark Mode
+                      </>
+                    )}
+                  </span>
                 </Button>
               </div>
-            ) : (
-              <Button asChild variant="default" className="w-full rounded-md">
-                <Link href="/login" onClick={() => setIsOpen(false)}>
-                  Sign In
-                </Link>
-              </Button>
+            </div>
+
+            {/* Footer with sign in/out */}
+            {!isAuthPage && (
+              <div className="p-4 border-t">
+                {user ? (
+                  <div className="flex flex-col space-y-2">
+                    <p className="text-sm text-muted-foreground">
+                      Signed in as <span className="font-medium text-foreground">{user.email}</span>
+                    </p>
+                    <Button
+                      variant="outline"
+                      className="w-full justify-start rounded-md"
+                      onClick={() => {
+                        // Handle sign out
+                        signOut()
+                      }}
+                    >
+                      <span className="flex items-center">Sign Out</span>
+                    </Button>
+                  </div>
+                ) : (
+                  <Button asChild variant="default" className="w-full rounded-md">
+                    <Link href="/login">Sign In</Link>
+                  </Button>
+                )}
+              </div>
             )}
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Chat Navigation - now outside the main navbar with sticky positioning */}
       {isInChatSection && (

@@ -38,7 +38,7 @@ export function CTASection() {
                 asChild
                 variant="outline"
                 size="lg"
-                className="rounded-full h-12 px-6 border-primary/20 hover:bg-primary/5 transition-all duration-300 w-full sm:w-auto"
+                className="rounded-full h-12 px-6 transition-all duration-300 w-full sm:w-auto"
               >
                 <Link href="https://github.com/yourusername/vibr" target="_blank" rel="noopener noreferrer">
                   <Github className="mr-2 h-4 w-4" /> View on GitHub

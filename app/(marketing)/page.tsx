@@ -19,7 +19,7 @@ export default function Page() {
 
   return (
     <main className="min-h-screen bg-background">
-      <section id="hero">
+      <section id="hero" className="-mt-[--header-height]">
         <HeroSection />
       </section>
       <SolutionSection />

@@ -68,9 +68,11 @@ const config = {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
         },
+
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
+          muted: 'hsl(var(--accent-muted))',
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -82,9 +84,12 @@ const config = {
         },
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        DEFAULT: "var(--radius)",
+        lg: "12px",
+        md: "8px",
+        sm: "4px",
+        xs: "2px",
+        full: "9999px",
       },
       keyframes: {
         "accordion-down": {

@@ -1,12 +1,72 @@
 "use client"
 
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { VibrIcon } from "../vibr-icon"
 import { Github, Twitter, Linkedin, Mail } from "lucide-react"
 
 export function Footer() {
+  const pathname = usePathname()
   const currentYear = new Date().getFullYear()
 
+  // Check if we're on the login page or similar auth pages
+  const isAuthPage = pathname === "/login" || pathname === "/signup" || pathname === "/forgot-password"
+
+  // Render slim footer for auth pages
+  if (isAuthPage) {
+    return (
+      <footer className="border-t py-8">
+        <div className="container px-4 md:px-6 mx-auto">
+          {/* First row: Logo and links */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-4">
+            <div className="flex items-center gap-2">
+              <VibrIcon variant="circle" className="h-6 w-6" />
+              <span className="font-medium">Vibr</span>
+            </div>
+
+            <div className="flex items-center gap-6 text-sm">
+              <Link href="/legal/terms" className="text-muted-foreground hover:text-primary transition-colors">
+                Terms
+              </Link>
+              <Link href="/legal/privacy" className="text-muted-foreground hover:text-primary transition-colors">
+                Privacy
+              </Link>
+              <Link href="/help" className="text-muted-foreground hover:text-primary transition-colors">
+                Help
+              </Link>
+              <div className="flex items-center gap-3">
+                <Link
+                  href="https://github.com/yourusername/vibr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                  aria-label="GitHub"
+                >
+                  <Github className="h-4 w-4" />
+                </Link>
+                <Link
+                  href="https://twitter.com/vibrai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                  aria-label="Twitter"
+                >
+                  <Twitter className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Second row: Copyright */}
+          <div className="text-center sm:text-left border-t pt-4">
+            <p className="text-xs text-muted-foreground">&copy; {currentYear} Vibr AI. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    )
+  }
+
+  // Original full footer for regular pages
   return (
     <footer className="bg-muted/30 border-t py-12 md:py-16">
       <div className="container px-4 md:px-6 mx-auto">

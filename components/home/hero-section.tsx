@@ -93,7 +93,7 @@ export function HeroSection() {
               asChild
               variant="outline"
               size="lg"
-              className="rounded-full h-12 px-6 border-primary/20 hover:bg-primary/5 transition-all duration-300"
+              className="rounded-full h-12 px-6 transition-all duration-300"
             >
               <Link href="https://github.com/yourusername/vibr" target="_blank" rel="noopener noreferrer">
                 <Github className="h-4 w-4" /> View on GitHub

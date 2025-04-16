@@ -20,8 +20,8 @@ export async function signIn(formData: FormData) {
     redirect('/error')
   }
 
-  revalidatePath('/', 'layout')
-  redirect('/')
+  revalidatePath('/account', 'layout')
+  redirect('/account')
 }
 
 export async function signUp(formData: FormData) {
@@ -40,6 +40,6 @@ export async function signUp(formData: FormData) {
     redirect('/error')
   }
 
-  revalidatePath('/', 'layout')
-  redirect('/')
+  revalidatePath('/account', 'layout')
+  redirect('/account')
 }
