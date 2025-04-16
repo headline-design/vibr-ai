@@ -1,0 +1,649 @@
+.fullHeaderWrapper {
+    color: var(--gray-1000);
+    border-bottom: 1px solid var(--gray-400-alpha);
+}
+
+.fullHeaderWrapperAlt {
+    color: var(--gray-1000);
+    border-bottom: 1px solid var(--gray-400-alpha);
+}
+
+.headerWrapper {
+    max-width: 100%;
+    margin-left: auto;
+    display: flex;
+    margin-right: auto;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.headerWrapperWidth {
+    width: 1280px;
+}
+
+.headerWrapperWidthV2 {
+    width: 1248px;
+}
+
+.headerContainer {
+    flex: 1;
+    justify-content: flex-start;
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-width: 1px;
+    max-width: 100%;
+}
+
+.headerStack {
+    flex: initial;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0px;
+    gap: 40px;
+    margin: 40px 0;
+
+    @media screen and (min-width: 1201px) {
+        flex-direction: row;
+        align-items: stretch;
+        justify-content: flex-start;
+        flex: initial;
+        padding: 0px;
+        flex: initial;
+        gap: 40px 0;
+    }
+
+    @media screen and (min-width: 961px) and (max-width: 1200px) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0px;
+        flex: initial;
+
+    }
+
+    @media screen and (min-width: 601px) and (max-width: 960px) {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 0px;
+        flex: initial;
+        gap: 24px;
+    }
+
+    @media screen and (max-width: 600px) {
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        padding: 0px;
+        gap: 24px;
+    }
+}
+
+.innerStack {
+    width: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 0px;
+    gap: 16px;
+}
+
+.innerContainer {
+    flex: initial;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 0px;
+    gap: 24px;
+
+
+}
+
+.innerWrapperMobileRow {
+    display: flex;
+
+    @media screen and (min-width: 1201px) {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex: initial;
+        gap: 0px;
+    }
+
+    @media screen and (min-width: 961px) and (max-width: 1200px) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        flex: initial;
+        gap: 0px;
+    }
+
+    @media screen and (min-width: 601px) and (max-width: 960px) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        flex: initial;
+        gap: 0px;
+    }
+
+    @media screen and (max-width: 600px) {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        flex: initial;
+        gap: 12px;
+    }
+}
+
+.innerWrapper {
+    display: flex;
+
+    @media screen and (min-width: 1201px) {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex: initial;
+        gap: 0px;
+    }
+
+    @media screen and (min-width: 961px) and (max-width: 1200px) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        flex: initial;
+        gap: 0px;
+    }
+
+    @media screen and (min-width: 601px) and (max-width: 960px) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        flex: initial;
+        gap: 0px;
+    }
+
+    @media screen and (max-width: 600px) {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        flex: initial;
+        gap: 16px;
+    }
+}
+
+.primaryContainer {
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex: initial;
+    gap: 12px;
+
+}
+
+.primaryWrapper {
+    display: flex;
+    flex: initial;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0px;
+    gap: 16px;
+}
+
+.primaryIconWrapper {
+    margin: -2px;
+    display: flex;
+}
+
+
+
+.primaryTitle {
+
+    color: var(--gray-1000);
+    font-size: 2rem;
+    line-height: 2.5rem;
+    letter-spacing: -0.049375rem;
+    font-weight: 500;
+
+    @media screen and (min-width: 0px) {
+        color: var(--gray-1000);
+        font-size: 2rem;
+        line-height: 2.5rem;
+        letter-spacing: -0.049375rem;
+        font-weight: 500;
+
+    }
+}
+
+.secondaryWrapper {
+    color: var(--text-secondary);
+    display: flex;
+    flex: initial;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 0px;
+    gap: 8px;
+}
+
+.detailsLayoutBackLink {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--rust-link-color);
+    text-decoration: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.detailsLayoutBackLink:hover {
+    background-image: linear-gradient(var(--rust-link-color), var(--rust-link-color));
+    background-size: 100% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+}
+
+.backLinkIcon {
+    color: currentcolor;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+
+.textWrapper {
+    color: inherit;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: initial;
+    font-weight: 400;
+}
+
+.dividerIcon {
+    color: var(--accents-2);
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+}
+
+.localeTextContainer {
+    display: flex;
+    flex: initial;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0px;
+    gap: 8px;
+
+}
+
+.localeText {
+    color: var(--gray-900);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: initial;
+    font-weight: 500;
+
+}
+
+.secondaryContainer {
+    display: flex;
+    flex: initial;
+    flex-direction: row;
+    align-items: center;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 0px;
+    gap: 40px;
+
+}
+
+.secondaryContainerCol {
+    color: var(--gray-900);
+    display: flex;
+    flex: initial;
+    align-items: flex-end;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0px;
+    gap: 6px;
+
+    @media screen and (min-width: 601px) and (max-width: 960px) {
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 0px;
+        flex: initial;
+        gap: 6px;
+    }
+
+    @media screen and (max-width: 600px) {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 0px;
+        flex: initial;
+        gap: 6px;
+    }
+
+}
+
+.tooltipContainer {
+    display: inline-flex;
+    align-items: center;
+}
+
+.textWrapperPrimary {
+
+    color: var(--gray-1000);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: initial;
+    font-weight: 400;
+
+}
+
+.headerDivider {
+    border-top: 1px solid var(--accents-2);
+    border-right: 0px;
+    border-bottom: 0px;
+    border-left: 0px;
+    border-image: initial;
+    margin: 0px;
+
+}
+
+.innerWrapperSecondary {
+    display: flex;
+    flex: initial;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 0px;
+    justify-content: space-between;
+    gap: 16px 24px !important;
+    flex-wrap: wrap;
+
+    @media screen and (max-width: 1248px) {
+        justify-content: flex-start;
+    }
+
+}
+
+.innerWrapperRowPrimary {
+    display: flex;
+    flex: initial;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 0px;
+    gap: 16px;
+}
+
+.innerWrapperColLeft {
+    display: flex;
+    flex: initial;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0px;
+    gap: 16px;
+
+    @media screen and (min-width: 601px) and (max-width: 960px) {
+        gap: 6px;
+    }
+
+    @media screen and (max-width: 600px) {
+        gap: 6px;
+    }
+}
+
+.innerWrapperColRight {
+    display: flex;
+    flex: initial;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 0px;
+    gap: 16px;
+
+    @media screen and (max-width: 1248px) {
+        align-items: flex-start;
+    }
+
+    @media screen and (min-width: 601px) and (max-width: 960px) {
+        gap: 6px;
+    }
+
+    @media screen and (max-width: 600px) {
+        gap: 6px;
+    }
+
+}
+
+
+
+
+.textWrapperSecondary {
+    color: var(--gray-900);
+    font-size: 0.8125rem;
+    line-height: 1rem;
+    font-weight: 500;
+
+}
+
+.innerWrapperTextWrapper {
+    display: flex;
+    flex: initial;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 0px;
+    gap: 6px;
+}
+
+.innerWrapperRowSecondary {
+    display: flex;
+    flex: initial;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 0px;
+    gap: 0px;
+
+}
+
+.primaryIconWrapper svg {
+    color: var(--gray-1000);
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+}
+
+/* Grid header styles */
+
+.gridHeaderWrapper {
+    --gap-ratio: 1;
+    max-width: 100%;
+    margin-left: auto;
+    display: flex;
+    margin-right: auto;
+    width: 100%;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+
+.gridHeaderStack {
+    flex: initial;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0px;
+    gap: 0;
+    margin: 0;
+
+    @media screen and (min-width: 1201px) {
+        flex-direction: row;
+        align-items: stretch;
+        justify-content: flex-start;
+        flex: initial;
+        padding: 0px;
+        flex: initial;
+        gap: 40px 0;
+    }
+
+    @media screen and (min-width: 961px) and (max-width: 1200px) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0px;
+        flex: initial;
+
+    }
+
+    @media screen and (min-width: 601px) and (max-width: 960px) {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 0px;
+        flex: initial;
+        gap: 24px;
+    }
+
+    @media screen and (max-width: 600px) {
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        padding: 0px;
+        gap: 24px;
+    }
+}
+
+
+.gridInnerWrapperSecondary {
+    margin-top: 24px;
+    display: flex;
+    flex: initial;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 0px;
+    justify-content: space-between;
+    gap: 16px 24px !important;
+    flex-wrap: wrap;
+
+    @media screen and (max-width: 1248px) {
+        justify-content: flex-start;
+    }
+
+}
+
+.gridInnerWrapperCol {
+
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-width: 1px;
+    max-width: 100%;
+        flex: 1;
+        justify-content: flex-start;
+        align-items: stretch;
+
+    @media screen and (min-width: 961px){
+        flex-basis: auto;
+        margin-top: 0;
+    }
+}
+
+.gridInnerGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(166px, 1fr));
+        gap: 26px 48px;
+
+        @media screen and (min-width: 601px) and (max-width: 960px) {
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 26px 24px;
+        }
+
+        @media screen and (max-width: 600px) {
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 26px 0px;
+        }
+}
+
+.gridCellContainer {
+        flex: 1;
+        justify-content: flex-start;
+        align-items: stretch;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        min-width: 1px;
+        max-width: 180px;
+}
+
+.gridCellWrapper {
+    display: flex;
+    flex: initial;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 0px;
+}
+
+.gridCellTitle {
+    color: var(--gray-900);
+    font-size: 0.8125rem;
+    line-height: 1rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.gridCellContentWrapper {
+    display: flex;
+    flex: initial;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0px;
+    gap: 8px;
+}
+
+.gridCellContent {
+    color: var(--gray-1000);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: initial;
+    font-weight: 400;
+}
+
+.gridBackRow {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+@media screen and (min-width: 961px){
+    flex-basis: auto;
+    margin-top: 0;
+}
+}

@@ -9,12 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useAccessibility } from "@/components/flow-state/providers/accessibility-provider"
 
-interface EnhancedAccessibilityPanelProps {
-  isOpen: boolean
-  onClose: () => void
-}
-
-export function EnhancedAccessibilityPanel({ isOpen, onClose }: EnhancedAccessibilityPanelProps) {
+export function EnhancedAccessibilityPanel() {
   const [activeTab, setActiveTab] = useState("visual")
   const {
     fontSize,
@@ -35,15 +30,6 @@ export function EnhancedAccessibilityPanel({ isOpen, onClose }: EnhancedAccessib
   } = useAccessibility()
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-neutral-800 rounded-lg shadow-lg w-full max-w-md overflow-hidden">
-        <div className="flex items-center justify-between border-b p-4 border-neutral-200 dark:border-neutral-700">
-          <h3 className="font-medium">Accessibility Options</h3>
-          <Button variant="ghost" size="icon" onClick={onClose}>
-            <X className="h-4 w-4" />
-          </Button>
-        </div>
-
         <div className="p-4">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-4">
             <TabsList className="grid grid-cols-3">
@@ -197,12 +183,12 @@ export function EnhancedAccessibilityPanel({ isOpen, onClose }: EnhancedAccessib
               <RotateCcw className="h-3.5 w-3.5 mr-1.5" />
               Reset to Defaults
             </Button>
-            <Button size="sm" onClick={onClose}>
+            <Button size="sm" onClick={() => alert("Settings applied!")} className="flex items-center">
               Apply Settings
             </Button>
           </div>
         </div>
-      </div>
-    </div>
   )
 }
+
+export default EnhancedAccessibilityPanel

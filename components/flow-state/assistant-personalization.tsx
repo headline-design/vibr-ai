@@ -365,7 +365,7 @@ export function AssistantPersonalization({ onSave, initialSettings, className }:
               <h3 className="text-lg font-medium">{settings.name}</h3>
               <p className="text-sm text-gray-500 mt-1">{settings.description}</p>
 
-              <div className="mt-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+              <div className="mt-3 p-3 bg-gray-100 rounded-lg">
                 <p className="text-sm">{settings.greeting}</p>
               </div>
 
@@ -596,7 +596,7 @@ export function AssistantPersonalization({ onSave, initialSettings, className }:
               ) : (
                 <div className="space-y-2">
                   {settings.customInstructions.map((instruction, index) => (
-                    <div key={index} className="flex items-start p-3 border rounded-md bg-gray-50 dark:bg-gray-800">
+                    <div key={index} className="flex items-start p-3 border rounded-md bg-gray-100">
                       <div className="flex-1 text-sm">{instruction}</div>
                       <div className="flex items-center ml-2">
                         <Button
@@ -884,7 +884,7 @@ export function AssistantPersonalization({ onSave, initialSettings, className }:
               <CardDescription>Define the core behavior and capabilities of your assistant</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="p-3 border rounded-md bg-gray-50 dark:bg-gray-800">
+              <div className="p-3 border rounded-md bg-gray-100">
                 <p className="text-sm font-mono whitespace-pre-wrap">{settings.systemPrompt}</p>
               </div>
 

@@ -183,7 +183,7 @@ export function CodeBlock({
       )}
     >
       {/* File name header */}
-      <div className="flex items-center justify-between px-4 py-2 bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+      <div className="flex items-center justify-between px-4 py-2 bg-background border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center">
           {getLanguageIcon(detectedLanguage)}
           <span className="ml-2 text-xs font-medium text-gray-700 dark:text-gray-300">

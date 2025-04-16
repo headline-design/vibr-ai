@@ -37,7 +37,7 @@ export function MessageReactions({ messageId, existingReactions = [], onReact, c
             "h-6 px-1.5 rounded-full text-xs",
             reaction.userReacted
               ? "bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400"
-              : "bg-gray-50 text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700",
+              : "bg-gray-50 text-gray-700 hover:bg-background dark:text-gray-300 dark:hover:bg-gray-700",
           )}
           onClick={() => handleReaction(reaction.emoji)}
         >

@@ -108,7 +108,7 @@ export function FileAttachmentHandler({ onClose, onFileAttached }: FileAttachmen
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md overflow-hidden">
+      <div className="bg-background rounded-lg shadow-lg w-full max-w-md overflow-hidden">
         <div className="flex items-center justify-between border-b p-4">
           <h3 className="font-medium">Attach File</h3>
           <Button variant="ghost" size="icon" onClick={onClose}>

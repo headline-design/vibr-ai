@@ -78,7 +78,7 @@ export function WelcomeScreen({ onSuggestionSelect, className }: WelcomeScreenPr
       </motion.div>
 
       <motion.div
-        className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden mb-8"
+        className="bg-background rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden mb-8"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.1 }}
@@ -142,7 +142,7 @@ export function WelcomeScreen({ onSuggestionSelect, className }: WelcomeScreenPr
         {features.map((feature, index) => (
           <div
             key={index}
-            className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm"
+            className="bg-background p-4 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm"
           >
             <div className="flex items-start">
               <div className="h-8 w-8 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center mr-3 mt-0.5">

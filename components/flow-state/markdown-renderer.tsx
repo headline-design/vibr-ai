@@ -49,7 +49,7 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
 
             return (
               <code
-                className={cn("px-1 py-0.5 rounded text-sm font-mono bg-gray-100 dark:bg-gray-800", className)}
+                className={cn("px-1 py-0.5 rounded text-sm font-mono bg-background", className)}
                 {...props}
               >
                 {children}
@@ -90,7 +90,7 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
           },
           th({ children }) {
             return (
-              <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider bg-gray-50 dark:bg-gray-800">
+              <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider bg-gray-100">
                 {children}
               </th>
             )

@@ -88,7 +88,7 @@ function NotificationItem({ notification, onDismiss }: NotificationItemProps) {
                 variant="outline"
                 size="sm"
                 onClick={action.onClick}
-                className="h-7 text-xs bg-white dark:bg-gray-800"
+                className="h-7 text-xs bg-background"
               >
                 {action.label}
               </Button>

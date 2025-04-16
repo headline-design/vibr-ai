@@ -72,7 +72,7 @@ export function ConversationTreeVisualizer({ className }: ConversationTreeVisual
     return (
       <div key={node.id} className="mb-1">
         <div
-          className={`flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-800 ${
+          className={`flex items-center p-2 rounded hover:bg-gray-100 ${
             conditionsMatch ? "border-l-4 border-green-500" : "border-l-4 border-gray-300"
           }`}
           style={{ marginLeft: `${depth * 20}px` }}
@@ -128,7 +128,7 @@ export function ConversationTreeVisualizer({ className }: ConversationTreeVisual
           </Button>
         </div>
       </div>
-      <div className="border rounded p-2 bg-white dark:bg-gray-900 overflow-auto max-h-96">
+      <div className="border rounded p-2 bg-background overflow-auto max-h-96">
         {filteredNodes.map((node) => renderNode(node))}
       </div>
     </div>

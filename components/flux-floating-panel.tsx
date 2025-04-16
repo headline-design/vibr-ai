@@ -21,7 +21,7 @@ export function FluxFloatingPanel({ isOpen, onClose }: FluxFloatingPanelProps) {
   return (
     <div
       className={cn(
-        "fixed bottom-6 right-6 w-[420px] h-[620px] bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-800 flex flex-col overflow-hidden z-50 transition-all duration-300 ease-in-out",
+        "fixed bottom-6 right-6 w-[420px] h-[620px] bg-background rounded-xl shadow-2xl border border-gray-200 dark:border-gray-800 flex flex-col overflow-hidden z-50 transition-all duration-300 ease-in-out",
         isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none",
       )}
     >
@@ -34,7 +34,7 @@ export function FluxFloatingPanel({ isOpen, onClose }: FluxFloatingPanelProps) {
                 variant="ghost"
                 size="icon"
                 onClick={closeSettings}
-                className="h-8 w-8 mr-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+                className="h-8 w-8 mr-2 rounded-full hover:bg-gray-100 transition-colors duration-200"
               >
                 <ChevronLeft className="h-4 w-4" />
               </Button>
@@ -51,7 +51,7 @@ export function FluxFloatingPanel({ isOpen, onClose }: FluxFloatingPanelProps) {
               variant="ghost"
               size="icon"
               onClick={openSettings}
-              className="h-8 w-8 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+              className="h-8 w-8 rounded-full hover:bg-gray-100 transition-colors duration-200"
             >
               <Settings className="h-4 w-4" />
             </Button>
@@ -60,7 +60,7 @@ export function FluxFloatingPanel({ isOpen, onClose }: FluxFloatingPanelProps) {
             variant="ghost"
             size="icon"
             onClick={onClose}
-            className="h-8 w-8 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+            className="h-8 w-8 rounded-full hover:bg-gray-100 transition-colors duration-200"
           >
             <X className="h-4 w-4" />
           </Button>

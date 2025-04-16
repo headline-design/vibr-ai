@@ -1,12 +1,10 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Geist as Geist_Sans, Geist_Mono } from "next/font/google"
+import { Geist as Geist_Sans, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
 import { ClientProviders } from "@/components/client-providers"
-
-const inter = Inter({ subsets: ["latin"] })
 
 const geist = Geist_Sans({
   subsets: ["latin"],
@@ -31,8 +29,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} ${geist.variable} ${geistMono.variable}`}>
+    <html className={`${geist.variable} ${geistMono.variable}`} lang="en" suppressHydrationWarning>
+      <body >
         <ClientProviders>
           <Navbar />
           {children}

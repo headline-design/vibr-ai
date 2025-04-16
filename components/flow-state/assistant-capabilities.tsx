@@ -84,7 +84,7 @@ export function AssistantCapabilities({ onClose, className }: AssistantCapabilit
   return (
     <div
       className={cn(
-        "bg-white dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700 p-4 mb-4",
+        "bg-background rounded-md border border-gray-200 dark:border-gray-700 p-4 mb-4",
         className,
       )}
     >

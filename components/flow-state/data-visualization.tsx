@@ -295,7 +295,7 @@ export function DataVisualization({
         <>
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-gray-50 dark:bg-gray-800">
+              <tr className="bg-gray-100">
                 {tableData.headers.map((header, i) => (
                   <th key={i} className="px-4 py-2 text-left font-medium text-gray-500 dark:text-gray-400">
                     {header}
@@ -309,7 +309,7 @@ export function DataVisualization({
                   key={i}
                   className={cn(
                     "border-b border-gray-100 dark:border-gray-800",
-                    i % 2 === 0 ? "bg-white dark:bg-gray-900" : "bg-gray-50/50 dark:bg-gray-800/50",
+                    i % 2 === 0 ? "bg-background" : "bg-gray-50/50 dark:bg-gray-800/50",
                   )}
                 >
                   {row.map((cell, j) => (
@@ -363,7 +363,7 @@ export function DataVisualization({
     <div
       ref={containerRef}
       className={cn(
-        "border rounded-lg overflow-hidden bg-white dark:bg-gray-900",
+        "border rounded-lg overflow-hidden bg-background",
         isExpanded ? "fixed inset-4 z-50" : "relative",
         className,
       )}

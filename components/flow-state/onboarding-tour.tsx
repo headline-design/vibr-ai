@@ -127,7 +127,7 @@ export function OnboardingTour({ isOpen, onClose, onComplete, steps, className }
           exit={{ opacity: 0, scale: 0.9 }}
           transition={{ duration: 0.2 }}
           className={cn(
-            "fixed z-50 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700",
+            "fixed z-50 w-80 bg-background rounded-lg shadow-lg border border-gray-200 dark:border-gray-700",
             className,
           )}
           style={{

@@ -184,7 +184,7 @@ export function FileUpload({
   return (
     <div
       className={cn(
-        "p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 bg-background",
+        "p-4 bg-background rounded-lg border border-gray-200 dark:border-gray-700 bg-background",
         className,
       )}
     >

@@ -547,7 +547,7 @@ export function IntegrationHub({ onIntegrationConnect, onIntegrationDisconnect, 
           </DialogHeader>
 
           <div className="space-y-4 my-2">
-            <div className="p-4 border rounded-md bg-gray-50 dark:bg-gray-800">
+            <div className="p-4 border rounded-md bg-gray-100">
               <h4 className="text-sm font-medium mb-2">Required Permissions</h4>
               <ul className="space-y-2 text-sm">
                 <li className="flex items-center">
@@ -650,7 +650,7 @@ export function IntegrationHub({ onIntegrationConnect, onIntegrationDisconnect, 
 
             <div className="space-y-2">
               <Label>Connection Details</Label>
-              <div className="p-3 border rounded-md bg-gray-50 dark:bg-gray-800 text-sm">
+              <div className="p-3 border rounded-md bg-gray-100 text-sm">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-gray-500">Connected Account</span>
                   <span>{selectedIntegration?.connectionDetails?.accountName || "Demo Account"}</span>

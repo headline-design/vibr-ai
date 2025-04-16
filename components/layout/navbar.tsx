@@ -21,8 +21,9 @@ const ANIMATION_CONSTANTS = {
   SCROLL_TO_TOP_THRESHOLD: 300,
   LOGO_SCALE_FINAL: 0.8,
   LOGO_Y_OFFSET_FINAL: -8,
-  NAV_X_OFFSET_FINAL: 32, // Increased for better spacing
+  NAV_X_OFFSET_FINAL: 36, // Increased for better spacing
   TRANSITION_DURATION: 150,
+  TRANSITION_DURATION_X: 20,
   EASING: "cubic-bezier(0.33, 1, 0.68, 1)", // Easing function for smooth motion
   HOMEPAGE_TRANSPARENCY_THRESHOLD: 20, // When to start transitioning homepage navbar
 }
@@ -38,7 +39,11 @@ export function Navbar() {
   const logoRef = useRef<HTMLSpanElement>(null)
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const chatNavItemsRef = useRef<(HTMLDivElement | null)[]>([])
+
+  // Added for hover and active indicators - exactly like reference code
   const [hoveredChatIndex, setHoveredChatIndex] = useState<number | null>(null)
+  const [hoverStyle, setHoverStyle] = useState({})
+  const [activeStyle, setActiveStyle] = useState({ left: "0px", width: "0px" })
 
   // Single source of truth for scroll position
   const [scrollProgress, setScrollProgress] = useState(0)
@@ -105,6 +110,10 @@ export function Navbar() {
       label: "Settings",
     },
   ]
+
+  // Find active chat nav index
+  const initialActiveIndex = chatNavItems.findIndex((item) => pathname === item.href)
+  const [activeIndex, setActiveIndex] = useState(initialActiveIndex !== -1 ? initialActiveIndex : 0)
 
   // Memoized scroll handler to prevent unnecessary re-renders
   const handleScroll = useCallback(() => {
@@ -203,6 +212,57 @@ export function Navbar() {
     setMounted(true)
   }, [])
 
+  // Added for hover indicator - exactly like reference code
+  useEffect(() => {
+    if (hoveredChatIndex !== null) {
+      const hoveredElement = chatNavItemsRef.current[hoveredChatIndex]
+      if (hoveredElement) {
+        const { offsetLeft, offsetWidth } = hoveredElement
+        setHoverStyle({
+          left: `${offsetLeft}px`,
+          width: `${offsetWidth}px`,
+        })
+      }
+    }
+  }, [hoveredChatIndex])
+
+  // Added for active indicator - exactly like reference code
+  useEffect(() => {
+    // Update active index when pathname changes
+    const newActiveIndex = chatNavItems.findIndex((item) => pathname === item.href)
+    if (newActiveIndex !== -1) {
+      setActiveIndex(newActiveIndex)
+    }
+  }, [pathname])
+
+  // Added for active indicator - exactly like reference code
+  useEffect(() => {
+    const activeElement = chatNavItemsRef.current[activeIndex]
+    if (activeElement) {
+      const { offsetLeft, offsetWidth } = activeElement
+      setActiveStyle({
+        left: `${offsetLeft}px`,
+        width: `${offsetWidth}px`,
+      })
+    }
+  }, [activeIndex])
+
+  // Added for active indicator initialization - exactly like reference code
+  useEffect(() => {
+    if (isInChatSection) {
+      requestAnimationFrame(() => {
+        const activeElement = chatNavItemsRef.current[activeIndex]
+        if (activeElement) {
+          const { offsetLeft, offsetWidth } = activeElement
+          setActiveStyle({
+            left: `${offsetLeft}px`,
+            width: `${offsetWidth}px`,
+          })
+        }
+      })
+    }
+  }, [activeIndex, isInChatSection])
+
   // Function to toggle theme
   const toggleTheme = () => {
     setTheme(resolvedTheme === "dark" ? "light" : "dark")
@@ -222,10 +282,11 @@ export function Navbar() {
           !isInChatSection ? "sticky top-0" : "",
           // Background styles based on page and scroll state
           isInChatSection
-            ? "bg-background"
+            ? "bg-background-100"
             : isHomepage && !homepageScrolled && !isOpen
               ? "bg-transparent"
               : "bg-background/80 backdrop-blur-md border-b shadow-sm transition-colors duration-200",
+          isOpen ? "relative z-[120]" : "z-40",
         )}
         ref={navRef}
       >
@@ -401,62 +462,80 @@ export function Navbar() {
 
       {/* Chat Navigation - now outside the main navbar with sticky positioning */}
       {isInChatSection && (
-        <div className="sticky top-0 w-full bg-background border-b shadow-sm z-40">
-          <div className="container mx-auto px-6">
-            <div className="relative flex items-center h-[46px] overflow-hidden">
+        <div
+          className="sticky top-0 mt-[-10px] w-full bg-background-100 border-b shadow-sm z-40"
+          style={{
+            overflowX: "auto",
+            scrollbarWidth: "none",
+          }}
+        >
+          <div className="mx-auto px-6 h-[46px]">
+            <div
+              className="relative h-full flex items-center"
+              style={{
+                transform: `translateX(${navTranslateX}px)`,
+                transition:
+                  scrollProgress === 0 || scrollProgress === 1
+                    ? `transform ${ANIMATION_CONSTANTS.TRANSITION_DURATION_X}ms ${ANIMATION_CONSTANTS.EASING}`
+                    : "none",
+              }}
+            >
+              {/* Hover Highlight - exactly like reference code */}
               <div
-                className="flex space-x-2 items-center h-full"
+                className="absolute h-[30px] transition-all duration-300 ease-out bg-[#0e0f1114] dark:bg-[#ffffff1a] rounded-[6px] flex items-center"
                 style={{
-                  transform: `translateX(${navTranslateX}px)`,
-                  transition:
-                    scrollProgress === 0 || scrollProgress === 1
-                      ? `transform ${ANIMATION_CONSTANTS.TRANSITION_DURATION}ms ${ANIMATION_CONSTANTS.EASING}`
-                      : "none",
+                  ...hoverStyle,
+                  opacity: hoveredChatIndex !== null ? 1 : 0,
                 }}
-              >
-                {chatNavItems.map((item, index) => {
-                  const isActive = pathname === item.href
-                  return (
-                    <div
-                      key={item.href}
-                      ref={(el) => (chatNavItemsRef.current[index] = el) as any}
-                      className={cn(
-                        "relative px-3 py-1.5 rounded-full cursor-pointer transition-colors whitespace-nowrap h-full flex items-center",
-                        isActive ? "text-primary" : "text-muted-foreground hover:text-foreground",
-                      )}
-                      onMouseEnter={() => setHoveredChatIndex(index)}
-                      onMouseLeave={() => setHoveredChatIndex(null)}
-                      onClick={() => router.push(item.href)}
-                    >
-                      <span className="text-sm font-medium">{item.label}</span>
+              />
 
-                      {isActive && <span className="absolute bottom-[-1px] left-0 right-0 h-[1px] bg-primary" />}
+              {/* Active Indicator - exactly like reference code */}
+              <div
+                className="absolute bottom-0 h-[2px] bg-primary dark:bg-primary transition-all duration-300 ease-out"
+                style={activeStyle}
+              />
+
+              {/* Tabs - exactly like reference code structure */}
+              <div className="relative flex space-x-[6px] items-center">
+                {chatNavItems.map((item, index) => (
+                  <div
+                    key={item.href}
+                    ref={(el) => (chatNavItemsRef.current[index] = el) as any}
+                    className={cn(
+                      "px-3 py-2 cursor-pointer transition-colors duration-300 h-[30px]",
+                      index === activeIndex
+                        ? "text-foreground dark:text-white"
+                        : "text-muted-foreground dark:text-[#ffffff99]",
+                    )}
+                    onMouseEnter={() => setHoveredChatIndex(index)}
+                    onMouseLeave={() => setHoveredChatIndex(null)}
+                    onClick={() => {
+                      setActiveIndex(index)
+                      router.push(item.href)
+                    }}
+                  >
+                    <div className="text-sm font-medium leading-5 whitespace-nowrap flex items-center justify-center h-full">
+                      {item.label}
                     </div>
-                  )
-                })}
-              </div>
-
-              {/* Right side controls - Scroll to top button */}
-              <div className="ml-auto flex items-center space-x-2">
-                {/* Scroll to top button - only show when scrolled down */}
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={scrollToTop}
-                  className={cn(
-                    "rounded-md h-7 w-7 transition-opacity duration-300",
-                    showScrollToTop ? "opacity-100" : "opacity-0 pointer-events-none",
-                  )}
-                  aria-label="Scroll to top"
-                >
-                  <ArrowUp className="h-4 w-4" />
-                </Button>
-
-                {/* User profile */}
-                {user && <UserProfile />}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
+
+          {/* Scroll to top button - only show when scrolled down */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={scrollToTop}
+            className={cn(
+              "rounded-md h-7 w-7 transition-opacity duration-300 fixed top-3 right-3",
+              showScrollToTop ? "opacity-100 z-[120]" : "opacity-0 pointer-events-none",
+            )}
+            aria-label="Scroll to top"
+          >
+            <ArrowUp className="h-4 w-4" />
+          </Button>
         </div>
       )}
     </>

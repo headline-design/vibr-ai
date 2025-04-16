@@ -42,7 +42,7 @@ export function IntentDebugger({ className }: IntentDebuggerProps) {
           </div>
 
           {result && (
-            <div className="space-y-2 p-3 bg-gray-50 dark:bg-gray-800 rounded border">
+            <div className="space-y-2 p-3 bg-gray-100 rounded border">
               <div className="grid grid-cols-2 gap-2">
                 <div className="font-medium">Intent:</div>
                 <div>{result.intent || "No intent detected"}</div>

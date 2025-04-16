@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ChevronUp, ChevronDown } from "lucide-react"
-import { MetaSessionDebugger } from "./meta-session-debugger"
+import MetaSessionDebugger from "./meta-session-debugger"
 import { ConversationTreeVisualizer } from "@/components/flow-state/conversation-tree/conversation-tree-visualizer"
 import { Input } from "@/components/ui/input"
 import { isGreetingToFlux } from "./greeting-patterns"
@@ -32,7 +32,7 @@ export function DebugPanel({ className }: DebugPanelProps) {
 
   return (
     <div className={className}>
-      <div className="fixed bottom-0 right-0 w-full md:w-96 bg-white border-t border-l shadow-lg z-50">
+      <div className="fixed bottom-0 right-0 w-full md:w-96 bg-background border-t border-l shadow-lg z-50">
         <div
           className="flex items-center justify-between p-2 bg-gray-100 cursor-pointer"
           onClick={() => setIsExpanded(!isExpanded)}

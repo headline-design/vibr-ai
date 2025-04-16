@@ -186,7 +186,7 @@ export function ChatSearch({ messages, onResultSelect, onClose, isOpen, classNam
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className={cn("bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-lg overflow-hidden", className)}
+            className={cn("bg-background rounded-lg shadow-lg w-full max-w-lg overflow-hidden", className)}
             onKeyDown={handleKeyDown}
           >
             {/* Search header */}

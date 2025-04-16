@@ -21,10 +21,12 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   } = useDemoState()
 
   return (
-    <div className="flex flex-col min-h-screen bg-background transition-colors duration-200">
+    <div className="flex flex-col min-h-screen bg-background-200 transition-colors duration-200">
+  {/* Main Content */}
+      <>
 
-      {/* Main Content */}
-      <>{children}</>
+   {children}
+      </>
 
 
       {/* User feedback system */}

@@ -198,7 +198,7 @@ export function KeyboardShortcutsHelp({ isOpen, onClose }: KeyboardShortcutsHelp
           ))}
         </Tabs>
 
-        <div className="mt-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-md text-sm text-gray-600 dark:text-gray-400">
+        <div className="mt-4 p-3 bg-gray-100 rounded-md text-sm text-gray-600 dark:text-gray-400">
           <p>
             Press{" "}
             <span className="inline-flex items-center">

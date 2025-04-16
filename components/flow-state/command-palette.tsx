@@ -118,7 +118,7 @@ export function CommandPalette({ isOpen, onClose, onSelect }: CommandPaletteProp
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-start justify-center pt-[20vh]">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-md overflow-hidden">
+      <div className="bg-background rounded-lg shadow-lg w-full max-w-md overflow-hidden">
         <div className="flex items-center border-b p-3">
           <Command className="h-5 w-5 text-gray-500 dark:text-gray-400 mr-2" />
           <input

@@ -425,7 +425,7 @@ export function ConversationManager({ onSelectConversation, onNewConversation, c
               className={cn(
                 "w-full flex items-center px-2 py-1.5 text-sm rounded-md transition-colors",
                 selectedFolder === folder.id
-                  ? "bg-gray-100 dark:bg-gray-800 font-medium"
+                  ? "bg-background font-medium"
                   : "hover:bg-gray-50 dark:hover:bg-gray-900",
               )}
               onClick={() => setSelectedFolder(folder.id)}
@@ -751,7 +751,7 @@ export function ConversationManager({ onSelectConversation, onNewConversation, c
                     <div className="flex items-center mt-1 space-x-1">
                       {conversation.folder && (
                         <div
-                          className="flex items-center text-xs px-1.5 py-0.5 rounded-sm bg-gray-100 dark:bg-gray-800"
+                          className="flex items-center text-xs px-1.5 py-0.5 rounded-sm bg-background"
                           style={{ color: getFolderColor(conversation.folder) }}
                         >
                           {getFolderIcon(conversation.folder)}

@@ -214,7 +214,7 @@ export function CollaborativeFeatures({
           {collaborators.map((collaborator) => (
             <div
               key={collaborator.id}
-              className="border rounded-md p-3 flex items-center justify-between bg-white dark:bg-gray-800"
+              className="border rounded-md p-3 flex items-center justify-between bg-background"
             >
               <div className="flex items-center">
                 <div className="relative mr-3">

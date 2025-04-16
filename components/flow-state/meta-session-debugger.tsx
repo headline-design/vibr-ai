@@ -7,7 +7,7 @@ interface MetaSessionDebuggerProps {
   className?: string
 }
 
-export function MetaSessionDebugger({ className }: MetaSessionDebuggerProps) {
+export default function MetaSessionDebugger({ className }: MetaSessionDebuggerProps) {
   const { metaSession, updateMetaSession } = useMetaSession()
 
   const formatDuration = (ms: number) => {
@@ -47,7 +47,7 @@ export function MetaSessionDebugger({ className }: MetaSessionDebuggerProps) {
           Reset
         </Button>
       </div>
-      <div className="border rounded p-3 bg-white">
+      <div className="border rounded p-3 bg-background">
         <div className="grid grid-cols-2 gap-2 text-sm">
           <div className="font-medium">User:</div>
           <div>{metaSession.userName}</div>

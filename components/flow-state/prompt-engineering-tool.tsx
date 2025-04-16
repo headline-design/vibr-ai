@@ -767,7 +767,7 @@ export function PromptEngineeringTool({
                 <CardDescription>AI response to your prompt</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="p-4 border rounded-md bg-gray-50 dark:bg-gray-800 min-h-[200px] max-h-[400px] overflow-y-auto">
+                <div className="p-4 border rounded-md bg-gray-100 min-h-[200px] max-h-[400px] overflow-y-auto">
                   {testResult ? (
                     <div className="whitespace-pre-wrap text-sm">{testResult}</div>
                   ) : (
@@ -808,7 +808,7 @@ export function PromptEngineeringTool({
               <CardDescription>Your prompt with all variables filled in</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="p-4 border rounded-md bg-gray-50 dark:bg-gray-800 font-mono text-sm whitespace-pre-wrap">
+              <div className="p-4 border rounded-md bg-gray-100 font-mono text-sm whitespace-pre-wrap">
                 {fillPrompt(promptText, variableValues)}
               </div>
             </CardContent>

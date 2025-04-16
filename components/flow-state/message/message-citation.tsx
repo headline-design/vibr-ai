@@ -42,7 +42,7 @@ export function MessageCitation({ citations, className }: MessageCitationProps) 
           {citations.map((citation, index) => (
             <div
               key={index}
-              className="p-2 bg-gray-50 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700"
+              className="p-2 bg-gray-100 rounded border border-gray-200 dark:border-gray-700"
             >
               <div className="flex justify-between items-start mb-1">
                 <a

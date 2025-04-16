@@ -9,8 +9,11 @@
 }
 
 @layer base {
+
+
+
   .font-sans {
-    font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
       "Segoe UI Symbol", "Noto Color Emoji";
   }
 
@@ -63,6 +66,21 @@
     --neutral-800: 0 0% 20%;
     --neutral-900: 0 0% 10%;
 
+    /* Gray color scale */
+    --colors-gray-100: 0, 0%, 95%;
+    --colors-gray-200: 0, 0%, 92%;
+    --colors-gray-300: 0, 0%, 90%;
+    --colors-gray-400: 0, 0%, 92%;
+    --colors-gray-500: 0, 0%, 79%;
+    --colors-gray-600: 0, 0%, 66%;
+    --colors-gray-700: 0, 0%, 56%;
+    --colors-gray-800: 0, 0%, 49%;
+    --colors-gray-900: 0, 0%, 40%;
+    --colors-gray-1000: 0, 0%, 9%;
+
+    --gray-400-alpha: hsla(0, 0%, 0%, 0.08);
+
+
     /* Success colors */
     --success: 142 71% 45%;
     --success-light: 142 76% 97%;
@@ -95,6 +113,9 @@
     --rust-gray-900: hsl(240 5.88% 10%);
 
     --header-height: 64px;
+
+    --background-100: 0, 0%, 100%;
+    --background-200:  0, 0%, 98%;
   }
 
   .dark {
@@ -144,6 +165,20 @@
     --neutral-800: 0 0% 80%;
     --neutral-900: 0 0% 90%;
 
+    /* Gray color scale */
+    --colors-gray-100: 0, 0%, 10%;
+    --colors-gray-200: 0, 0%, 12%;
+    --colors-gray-300: 0, 0%, 16%;
+    --colors-gray-400: 0, 0%, 18%;
+    --colors-gray-500: 0, 0%, 27%;
+    --colors-gray-600: 0, 0%, 53%;
+    --colors-gray-700: 0, 0%, 56%;
+    --colors-gray-800: 0, 0%, 49%;
+    --colors-gray-900: 0, 0%, 63%;
+    --colors-gray-1000: 0, 0%, 93%;
+
+    --gray-400-alpha: hsla(0,0%,100%,0.14);
+
     /* Success colors */
     --success: 142 71% 45%;
     --success-light: 142 76% 20%;
@@ -168,14 +203,31 @@
     --rust-background: #000;
 
     --rust-gray-900: hsl(0 0% 100%);
-  }
 
-  :root,
+    --background-100: 0, 0%, 4%;
+    --background-200: 0, 0%, 0%;
+  }
+}
+
+:root,
   .dark {
     --font-sans: var(--font-geist), sans-serif;
     --font-mono: var(--font-geist-mono), monospace;
+    --text-secondary: var(--gray-900);
+
+    --gray-100: hsla(var(--colors-gray-100), 1);
+    --gray-150: hsla(var(--colors-gray-150), 1);
+    --gray-200: hsla(var(--colors-gray-200), 1);
+    --gray-300: hsla(var(--colors-gray-300), 1);
+    --gray-400: hsla(var(--colors-gray-400), 1);
+    --gray-500: hsla(var(--colors-gray-500), 1);
+    --gray-600: hsla(var(--colors-gray-600), 1);
+    --gray-700: hsla(var(--colors-gray-700), 1);
+    --gray-800: hsla(var(--colors-gray-800), 1);
+    --gray-900: hsla(var(--colors-gray-900), 1);
+    --gray-1000: hsla(var(--colors-gray-1000), 1);
   }
-}
+
 
 /* Typography */
 h1,
@@ -183,66 +235,92 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+p,
+body,
+.caption,
+a,
+.caption-sm,
+strong {
   font-family: var(--font-geist), sans-serif;
 }
 
 h1 {
-  font-size: 2.25rem; /* 36px */
-  line-height: 2.5rem; /* 40px */
+  font-size: 2.25rem;
+  /* 36px */
+  line-height: 2.5rem;
+  /* 40px */
   font-weight: 700;
 }
 
 h2 {
-  font-size: 1.875rem; /* 30px */
-  line-height: 2.25rem; /* 36px */
+  font-size: 1.875rem;
+  /* 30px */
+  line-height: 2.25rem;
+  /* 36px */
   font-weight: 600;
 }
 
 h3 {
-  font-size: 1.5rem; /* 24px */
-  line-height: 2rem; /* 32px */
+  font-size: 1.5rem;
+  /* 24px */
+  line-height: 2rem;
+  /* 32px */
   font-weight: 600;
 }
 
 h4 {
-  font-size: 1.25rem; /* 20px */
-  line-height: 1.75rem; /* 28px */
+  font-size: 1.25rem;
+  /* 20px */
+  line-height: 1.75rem;
+  /* 28px */
   font-weight: 600;
 }
 
 h5 {
-  font-size: 1.125rem; /* 18px */
-  line-height: 1.75rem; /* 28px */
+  font-size: 1.125rem;
+  /* 18px */
+  line-height: 1.75rem;
+  /* 28px */
   font-weight: 500;
 }
 
 h6 {
-  font-size: 1rem; /* 16px */
-  line-height: 1.5rem; /* 24px */
+  font-size: 1rem;
+  /* 16px */
+  line-height: 1.5rem;
+  /* 24px */
   font-weight: 500;
 }
 
 .body-text {
-  font-size: 1rem; /* 16px */
-  line-height: 1.5rem; /* 24px */
+  font-size: 1rem;
+  /* 16px */
+  line-height: 1.5rem;
+  /* 24px */
 }
 
 .body-sm {
-  font-size: 0.875rem; /* 14px */
-  line-height: 1.25rem; /* 20px */
+  font-size: 0.875rem;
+  /* 14px */
+  line-height: 1.25rem;
+  /* 20px */
 }
 
 .caption {
-  font-size: 0.875rem; /* 14px */
-  line-height: 1.25rem; /* 20px */
+  font-size: 0.875rem;
+  /* 14px */
+  line-height: 1.25rem;
+  /* 20px */
   color: hsl(var(--muted-foreground));
   font-weight: 500;
 }
 
 .caption-sm {
-  font-size: 0.75rem; /* 12px */
-  line-height: 1rem; /* 16px */
+  font-size: 0.75rem;
+  /* 12px */
+  line-height: 1rem;
+  /* 16px */
   color: hsl(var(--muted-foreground));
   font-weight: 500;
 }
@@ -307,6 +385,7 @@ h6 {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -317,6 +396,7 @@ h6 {
     transform: translateY(10px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
@@ -328,6 +408,7 @@ h6 {
     transform: translateX(10px);
     opacity: 0;
   }
+
   to {
     transform: translateX(0);
     opacity: 1;
@@ -339,6 +420,7 @@ h6 {
     transform: scale(0.95);
     opacity: 0;
   }
+
   to {
     transform: scale(1);
     opacity: 1;
@@ -424,6 +506,7 @@ body {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background;
   }
@@ -598,6 +681,7 @@ body {
 .font-weight-sample {
   @apply border rounded-md p-3;
 }
+
 .chat-bg {
   background-color: var(--background);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
@@ -609,7 +693,23 @@ body {
 }
 
 body {
-  font-feature-settings: "rlig" 1, "calt" 1;
+  font-feature-settings: "rlig"1, "calt"1;
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
+}
+
+.rust-base-text {
+  font-size: 0.875rem;
+  line-height: 0.875rem;
+  letter-spacing: initial;
+  font-weight: 400;
+}
+
+body, html {
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

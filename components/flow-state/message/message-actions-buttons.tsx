@@ -38,7 +38,7 @@ export function MessageActionButtons({ actions, onAction, className }: MessageAc
             className={cn(
               "rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-200",
               isPositive && "bg-green-600 hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-700 shadow-sm",
-              isNegative && "hover:bg-gray-100 dark:hover:bg-gray-800 border-gray-300 dark:border-gray-600",
+              isNegative && "hover:bg-gray-100 border-gray-300 dark:border-gray-600",
             )}
           >
             {isBinary && isPositive && <CheckCircle2 className="h-3.5 w-3.5 mr-1.5" />}

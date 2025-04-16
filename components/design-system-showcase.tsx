@@ -20,11 +20,38 @@ export function DesignSystemShowcase() {
     setTimeout(() => setCopied(null), 2000)
   }
 
+  const getTabDetails = (tab: string) => {
+    switch (tab) {
+      case "colors":
+        return {
+          title: "Colors",
+          description: "Explore the primary, neutral, and semantic color palettes used in the design system."
+        }
+      case "typography":
+        return {
+          title: "Typography",
+          description: "View the font families, sizes, weights, and styles used across the application."
+        }
+      case "spacing":
+        return {
+          title: "Spacing",
+          description: "Understand the spacing scale and how to apply consistent margins and paddings."
+        }
+      case "components":
+        return {
+          title: "Components",
+          description: "See examples of reusable UI components like buttons, inputs, and badges."
+        }
+      default:
+        return { title: "", description: "" }
+    }
+  }
+
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Design System</CardTitle>
-        <CardDescription>Unified design tokens and components for the Vibr chat interface</CardDescription>
+        <CardTitle>{getTabDetails(activeTab).title || "Design System Showcase"}</CardTitle>
+        <CardDescription>{getTabDetails(activeTab).description || "Explore the components and design principles of our system."}</CardDescription>
       </CardHeader>
       <CardContent>
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">

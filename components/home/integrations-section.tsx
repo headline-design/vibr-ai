@@ -187,7 +187,7 @@ export function IntegrationsSection() {
     <section id="integrations" className="py-20 bg-gradient-to-b from-background to-muted/30">
       <div className="container px-4 md:px-6 mx-auto max-w-6xl">
         <SectionReveal className="text-center mb-12">
-          <h2 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-gray-100 dark:to-gray-400">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-4 bg-clip-text text-transparent bg-gradient-to-b from-primary to-primary/80">
             Powerful Integrations
           </h2>
           <p className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto">

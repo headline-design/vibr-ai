@@ -184,7 +184,7 @@ export function ContextManager({ isOpen, onClose, onSave, initialContexts = [], 
                         key={item.id}
                         className={cn(
                           "border rounded-lg p-3 transition-colors",
-                          item.enabled ? "bg-white dark:bg-gray-800" : "bg-gray-50 dark:bg-gray-900/50 opacity-70",
+                          item.enabled ? "bg-background" : "bg-gray-50 dark:bg-gray-900/50 opacity-70",
                         )}
                       >
                         <div className="flex items-center justify-between mb-2">
