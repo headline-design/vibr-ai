@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Vibr AI - Intent-Based AI Chat",
+  title: "VIBR AI - Intent-Based AI Chat",
   description: "The AI chat that gets your vibe. Built for coders, by coders.",
 }
 

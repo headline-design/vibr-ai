@@ -9,7 +9,7 @@ import { BackToTop } from "@/components/back-to-top"
 import { OgCardImage } from "@/components/blog/og-card-image"
 
 export const metadata: Metadata = {
-  title: "Blog | Vibr",
+  title: "Blog | VIBR",
   description: "Latest news, updates, and insights from the Vibr team",
 }
 

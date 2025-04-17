@@ -21,12 +21,12 @@ export function FluxFloatingPanel({ isOpen, onClose }: FluxFloatingPanelProps) {
   return (
     <div
       className={cn(
-        "fixed bottom-6 right-6 w-[420px] h-[620px] bg-background rounded-xl shadow-2xl border border-gray-200 dark:border-gray-800 flex flex-col overflow-hidden z-50 transition-all duration-300 ease-in-out",
+        "fixed bottom-6 right-6 w-[420px] h-[92vh] max-h-[600px] bg-background rounded-xl shadow-2xl border flex flex-col overflow-hidden z-50 transition-all duration-300 ease-in-out",
         isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none",
       )}
     >
       {/* Dynamic Header */}
-      <div className="flex items-center justify-between p-3.5 border-b border-gray-200 dark:border-gray-800 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm">
+      <div className="flex items-center justify-between p-3.5 border-b bg-background backdrop-blur-sm">
         <div className="flex items-center">
           {currentView === "settings" ? (
             <>
@@ -38,10 +38,10 @@ export function FluxFloatingPanel({ isOpen, onClose }: FluxFloatingPanelProps) {
               >
                 <ChevronLeft className="h-4 w-4" />
               </Button>
-              <h3 className="font-medium text-gray-800 dark:text-gray-200">Settings</h3>
+              <h3 className="font-medium text-primary">Settings</h3>
             </>
           ) : (
-            <h3 className="font-medium text-gray-800 dark:text-gray-200">AI Assistant</h3>
+            <h3 className="font-medium text-primary ">VIBR Assistant</h3>
           )}
         </div>
 

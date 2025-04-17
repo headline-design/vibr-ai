@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 import ClientLayout from "@/components/client-layout"
 
 export const metadata: Metadata = {
-  title: "Vibr - Vibe coding platform",
+  title: "VIBR - Vibe coding platform",
   description: "An intelligent coding platform with AI assistance",
 }
 

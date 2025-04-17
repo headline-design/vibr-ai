@@ -1,6 +1,5 @@
 import RustHeader from "@/components/layout/header/rust-header";
 import ChatClient from "./chat-client";
-import ActionBar from "@/components/layout/header/action-bar";
 import MaxWidthWrapper from "@/components/layout/max-width-wrapper";
 
 export default function ChatPage() {
@@ -14,7 +13,7 @@ export default function ChatPage() {
 
   return (
     <>
-     <RustHeader page={page} actionBar={<ActionBar page={page} />} />
+     <RustHeader page={page} />
       <MaxWidthWrapper className="py-6" >
       <ChatClient />
       </MaxWidthWrapper>

@@ -68,7 +68,7 @@ const SuggestionChips: React.FC<SuggestionChipsProps> = ({ suggestions, onSelect
           key={index}
           variant="outline"
           size="sm"
-          className="text-xs bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 rounded-md px-3 py-1 h-auto transition-colors duration-200 hover:border-neutral-300 dark:hover:border-neutral-700"
+          className="text-xs  rounded-md px-3 py-1 h-auto transition-colors duration-200 "
           onClick={() => onSelect(suggestion)}
         >
           {suggestion}
@@ -282,10 +282,12 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
 
   // Handle suggestion selection
   const handleSuggestionSelect = (suggestion: string) => {
-    // setInputValue(suggestion)
-    // if (inputRef.current) {
-    //   inputRef.current.focus()
-    // }
+    if (suggestion.trim()) {
+      setInputValue(suggestion)
+      setDraftMessages({ ...draftMessages, [Date.now().toString()]: suggestion }) // Use timestamp as a temporary ID
+      handleSendMessage(suggestion)
+      setShowGreeting(false) // Hide greeting after first interaction
+    }
   }
 
   // Basic "mood" detection for avatar
@@ -344,7 +346,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
     <div className={cn("flex flex-col h-full relative", className)}>
       {/* Optional Header - only shown if hideHeader is false */}
       {!hideHeader && (
-        <header className="flex items-center justify-between px-4 py-3.5 border-b border-muted bg-background">
+        <header className="flex items-center justify-between px-4 py-3.5 border-b bg-background">
           <div className="flex items-center">
             {currentView === "settings" && (
               <Button variant="ghost" size="icon" onClick={closeSettings} className="mr-2">
@@ -385,7 +387,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
                 {messages.length === 0 && (
                   <div className="mb-6">
                     <div className="text-sm text-muted-foreground mb-3">
-                      <h2 className="font-medium mb-1">Welcome to the AI Assistant</h2>
+                      <h2 className="font-medium mb-1 text-primary">Welcome to VIBR</h2>
                       <p>Ask questions, request information, or get help with tasks.</p>
                     </div>
 

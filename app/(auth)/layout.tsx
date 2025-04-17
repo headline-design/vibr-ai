@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-    title: "Vibr - Vibe coding platform",
+    title: "VIBR - Vibe coding platform",
     description: "An intelligent coding platform with AI assistance",
   }
 

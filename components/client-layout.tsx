@@ -30,7 +30,9 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
 
       {/* User feedback system */}
-      <UserFeedbackSystem />
+      <UserFeedbackSystem className={
+demoView === "assistant" ? "left-6 bottom-6" : "right-6 bottom-6"}
+        />
       {/* Command Palette */}
       {isCommandPaletteOpen && (
         <CommandPalette

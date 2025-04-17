@@ -55,19 +55,32 @@ export function HeroSection() {
             <div className="flex justify-center mb-4">
               <Badge variant="outline" className="px-4 py-1.5 text-sm bg-background border-primary/20 shadow-sm">
                 <span className="mr-1.5 text-primary">✦</span>
-                Introducing Vibr AI 1.0
+                Introducing VIBR AI 1.0
               </Badge>
             </div>
 
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
               <span className="bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/80">
-                Vibr AI Chat
+                VIBR AI
               </span>
             </h1>
 
             <p className="text-xl md:text-2xl text-muted-foreground max-w-[700px] mx-auto">
               The AI chat that gets your vibe. Built for coders, by coders.
             </p>
+            <div className="relative mt-6 max-w-[700px] mx-auto">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-purple-500/30 to-primary/30 blur-md opacity-50 rounded-lg"></div>
+              <div className="relative flex items-center justify-between bg-background/80 backdrop-blur-sm border border-primary/20 rounded-lg px-5 py-3 shadow-lg">
+                <div className="flex items-center">
+                  <div className="h-2 w-2 bg-primary rounded-full animate-pulse mr-2"></div>
+                  <span className="font-medium text-sm">Coming Soon:</span>
+                  <span className="ml-2 text-sm bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500 font-bold">
+                   The Vibe Coding Management Platform
+                  </span>
+                </div>
+                <div className="text-xs text-muted-foreground hidden sm:block">Powered by VIBR AI chat technology</div>
+              </div>
+            </div>
           </motion.div>
 
           {/* CTA buttons */}
@@ -95,7 +108,7 @@ export function HeroSection() {
               size="lg"
               className="rounded-full h-12 px-6 transition-all duration-300"
             >
-              <Link href="https://github.com/yourusername/vibr" target="_blank" rel="noopener noreferrer">
+              <Link href="https://github.com/headline-design/vibr-ai" target="_blank" rel="noopener noreferrer">
                 <Github className="h-4 w-4" /> View on GitHub
               </Link>
             </Button>

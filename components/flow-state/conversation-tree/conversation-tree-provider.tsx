@@ -10,8 +10,8 @@ import type { ProximityCategory } from "./tree-types"
 import { findMatchingNode } from "./node-matcher"
 import { handleIntentConditions, setPendingIntent } from "./conditions/intent-conditions"
 import { handleProjectConditions } from "./conditions/project-conditions"
-import { getLLMResponse } from "./llm-service"
 import { useMessages } from "@/components/flow-state/providers/message-provider"
+import { getLLMResponse } from "@/lib/ai-service"
 
 // Define the structure of MetaSessionData
 interface MetaSessionData {

@@ -114,10 +114,16 @@
 
     --rust-gray-1000-value: 0, 0%, 9%;
     --rust-gray-100-value: 0, 0%, 95%;
+    --rust-gray-alpha-100: rgba(0, 0, 0, .05);
     --rust-gray-200-value: 0, 0%, 92%;
     --rust-gray-100: hsla(var(--rust-gray-100-value), 1);
     --rust-gray-200: hsla(var(--rust-gray-200-value), 1);
     --rust-gray-1000: hsla(var(--rust-gray-1000-value), 1);
+
+    --rust-gray-400: hsla(var(--rust-gray-400-value), 1);
+    --rust-gray-400-value: 0, 0%, 92%;
+    --rust-gray-700: hsla(var(--rust-gray-700-value), 1);
+    --rust-gray-700-value: 0, 0%, 56%;
 
     --header-height: 64px;
     --rust-gray-alpha-200: rgba(0, 0, 0, .08);
@@ -127,6 +133,7 @@
     --background-200:  0, 0%, 98%;
 
     --themed-bg: #fff;
+    --rust-background-100: #fff;
     --themed-bg-alt: #0a0a0a;
     --themed-foreground: hsla(0, 0%, 9%, 1);
     --themed-border: rgba(0, 0, 0, .08);
@@ -140,6 +147,10 @@
 
     --accents-1: #fafafa;
     --accents-2: #eaeaea;
+    --accents-7: #333;
+    --accents-8: #111;
+
+    --rust-shadow-border: 0 0 0 1px rgba(0, 0, 0, .08);
   }
 
   .dark {
@@ -229,11 +240,16 @@
     --rust-gray-200-value: 0, 0%, 12%;
     --rust-gray-1000-value: 0, 0%, 93%;
     --rust-gray-100: hsla(var(--rust-gray-100-value), 1);
---rust-gray-200: hsla(var(--rust-gray-200-value), 1);
+    --rust-gray-200: hsla(var(--rust-gray-200-value), 1);
+    --rust-gray-400: hsla(var(--rust-gray-400-value), 1);
+    --rust-gray-400-value: 0, 0%, 18%;
     --rust-gray-1000: hsla(var(--rust-gray-1000-value), 1);
+    --rust-gray-alpha-100: hsla(0, 0%, 100%, .06);
     --rust-gray-alpha-200: hsla(0, 0%, 100%, .09);
     --rust-gray-alpha-300: hsla(0, 0%, 100%, .13);
     --rust-gray-alpha-400: hsla(0, 0%, 100%, .14);
+    --rust-gray-700: hsla(var(--rust-gray-700-value), 1);
+    --rust-gray-700-value: 0, 0%, 56%;
     --rust-gray-900: hsl(0 0% 100%);
 
     --background-100: 0, 0%, 4%;
@@ -241,6 +257,7 @@
 
     --themed-foreground: hsla(0, 0%, 93%, 1);
     --themed-bg: #0a0a0a;
+    --rust-background-100: #0a0a0a;
     --themed-bg-alt: #fff;
     --themed-border: hsla(0, 0%, 100%, .14);
     --shadow-border: 0 0 0 1px var(--themed-border, transparent);
@@ -253,6 +270,10 @@
 
     --accents-1: #111;
     --accents-2: #333;
+    --accents-7: #eaeaea;
+    --accents-8: #fafafa;
+
+    --rust-shadow-border: 0 0 0 1px hsla(0, 0%, 100%, .145);
   }
 }
 
@@ -799,7 +820,7 @@ body, html {
 
 
 
-.border-shadow {
+.rust-border-shadow {
   box-shadow: 0 0 0 1px var(--themed-border, transparent);
 }
 

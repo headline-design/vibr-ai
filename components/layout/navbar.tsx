@@ -412,7 +412,7 @@ export function Navbar({
                 <>
                   {/* GitHub button */}
                   <Button asChild variant="outline" size="sm" className="rounded-md hidden md:flex h-8">
-                    <Link href="https://github.com/yourusername/vibr" target="_blank" rel="noopener noreferrer">
+                    <Link href="https://github.com/headline-design/vibr-ai" target="_blank" rel="noopener noreferrer">
                       <Github className="h-3.5 w-3.5" /> GitHub
                     </Link>
                   </Button>

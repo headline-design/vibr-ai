@@ -108,7 +108,10 @@ export function UserFeedbackSystem({ className }: UserFeedbackProps) {
   }
 
   return (
-    <div className={cn("fixed bottom-4 right-4 z-50 flex flex-col items-end space-y-2", className)}>
+    <div className={cn("fixed z-50 flex flex-col items-end space-y-2",
+      className ? "" : "bottom-4 right-4 ",
+
+      className)}>
       {/* Feedback messages */}
       <AnimatePresence>
         {messages.map((message) => (

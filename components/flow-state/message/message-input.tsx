@@ -264,7 +264,7 @@ export function MessageInput({
                           "h-8 w-8 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-colors",
                           "focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-1",
                           "disabled:opacity-50",
-                          isRecording ? "text-red-500 animate-pulse" : "text-gray-400",
+                          isRecording ? "text-red-500 animate-pulse" : "text-muted-foreground",
                         )}
                         onClick={toggleRecording}
                         aria-label={isRecording ? "Stop recording" : "Start voice recording"}

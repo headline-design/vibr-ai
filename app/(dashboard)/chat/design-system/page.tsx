@@ -16,7 +16,7 @@ export default function DesignSystemPage() {
 
   return (
     <>
-      <RustHeader page={page} actionBar={<ActionBar page={page} />} />
+      <RustHeader page={page}  />
       <MaxWidthWrapper className="py-6" >
 
         <div className="space-y-6">

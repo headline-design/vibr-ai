@@ -16,7 +16,7 @@ export default function ChatSettings() {
 
   return (
     <>
-      <RustHeader page={page} actionBar={<ActionBar page={page} />} />
+      <RustHeader page={page} />
       <MaxWidthWrapper className="py-6" >
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

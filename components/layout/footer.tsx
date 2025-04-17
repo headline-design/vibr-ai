@@ -4,6 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { VibrIcon } from "../vibr-icon"
 import { Github, Twitter, Linkedin, Mail } from "lucide-react"
+import ThemeSwitcher from "../ui/theme-switcher/theme-switcher"
 
 export function Footer() {
   const pathname = usePathname()
@@ -36,7 +37,7 @@ export function Footer() {
               </Link>
               <div className="flex items-center gap-3">
                 <Link
-                  href="https://github.com/yourusername/vibr"
+                  href="https://github.com/headline-design/vibr-ai"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-primary transition-colors"
@@ -80,46 +81,12 @@ export function Footer() {
             <p className="text-sm text-muted-foreground mb-4">
               Intent-based AI that understands your workflow and delivers faster, more secure responses.
             </p>
-            <div className="flex items-center gap-3">
-              <Link
-                href="https://github.com/yourusername/vibr"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
-                aria-label="GitHub"
-              >
-                <Github className="h-5 w-5" />
-              </Link>
-              <Link
-                href="https://twitter.com/vibrai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
-                aria-label="Twitter"
-              >
-                <Twitter className="h-5 w-5" />
-              </Link>
-              <Link
-                href="https://linkedin.com/company/vibrai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="h-5 w-5" />
-              </Link>
-              <Link
-                href="mailto:hello@vibr.ai"
-                className="text-muted-foreground hover:text-primary transition-colors"
-                aria-label="Email"
-              >
-                <Mail className="h-5 w-5" />
-              </Link>
-            </div>
+
+            <ThemeSwitcher />
           </div>
 
           {/* Links Columns */}
-          <div className="md:col-span-3 grid grid-cols-2 md:grid-cols-3 gap-8">
+          <div className="md:col-span-3 grid grid-cols-2 md:grid-cols-4 gap-8">
             <div>
               <h3 className="font-medium mb-3">Product</h3>
               <ul className="space-y-2">
@@ -170,7 +137,7 @@ export function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="https://github.com/yourusername/vibr"
+                    href="https://github.com/headline-design/vibr-ai"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm text-muted-foreground hover:text-primary transition-colors"
@@ -205,6 +172,8 @@ export function Footer() {
               </ul>
             </div>
 
+
+
             <div>
               <h3 className="font-medium mb-3">Legal</h3>
               <ul className="space-y-2">
@@ -236,7 +205,7 @@ export function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="mailto:legal@vibr.ai"
+                    href="mailto:aaron@headline.dev"
                     className="text-sm text-muted-foreground hover:text-primary transition-colors"
                   >
                     legal@vibr.ai
@@ -244,15 +213,51 @@ export function Footer() {
                 </li>
               </ul>
             </div>
+
+            <div>
+              <h3 className="font-medium mb-3">Social</h3>
+              <ul className="space-y-2">
+                <li>
+                  <a
+                    href="https://twitter.com/vibrai"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    <Twitter className="inline w-4 h-4 mr-1"/>       Twitter
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/headline-design/vibr-ai"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    <Github className="inline w-4 h-4 mr-1"/>      GitHub
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="mailto:aaron@headline.dev"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    <Mail className="inline w-4 h-4 mr-1"/>      EMail
+                  </a>
+                </li>
+
+              </ul>
+            </div>
+
           </div>
         </div>
 
         <div className="mt-12 pt-8 border-t text-center md:flex md:justify-between md:text-left">
-          <p className="text-sm text-muted-foreground">&copy; {currentYear} Vibr AI. All rights reserved.</p>
-          <div className="flex items-center justify-center md:justify-end space-x-4 mt-4 md:mt-0">
+          <p className="text-sm text-muted-foreground">&copy; {currentYear} VIBR AI. All rights reserved.</p>
+          <div className="flex items-start sm:items-center justify-center md:justify-end space-x-4 mt-4 md:mt-0">
             <span className="text-sm text-muted-foreground">Built with</span>
             <span className="text-primary">❤️</span>
-            <span className="text-sm text-muted-foreground">by the Vibr team</span>
+            <span className="text-sm text-muted-foreground">by the VIBR team</span>
           </div>
         </div>
       </div>

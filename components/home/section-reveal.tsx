@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useRef, useEffect, useState } from "react"
 import { motion } from "framer-motion"
 
@@ -9,19 +8,10 @@ interface SectionRevealProps {
   children: React.ReactNode
   className?: string
   delay?: number
-  direction?: "up" | "down" | "left" | "right"
   threshold?: number
-  duration?: number
 }
 
-export function SectionReveal({
-  children,
-  className = "",
-  delay = 0,
-  direction = "up",
-  threshold = 0.1,
-  duration = 0.5,
-}: SectionRevealProps) {
+export function SectionReveal({ children, className = "", delay = 0, threshold = 0.1 }: SectionRevealProps) {
   const [isVisible, setIsVisible] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -35,7 +25,7 @@ export function SectionReveal({
       },
       {
         threshold,
-        rootMargin: "0px 0px -100px 0px", // Trigger slightly before the element is in view
+        rootMargin: "0px 0px -50px 0px",
       },
     )
 
@@ -51,21 +41,17 @@ export function SectionReveal({
     }
   }, [threshold])
 
-  // Define animation variants based on direction
+  // Simplified variants with just opacity and no movement
   const variants = {
     hidden: {
       opacity: 0,
-      y: direction === "up" ? 50 : direction === "down" ? -50 : 0,
-      x: direction === "left" ? 50 : direction === "right" ? -50 : 0,
     },
     visible: {
       opacity: 1,
-      y: 0,
-      x: 0,
       transition: {
-        duration,
+        duration: 0.4, // Reduced from 0.5
         delay,
-        ease: [0.25, 0.1, 0.25, 1], // Cubic bezier easing
+        ease: "easeOut", // Simplified easing
       },
     },
   }

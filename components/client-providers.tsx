@@ -19,7 +19,7 @@ interface ClientProvidersProps {
 
 export function ClientProviders({ children, initialShowSuggestions = true }: ClientProvidersProps) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
     <AccessibilityProvider>
       <MetaSessionProvider>
         <ConversationTreeProvider>

@@ -65,7 +65,7 @@ export default function LoginPage() {
             </div>
 
             <div className="flex flex-col items-center justify-center gap-2">
-              <p className="text-4xl font-semibold">Welcome to Vibr</p>
+              <p className="text-4xl font-semibold">Welcome to VIBR</p>
               <p className="text-muted-foreground text-base ">Sign in to your account</p>
             </div>
 

@@ -11,7 +11,7 @@ import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 import { useTheme } from "next-themes"
 import ChatInterface from "@/components/flow-state/chat-interface"
-import { MessageSquare, Maximize2, PanelLeft, Info, Keyboard, Mic, Paperclip } from "lucide-react"
+import { MessageSquare, Maximize2, PanelLeft, Info, Keyboard, Mic, Paperclip, CommandIcon } from "lucide-react"
 import { useDemoState } from "@/components/flow-state/providers/demo-state-provider"
 import ThemeTabsLoading from "@/components/theme-tabs-loading"
 import ThemeTabs from "@/components/theme-tabs"
@@ -107,55 +107,55 @@ export default function ChatClient() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className={activeFeature === "command" ? "border-primary" : ""}
-                    onClick={() => setIsCommandPaletteOpen(!isCommandPaletteOpen)}
+                    className={activeFeature === "command" ? "bg-accent-muted" : ""}
+                    onClick={() => setActiveFeature(activeFeature === "command" ? null : "command")}
                   >
-                    <Command className="h-4 w-4" />
-                    <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
+                    <CommandIcon className="h-4 w-4" />
+                    <span className="[@container(max-width:380px)]:hidden flex items-center justify-center">
                       CMDK
                     </span>
                   </Button>
                   <Button
                     variant="outline"
                     size="sm"
-                    className={activeFeature === "voice" ? "border-primary" : ""}
+                    className={activeFeature === "voice" ? "bg-accent-muted" : ""}
                     onClick={() => setActiveFeature(activeFeature === "voice" ? null : "voice")}
                   >
                     <Mic className="h-4 w-4" />
-                    <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
+                    <span className="[@container(max-width:380px)]:hidden flex items-center justify-center">
                       Voice Input
                     </span>
                   </Button>
                   <Button
                     variant="outline"
                     size="sm"
-                    className={activeFeature === "file" ? "border-primary" : ""}
+                    className={activeFeature === "file" ? "bg-accent-muted" : ""}
                     onClick={() => setActiveFeature(activeFeature === "file" ? null : "file")}
                   >
                     <Paperclip className="h-4 w-4" />
-                    <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
+                    <span className="[@container(max-width:380px)]:hidden flex items-center justify-center">
                       Attachment
                     </span>
                   </Button>
                   <Button
                     variant="outline"
                     size="sm"
-                    className={activeFeature === "keyboard" ? "border-primary" : ""}
+                    className={activeFeature === "keyboard" ? "bg-accent-muted" : ""}
                     onClick={() => setActiveFeature(activeFeature === "keyboard" ? null : "keyboard")}
                   >
                     <Keyboard className="h-4 w-4" />
-                    <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
+                    <span className="[@container(max-width:380px)]:hidden flex items-center justify-center">
                       Shortcuts
                     </span>
                   </Button>
                   <Button
                     variant="outline"
                     size="sm"
-                    className={activeFeature === "accessibility" ? "border-primary" : ""}
-                    onClick={() => setShowAccessibilityPanel(!showAccessibilityPanel)}
+                    className={activeFeature === "accessibility" ? "bg-accent-muted" : ""}
+                    onClick={() => setActiveFeature(activeFeature === "accessibility" ? null : "accessibility")}
                   >
                     <Info className="h-4 w-4" />
-                    <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
+                    <span className="[@container(max-width:380px)]:hidden flex items-center justify-center">
                       Accessibility
                     </span>
                   </Button>

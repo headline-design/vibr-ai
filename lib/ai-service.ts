@@ -8,6 +8,23 @@ interface TweetGenerationParams {
   projectDescription: string
 }
 
+export async function getLLMResponse(prompt: string): Promise<string> {
+  try {
+    const { text } = await generateText({
+      model: openai("gpt-4o"),
+      system: 'You are a helpful assistant!',
+      prompt,
+      temperature: 0.7,
+      maxTokens: 150,
+    })
+    return text.trim()
+  }
+  catch (error) {
+    console.error("Error generating LLM response:", error)
+    return `Failed to generate response. Please try again later.`
+  }
+}
+
 export async function generateTweet({ projectName, projectDescription }: TweetGenerationParams): Promise<string> {
   try {
     const prompt = `
