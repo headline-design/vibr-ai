@@ -11,6 +11,7 @@ import { AccessibilityProvider } from "@/components/flow-state/providers/accessi
 import { DemoStateProvider } from "@/components/flow-state/providers/demo-state-provider"
 import { FlowStateProvider } from "@/components/flow-state/providers/flow-state-provider"
 import { MetaSessionProvider } from "@/components/flow-state/providers/meta-session-provider"
+import { ChatConfigProvider } from "@/components/flow-state/providers/chat-config-provider"
 
 interface ClientProvidersProps {
   children: ReactNode
@@ -20,21 +21,23 @@ interface ClientProvidersProps {
 export function ClientProviders({ children, initialShowSuggestions = true }: ClientProvidersProps) {
   return (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-    <AccessibilityProvider>
-      <MetaSessionProvider>
-        <ConversationTreeProvider>
-          <FlowStateProvider>
-            <DemoStateProvider>
-              <AuthProvider>
-                <MessageProvider>
-                  <FlareColorProvider>{children}</FlareColorProvider>
-                </MessageProvider>
-              </AuthProvider>
-            </DemoStateProvider>
-          </FlowStateProvider>
-        </ConversationTreeProvider>
-      </MetaSessionProvider>
-    </AccessibilityProvider>
-  </ThemeProvider>
+      <AccessibilityProvider>
+        <MetaSessionProvider>
+          <ConversationTreeProvider>
+            <FlowStateProvider>
+              <ChatConfigProvider>
+                <DemoStateProvider>
+                  <AuthProvider>
+                    <MessageProvider>
+                      <FlareColorProvider>{children}</FlareColorProvider>
+                    </MessageProvider>
+                  </AuthProvider>
+                </DemoStateProvider>
+              </ChatConfigProvider>
+            </FlowStateProvider>
+          </ConversationTreeProvider>
+        </MetaSessionProvider>
+      </AccessibilityProvider>
+    </ThemeProvider>
   )
 }

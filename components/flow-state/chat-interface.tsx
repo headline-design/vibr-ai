@@ -14,6 +14,8 @@ import { useMediaQuery } from "@/hooks/use-media-query"
 import { MessageInput } from "@/components/flow-state/message/message-input"
 import { useToast } from "@/components/ui/use-toast"
 import { MessageBubble } from "@/components/flow-state/message/message-bubble"
+import { useChatConfig } from "@/components/flow-state/providers/chat-config-provider"
+import { VibrIcon } from "../vibr-icon"
 
 export type ChatRole = "user" | "assistant" | "system"
 
@@ -88,6 +90,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
   setEmbeddedChatView,
 }) => {
   const { messages, handleSendMessage, isWaitingForResponse, clearMessages, setMessages } = useFlowState()
+  const { chatConfig, updateChatConfig } = useChatConfig()
   const { toast } = useToast()
 
   // State for user input
@@ -437,6 +440,8 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
                               initial={{ scale: 0.9 }}
                               animate={{ scale: 1 }}
                             >
+                              {chatConfig.showChatAvatar ? (
+<>
                               {groupIndex !== lastAssistantGroupIndex ? (
                                 <StaticFluxAvatar
                                   size="xs"
@@ -451,6 +456,12 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
                                   animate={groupIndex === lastAssistantGroupIndex}
                                   aria-hidden="true"
                                 />
+                              )}
+                              </>
+                              ) : (
+                                <div className="relative rounded-full overflow-hidden h-8 w-8 bg-transparent flex items-center justify-center">
+                                 <VibrIcon variant="bolt" className="h-6 w-6 text-gray-500" />
+                                </div>
                               )}
                             </motion.div>
                           )}

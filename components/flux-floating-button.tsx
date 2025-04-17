@@ -15,13 +15,13 @@ export function FluxFloatingButton({ onClick, isOpen, className }: FluxFloatingB
     <Button
       onClick={onClick}
       className={cn(
-        "fixed bottom-6 right-6 h-12 w-12 rounded-md shadow-md z-50 p-0 transition-all duration-300 hover:shadow-lg",
-        isOpen ? "bg-neutral-800 hover:bg-neutral-900" : "bg-neutral-900 hover:bg-black",
+        "fixed bottom-6 right-6 h-14 w-14 rounded-lg shadow-md z-50 p-0 transition-all duration-300 hover:shadow-lg",
+        isOpen ? "bg-background hover:bg-muted border" : "bg-background hover:bg-muted border",
         className,
       )}
       aria-label={isOpen ? "Close chat" : "Open chat"}
     >
-      {isOpen ? <X className="h-5 w-5" /> : <MessageSquare className="h-5 w-5" />}
+      {isOpen ? <X className="!h-5 !w-5 text-foreground flex-shrink-0" /> : <MessageSquare className="!h-5 !w-5 text-foreground flex-shrink-0" />}
     </Button>
   )
 }
