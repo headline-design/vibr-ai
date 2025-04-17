@@ -19,7 +19,7 @@ export function SimpleTypingIndicator({ className }: SimpleTypingIndicatorProps)
     <>
       <style>{fadeInOutStyle}</style>
       <div className={cn("inline-flex items-center", className)}>
-        <span className="text-xs text-gray-500 mr-2 font-medium">Typing</span>
+        <span className="text-xs text-muted-foreground mr-2 font-medium">Typing</span>
         <div className="flex space-x-1.5">
           <div
             className="h-1.5 w-1.5 bg-gray-400 dark:bg-gray-500 rounded-full opacity-40"

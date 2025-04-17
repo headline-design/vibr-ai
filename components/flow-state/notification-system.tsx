@@ -81,7 +81,7 @@ function NotificationItem({ notification, onDismiss }: NotificationItemProps) {
         <div className="flex-shrink-0 mr-3">{getIcon()}</div>
         <div className="flex-1 pt-0.5">
           <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">{title}</h3>
-          <p className="mt-1 text-xs text-gray-600 dark:text-gray-300">{message}</p>
+          <p className="mt-1 text-xs text-muted-foreground">{message}</p>
           {action && (
             <div className="mt-2">
               <Button
@@ -98,7 +98,7 @@ function NotificationItem({ notification, onDismiss }: NotificationItemProps) {
         <Button
           variant="ghost"
           size="icon"
-          className="h-6 w-6 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 -mt-1 -mr-1"
+          className="h-6 w-6 text-muted-foreground hover:text-gray-700 dark:text-muted-foreground dark:hover:text-gray-300 -mt-1 -mr-1"
           onClick={() => onDismiss(id)}
           aria-label="Dismiss notification"
         >

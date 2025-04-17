@@ -360,7 +360,7 @@ export function ConversationManager({ onSelectConversation, onNewConversation, c
       case "starred":
         return <Star className="h-4 w-4 text-amber-400" />
       case "archived":
-        return <Archive className="h-4 w-4 text-gray-400" />
+        return <Archive className="h-4 w-4 text-muted-foreground" />
       case "trash":
         return <Trash2 className="h-4 w-4 text-red-400" />
       default:
@@ -390,7 +390,7 @@ export function ConversationManager({ onSelectConversation, onNewConversation, c
 
         <div className="flex items-center space-x-2">
           <div className="relative flex-1">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
+            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="Search conversations..."
               value={searchQuery}
@@ -426,7 +426,7 @@ export function ConversationManager({ onSelectConversation, onNewConversation, c
                 "w-full flex items-center px-2 py-1.5 text-sm rounded-md transition-colors",
                 selectedFolder === folder.id
                   ? "bg-background font-medium"
-                  : "hover:bg-gray-50 dark:hover:bg-gray-900",
+                  : "hover:bg-accent-muted dark:hover:bg-gray-900",
               )}
               onClick={() => setSelectedFolder(folder.id)}
             >
@@ -451,7 +451,7 @@ export function ConversationManager({ onSelectConversation, onNewConversation, c
           ))}
 
           <button
-            className="w-full flex items-center px-2 py-1.5 text-sm rounded-md text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-900"
+            className="w-full flex items-center px-2 py-1.5 text-sm rounded-md text-muted-foreground hover:bg-accent-muted dark:hover:bg-gray-900"
             onClick={() => setIsNewFolderDialogOpen(true)}
           >
             <FolderPlus className="h-4 w-4 mr-2" />
@@ -473,7 +473,7 @@ export function ConversationManager({ onSelectConversation, onNewConversation, c
             />
           )}
 
-          <div className="text-xs text-gray-500">
+          <div className="text-xs text-muted-foreground">
             {filteredConversations.length} conversation{filteredConversations.length !== 1 ? "s" : ""}
           </div>
         </div>
@@ -655,7 +655,7 @@ export function ConversationManager({ onSelectConversation, onNewConversation, c
                       {filterTags.includes(tag) && <X className="h-3 w-3 ml-1" />}
                     </Badge>
                   ))}
-                  {allTags.length === 0 && <div className="text-xs text-gray-500">No tags available</div>}
+                  {allTags.length === 0 && <div className="text-xs text-muted-foreground">No tags available</div>}
                 </div>
               </div>
 
@@ -675,7 +675,7 @@ export function ConversationManager({ onSelectConversation, onNewConversation, c
           <div className="flex flex-col items-center justify-center h-full p-4 text-center">
             <MessageSquare className="h-12 w-12 text-gray-300 dark:text-gray-600 mb-2" />
             <h3 className="text-sm font-medium mb-1">No conversations found</h3>
-            <p className="text-xs text-gray-500 mb-4">
+            <p className="text-xs text-muted-foreground mb-4">
               {searchQuery || filterModel || filterTags.length > 0
                 ? "Try adjusting your filters"
                 : selectedFolder === "trash"
@@ -706,7 +706,7 @@ export function ConversationManager({ onSelectConversation, onNewConversation, c
               <div
                 key={conversation.id}
                 className={cn(
-                  "p-3 hover:bg-gray-50 dark:hover:bg-gray-900/50 cursor-pointer transition-colors",
+                  "p-3 hover:bg-accent-muted dark:hover:bg-gray-900/50 cursor-pointer transition-colors",
                   selectedConversations.includes(conversation.id) && "bg-blue-50 dark:bg-blue-900/20",
                 )}
                 onClick={() =>
@@ -732,7 +732,7 @@ export function ConversationManager({ onSelectConversation, onNewConversation, c
                       />
                     ) : (
                       <button
-                        className="text-gray-400 hover:text-amber-400 transition-colors"
+                        className="text-muted-foreground hover:text-amber-400 transition-colors"
                         onClick={(e) => toggleStar(conversation.id, e)}
                       >
                         <Star className={cn("h-4 w-4", conversation.isStarred && "text-amber-400 fill-amber-400")} />
@@ -743,10 +743,10 @@ export function ConversationManager({ onSelectConversation, onNewConversation, c
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between">
                       <h3 className="font-medium text-sm truncate">{conversation.title}</h3>
-                      <span className="text-xs text-gray-500 ml-2 flex-shrink-0">{formatDate(conversation.date)}</span>
+                      <span className="text-xs text-muted-foreground ml-2 flex-shrink-0">{formatDate(conversation.date)}</span>
                     </div>
 
-                    <p className="text-xs text-gray-500 truncate">{conversation.preview}</p>
+                    <p className="text-xs text-muted-foreground truncate">{conversation.preview}</p>
 
                     <div className="flex items-center mt-1 space-x-1">
                       {conversation.folder && (

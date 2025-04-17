@@ -440,7 +440,7 @@ export function PromptEngineeringTool({
                   />
                 </CardContent>
                 <CardFooter className="flex justify-between border-t pt-4">
-                  <div className="flex items-center text-xs text-gray-500">
+                  <div className="flex items-center text-xs text-muted-foreground">
                     <Layers className="h-3.5 w-3.5 mr-1" />
                     {promptText.length} characters
                   </div>
@@ -559,15 +559,15 @@ export function PromptEngineeringTool({
                 </CardHeader>
                 <CardContent>
                   {promptVariables.length === 0 ? (
-                    <div className="text-center py-6 text-gray-500">
+                    <div className="text-center py-6 text-muted-foreground">
                       <Braces className="h-8 w-8 mx-auto mb-2 opacity-50" />
                       <p className="text-sm">No variables defined</p>
                       <p className="text-xs mt-1">Use {"{{variable_name}}"} in your prompt to create variables</p>
                     </div>
                   ) : (
                     <div className="space-y-3">
-                      {promptVariables.map((variable) => (
-                        <div key={variable.name} className="p-3 border rounded-md">
+                      {promptVariables.map((variable, i) => (
+                        <div key={i} className="p-3 border rounded-md">
                           <div className="flex items-center justify-between mb-2">
                             <div className="font-medium text-sm">
                               {variable.name}
@@ -596,7 +596,7 @@ export function PromptEngineeringTool({
                               </Button>
                             </div>
                           </div>
-                          <p className="text-xs text-gray-500 mb-2">
+                          <p className="text-xs text-muted-foreground mb-2">
                             {variable.description || `Value for ${variable.name}`}
                           </p>
                           <Input
@@ -633,7 +633,7 @@ export function PromptEngineeringTool({
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <HelpCircle className="h-3.5 w-3.5 text-gray-400" />
+                            <HelpCircle className="h-3.5 w-3.5 text-muted-foreground" />
                           </TooltipTrigger>
                           <TooltipContent>
                             <p className="text-xs max-w-xs">
@@ -644,7 +644,7 @@ export function PromptEngineeringTool({
                       </TooltipProvider>
                     </div>
                     <Slider id="temperature" min={0} max={2} step={0.1} defaultValue={[0.7]} />
-                    <div className="flex justify-between text-xs text-gray-500">
+                    <div className="flex justify-between text-xs text-muted-foreground">
                       <span>Precise</span>
                       <span>Balanced</span>
                       <span>Creative</span>
@@ -676,7 +676,7 @@ export function PromptEngineeringTool({
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <HelpCircle className="h-3.5 w-3.5 text-gray-400" />
+                            <HelpCircle className="h-3.5 w-3.5 text-muted-foreground" />
                           </TooltipTrigger>
                           <TooltipContent>
                             <p className="text-xs max-w-xs">
@@ -707,15 +707,15 @@ export function PromptEngineeringTool({
               </CardHeader>
               <CardContent className="space-y-4">
                 {promptVariables.length === 0 ? (
-                  <div className="text-center py-6 text-gray-500">
+                  <div className="text-center py-6 text-muted-foreground">
                     <Braces className="h-8 w-8 mx-auto mb-2 opacity-50" />
                     <p className="text-sm">No variables defined</p>
                     <p className="text-xs mt-1">Go to the Editor tab to define variables</p>
                   </div>
                 ) : (
                   <div className="space-y-3">
-                    {promptVariables.map((variable) => (
-                      <div key={variable.name} className="space-y-2">
+                    {promptVariables.map((variable, i) => (
+                      <div key={i} className="space-y-2">
                         <Label htmlFor={`var-${variable.name}`} className="text-sm">
                           {variable.name}
                           {variable.required && <span className="text-red-500 ml-1">*</span>}
@@ -771,7 +771,7 @@ export function PromptEngineeringTool({
                   {testResult ? (
                     <div className="whitespace-pre-wrap text-sm">{testResult}</div>
                   ) : (
-                    <div className="text-center py-6 text-gray-500">
+                    <div className="text-center py-6 text-muted-foreground">
                       <MessageSquare className="h-8 w-8 mx-auto mb-2 opacity-50" />
                       <p className="text-sm">No result yet</p>
                       <p className="text-xs mt-1">Test your prompt to see the result</p>
@@ -780,7 +780,7 @@ export function PromptEngineeringTool({
                 </div>
               </CardContent>
               <CardFooter className="flex justify-between border-t pt-4">
-                <div className="flex items-center text-xs text-gray-500">
+                <div className="flex items-center text-xs text-muted-foreground">
                   <Layers className="h-3.5 w-3.5 mr-1" />
                   {testResult.length} characters
                 </div>
@@ -832,7 +832,7 @@ export function PromptEngineeringTool({
                     <div className="text-center py-12">
                       <Bookmark className="h-12 w-12 mx-auto text-gray-300 dark:text-gray-600 mb-4" />
                       <h3 className="text-lg font-medium mb-2">No saved prompts</h3>
-                      <p className="text-gray-500 mb-4">Save your prompts to reuse them later</p>
+                      <p className="text-muted-foreground mb-4">Save your prompts to reuse them later</p>
                       <Button variant="outline" onClick={() => setActiveTab("editor")}>
                         <Pencil className="h-4 w-4 mr-1.5" />
                         Create a Prompt
@@ -843,7 +843,7 @@ export function PromptEngineeringTool({
                       {savedPrompts.map((prompt) => (
                         <div
                           key={prompt.id}
-                          className="p-4 border rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition-colors"
+                          className="p-4 border rounded-md hover:bg-accent-muted dark:hover:bg-gray-800 cursor-pointer transition-colors"
                           onClick={() => {
                             setPromptText(prompt.prompt)
                             setPromptName(prompt.name)
@@ -864,7 +864,7 @@ export function PromptEngineeringTool({
                           <div className="flex items-start justify-between mb-2">
                             <div>
                               <div className="font-medium">{prompt.name}</div>
-                              <div className="text-xs text-gray-500 mt-0.5">
+                              <div className="text-xs text-muted-foreground mt-0.5">
                                 {new Date(prompt.updatedAt).toLocaleDateString()}
                               </div>
                             </div>
@@ -883,7 +883,7 @@ export function PromptEngineeringTool({
                               </Button>
                             </div>
                           </div>
-                          <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{prompt.description}</p>
+                          <p className="text-sm text-muted-foreground mb-2">{prompt.description}</p>
                           <div className="flex flex-wrap gap-1">
                             {prompt.tags.map((tag, index) => (
                               <Badge key={index} variant="secondary" className="text-xs">
@@ -911,31 +911,31 @@ export function PromptEngineeringTool({
                   <Accordion type="single" collapsible className="w-full">
                     <AccordionItem value="item-1">
                       <AccordionTrigger className="text-sm">Be specific and clear</AccordionTrigger>
-                      <AccordionContent className="text-xs text-gray-600 dark:text-gray-300">
+                      <AccordionContent className="text-xs text-muted-foreground">
                         Clearly state what you want the AI to do. Avoid ambiguity and provide context.
                       </AccordionContent>
                     </AccordionItem>
                     <AccordionItem value="item-2">
                       <AccordionTrigger className="text-sm">Use examples</AccordionTrigger>
-                      <AccordionContent className="text-xs text-gray-600 dark:text-gray-300">
+                      <AccordionContent className="text-xs text-muted-foreground">
                         Provide examples of the desired output format or style to guide the AI.
                       </AccordionContent>
                     </AccordionItem>
                     <AccordionItem value="item-3">
                       <AccordionTrigger className="text-sm">Break down complex tasks</AccordionTrigger>
-                      <AccordionContent className="text-xs text-gray-600 dark:text-gray-300">
+                      <AccordionContent className="text-xs text-muted-foreground">
                         For complex tasks, break them down into smaller, more manageable steps.
                       </AccordionContent>
                     </AccordionItem>
                     <AccordionItem value="item-4">
                       <AccordionTrigger className="text-sm">Specify the format</AccordionTrigger>
-                      <AccordionContent className="text-xs text-gray-600 dark:text-gray-300">
+                      <AccordionContent className="text-xs text-muted-foreground">
                         Clearly specify the desired output format (e.g., bullet points, paragraphs, table).
                       </AccordionContent>
                     </AccordionItem>
                     <AccordionItem value="item-5">
                       <AccordionTrigger className="text-sm">Use variables for flexibility</AccordionTrigger>
-                      <AccordionContent className="text-xs text-gray-600 dark:text-gray-300">
+                      <AccordionContent className="text-xs text-muted-foreground">
                         Use variables like {"{{variable_name}}"} to make your prompts reusable and flexible.
                       </AccordionContent>
                     </AccordionItem>
@@ -1025,7 +1025,7 @@ export function PromptEngineeringTool({
                 placeholder="e.g., topic, length, tone"
                 disabled={isEditingVariable}
               />
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-muted-foreground">
                 Use this name in your prompt with double curly braces: {"{{variable_name}}"}
               </p>
             </div>
@@ -1186,7 +1186,7 @@ export function PromptEngineeringTool({
 
           <div className="my-2">
             <div className="relative mb-4">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Search templates..."
                 value={searchQuery}
@@ -1210,7 +1210,7 @@ export function PromptEngineeringTool({
                 <div className="text-center py-8">
                   <Sparkles className="h-8 w-8 mx-auto text-gray-300 dark:text-gray-600 mb-2" />
                   <h3 className="text-sm font-medium mb-1">No templates found</h3>
-                  <p className="text-xs text-gray-500">Try a different search term</p>
+                  <p className="text-xs text-muted-foreground">Try a different search term</p>
                 </div>
               ) : (
                 Object.entries(groupedTemplates).map(([category, templates]) => (
@@ -1228,7 +1228,7 @@ export function PromptEngineeringTool({
                             "p-3 border rounded-md cursor-pointer transition-colors",
                             selectedTemplate?.id === template.id
                               ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20"
-                              : "hover:bg-gray-50 dark:hover:bg-gray-800",
+                              : "hover:bg-accent-muted dark:hover:bg-gray-800",
                           )}
                           onClick={() => setSelectedTemplate(template)}
                         >
@@ -1236,7 +1236,7 @@ export function PromptEngineeringTool({
                             <div className="font-medium text-sm">{template.name}</div>
                             {selectedTemplate?.id === template.id && <Check className="h-4 w-4 text-blue-500" />}
                           </div>
-                          <p className="text-xs text-gray-600 dark:text-gray-300 mb-2">{template.description}</p>
+                          <p className="text-xs text-muted-foreground mb-2">{template.description}</p>
                           <div className="flex flex-wrap gap-1">
                             {template.tags.map((tag, index) => (
                               <Badge key={index} variant="secondary" className="text-xs">

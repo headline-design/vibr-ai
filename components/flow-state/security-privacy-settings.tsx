@@ -203,7 +203,7 @@ export function SecurityPrivacySettings() {
       case "data_export":
         return <Download className="h-4 w-4 text-indigo-500" />
       default:
-        return <Info className="h-4 w-4 text-gray-500" />
+        return <Info className="h-4 w-4 text-muted-foreground" />
     }
   }
 

@@ -272,7 +272,7 @@ export function AnalyticsInsights({ className }: AnalyticsInsightsProps) {
               <CardDescription>When you use the AI assistant</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="h-64 flex items-center justify-center text-gray-500">
+              <div className="h-64 flex items-center justify-center text-muted-foreground">
                 <p>Heatmap visualization of usage patterns by time of day</p>
               </div>
             </CardContent>
@@ -317,7 +317,7 @@ export function AnalyticsInsights({ className }: AnalyticsInsightsProps) {
                 <Brain className="h-5 w-5 text-blue-500 mt-0.5" />
                 <div>
                   <h4 className="text-sm font-medium">Try GPT-4 for Code Generation</h4>
-                  <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                  <p className="text-xs text-muted-foreground mt-1">
                     Your code-related queries might benefit from GPT-4's improved reasoning capabilities.
                   </p>
                 </div>
@@ -327,7 +327,7 @@ export function AnalyticsInsights({ className }: AnalyticsInsightsProps) {
                 <Image className="h-5 w-5 text-purple-500 mt-0.5" />
                 <div>
                   <h4 className="text-sm font-medium">Use Image Analysis More Often</h4>
-                  <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                  <p className="text-xs text-muted-foreground mt-1">
                     You've had great results when using image analysis features. Consider uploading more images for
                     analysis.
                   </p>
@@ -338,7 +338,7 @@ export function AnalyticsInsights({ className }: AnalyticsInsightsProps) {
                 <MessageSquare className="h-5 w-5 text-green-500 mt-0.5" />
                 <div>
                   <h4 className="text-sm font-medium">Create More Conversation Threads</h4>
-                  <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">
+                  <p className="text-xs text-muted-foreground mt-1">
                     Separating your topics into different conversations can help you stay organized and find information
                     later.
                   </p>
@@ -382,7 +382,7 @@ function StatCard({
     <Card>
       <CardContent className="p-6">
         <div className="flex items-center justify-between mb-2">
-          <div className="text-sm font-medium text-gray-500 dark:text-gray-400">{title}</div>
+          <div className="text-sm font-medium text-muted-foreground">{title}</div>
           {icon}
         </div>
         <div className="text-2xl font-bold">{value}</div>
@@ -423,7 +423,7 @@ function InsightCard({
           <h3 className="text-sm font-medium ml-2">{title}</h3>
         </div>
         <div className="text-xl font-bold mb-2">{insight}</div>
-        <p className="text-xs text-gray-600 dark:text-gray-300">{description}</p>
+        <p className="text-xs text-muted-foreground">{description}</p>
       </CardContent>
     </Card>
   )

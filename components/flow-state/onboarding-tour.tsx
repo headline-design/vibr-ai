@@ -148,12 +148,12 @@ export function OnboardingTour({ isOpen, onClose, onComplete, steps, className }
 
           {/* Content */}
           <div className="p-4">
-            <p className="text-sm text-gray-600 dark:text-gray-300">{step.description}</p>
+            <p className="text-sm text-muted-foreground">{step.description}</p>
           </div>
 
           {/* Footer */}
           <div className="flex items-center justify-between p-4 border-t border-gray-200 dark:border-gray-700">
-            <div className="text-xs text-gray-500 dark:text-gray-400">
+            <div className="text-xs text-muted-foreground dark:text-muted-foreground">
               Step {currentStep + 1} of {steps.length}
             </div>
             <div className="flex items-center space-x-2">
@@ -227,7 +227,7 @@ export function createDefaultTourSteps(): TourStep[] {
       description: "Customize your experience with various settings for appearance, notifications, and more.",
       target: ".settings-button", // Target the settings button
       position: "bottom",
-      icon: <Settings className="h-5 w-5 text-gray-500 mr-2" />,
+      icon: <Settings className="h-5 w-5 text-muted-foreground mr-2" />,
     },
     {
       title: "You're All Set!",

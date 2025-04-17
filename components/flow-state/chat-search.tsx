@@ -191,7 +191,7 @@ export function ChatSearch({ messages, onResultSelect, onClose, isOpen, classNam
           >
             {/* Search header */}
             <div className="flex items-center p-3 border-b border-gray-200 dark:border-gray-700">
-              <Search className="h-4 w-4 text-gray-500 dark:text-gray-400 mr-2" />
+              <Search className="h-4 w-4 text-muted-foreground mr-2" />
               <Input
                 ref={inputRef}
                 value={searchTerm}
@@ -232,7 +232,7 @@ export function ChatSearch({ messages, onResultSelect, onClose, isOpen, classNam
                       variant="ghost"
                       size="icon"
                       className={cn(
-                        "h-8 w-8 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300",
+                        "h-8 w-8 text-muted-foreground hover:text-gray-700 dark:text-muted-foreground dark:hover:text-gray-300",
                         (dateRange.from || dateRange.to) && "text-blue-600 dark:text-blue-400",
                       )}
                       aria-label="Filter by date"
@@ -248,7 +248,7 @@ export function ChatSearch({ messages, onResultSelect, onClose, isOpen, classNam
                       initialFocus
                     />
                     <div className="flex items-center justify-between p-2 border-t border-gray-200 dark:border-gray-700">
-                      <div className="text-xs text-gray-500 dark:text-gray-400">
+                      <div className="text-xs text-muted-foreground dark:text-muted-foreground">
                         {dateRange.from && dateRange.to
                           ? `${formatDate(dateRange.from)} - ${formatDate(dateRange.to)}`
                           : dateRange.from
@@ -269,7 +269,7 @@ export function ChatSearch({ messages, onResultSelect, onClose, isOpen, classNam
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-8 w-8 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+                  className="h-8 w-8 text-muted-foreground hover:text-gray-700 dark:text-muted-foreground dark:hover:text-gray-300"
                   onClick={clearSearch}
                   aria-label="Clear search"
                 >
@@ -280,7 +280,7 @@ export function ChatSearch({ messages, onResultSelect, onClose, isOpen, classNam
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-8 w-8 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 ml-1"
+                className="h-8 w-8 text-muted-foreground hover:text-gray-700 dark:text-muted-foreground dark:hover:text-gray-300 ml-1"
                 onClick={onClose}
                 aria-label="Close search"
               >
@@ -292,7 +292,7 @@ export function ChatSearch({ messages, onResultSelect, onClose, isOpen, classNam
             <div ref={resultsRef} className="max-h-[400px] overflow-y-auto">
               {searchResults.length > 0 ? (
                 <div className="py-2">
-                  <div className="px-3 py-1 text-xs text-gray-500 dark:text-gray-400 flex items-center justify-between">
+                  <div className="px-3 py-1 text-xs text-muted-foreground dark:text-muted-foreground flex items-center justify-between">
                     <span>
                       {searchResults.length} {searchResults.length === 1 ? "result" : "results"}
                     </span>
@@ -314,11 +314,11 @@ export function ChatSearch({ messages, onResultSelect, onClose, isOpen, classNam
                       onClick={() => selectResult(index)}
                     >
                       <div className="flex items-center justify-between">
-                        <div className="text-xs font-medium text-gray-500 dark:text-gray-400">
+                        <div className="text-xs font-medium text-muted-foreground">
                           {result.role === "user" ? "You" : "Assistant"}
                         </div>
                         {result.timestamp && (
-                          <div className="text-xs text-gray-400 dark:text-gray-500">
+                          <div className="text-xs text-muted-foreground dark:text-muted-foreground">
                             {new Date(result.timestamp).toLocaleString(undefined, {
                               month: "short",
                               day: "numeric",
@@ -337,9 +337,9 @@ export function ChatSearch({ messages, onResultSelect, onClose, isOpen, classNam
               ) : (
                 <div className="py-8 text-center">
                   {searchTerm || dateRange.from || dateRange.to || activeFilter !== "all" ? (
-                    <div className="text-sm text-gray-500 dark:text-gray-400">No results found</div>
+                    <div className="text-sm text-muted-foreground">No results found</div>
                   ) : (
-                    <div className="text-sm text-gray-500 dark:text-gray-400">Enter a search term to find messages</div>
+                    <div className="text-sm text-muted-foreground">Enter a search term to find messages</div>
                   )}
                 </div>
               )}
@@ -348,7 +348,7 @@ export function ChatSearch({ messages, onResultSelect, onClose, isOpen, classNam
             {/* Search navigation */}
             {searchResults.length > 0 && (
               <div className="flex items-center justify-between p-3 border-t border-gray-200 dark:border-gray-700">
-                <div className="text-xs text-gray-500 dark:text-gray-400">
+                <div className="text-xs text-muted-foreground dark:text-muted-foreground">
                   {selectedResultIndex + 1} of {searchResults.length}
                 </div>
                 <div className="flex items-center space-x-1">

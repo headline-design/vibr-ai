@@ -82,7 +82,7 @@ const SuggestionChips: React.FC<SuggestionChipsProps> = ({ suggestions, onSelect
 
 export const ChatInterface: React.FC<ChatInterfaceProps> = ({
   className,
-  title = "Flux AI Assistant",
+  title = "VIBR AI Assistant",
   hideHeader = false,
   currentView: externalView,
   onOpenSettings,
@@ -460,7 +460,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
                               </>
                               ) : (
                                 <div className="relative rounded-full overflow-hidden h-8 w-8 bg-transparent flex items-center justify-center">
-                                 <VibrIcon variant="bolt" className="h-6 w-6 text-gray-500" />
+                                 <VibrIcon variant="bolt" className="h-6 w-6 text-muted-foreground" />
                                 </div>
                               )}
                             </motion.div>

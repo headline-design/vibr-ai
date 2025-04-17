@@ -201,8 +201,8 @@ export function FileUpload({
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
-        <Paperclip className="h-8 w-8 mx-auto mb-2 text-gray-400" />
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+        <Paperclip className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
+        <p className="text-sm text-gray-600 dark:text-muted-foreground mb-2">
           Drag and drop files here, or{" "}
           <button
             type="button"
@@ -212,7 +212,7 @@ export function FileUpload({
             browse
           </button>
         </p>
-        <p className="text-xs text-gray-500 dark:text-gray-500">Max file size: {maxSize}MB</p>
+        <p className="text-xs text-muted-foreground dark:text-muted-foreground">Max file size: {maxSize}MB</p>
         <input
           ref={fileInputRef}
           type="file"
@@ -242,7 +242,7 @@ export function FileUpload({
                   {getFileIcon(file)}
                   <div className="truncate">
                     <div className="text-sm truncate">{file.name}</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400">{formatFileSize(file.size)}</div>
+                    <div className="text-xs text-muted-foreground dark:text-muted-foreground">{formatFileSize(file.size)}</div>
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -254,7 +254,7 @@ export function FileUpload({
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-6 w-6 text-gray-400 hover:text-gray-600"
+                    className="h-6 w-6 text-muted-foreground hover:text-gray-600"
                     onClick={() => removeFile(file.name)}
                     disabled={isUploading}
                     aria-label={`Remove ${file.name}`}

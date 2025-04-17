@@ -171,7 +171,7 @@ export function ContextManager({ isOpen, onClose, onSave, initialContexts = [], 
             <TabsContent value="current" className="h-full overflow-y-auto mt-0 data-[state=active]:flex-1">
               <div className="space-y-4">
                 {contexts.length === 0 ? (
-                  <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                  <div className="text-center py-8 text-muted-foreground">
                     <Brain className="h-12 w-12 mx-auto mb-2 text-gray-300 dark:text-gray-600" />
                     <p>
                       No context items added yet. Add some context to help the AI understand your conversation better.
@@ -209,7 +209,7 @@ export function ContextManager({ isOpen, onClose, onSave, initialContexts = [], 
                             <Button
                               variant="ghost"
                               size="icon"
-                              className="h-7 w-7 text-gray-500 hover:text-gray-700"
+                              className="h-7 w-7 text-muted-foreground hover:text-gray-700"
                               onClick={() => startEditingItem(item.id)}
                             >
                               <FileText className="h-3.5 w-3.5" />
@@ -224,7 +224,7 @@ export function ContextManager({ isOpen, onClose, onSave, initialContexts = [], 
                             </Button>
                           </div>
                         </div>
-                        <div className="text-sm text-gray-600 dark:text-gray-300 max-h-32 overflow-y-auto border rounded p-2 bg-gray-50 dark:bg-gray-900/50">
+                        <div className="text-sm text-muted-foreground max-h-32 overflow-y-auto border rounded p-2 bg-gray-50 dark:bg-gray-900/50">
                           <pre className="whitespace-pre-wrap font-mono text-xs">{item.content}</pre>
                         </div>
                       </div>
@@ -324,7 +324,7 @@ export function ContextManager({ isOpen, onClose, onSave, initialContexts = [], 
                       <Code className="h-5 w-5 mr-2 text-purple-500" />
                       <span className="font-medium">JavaScript Utilities</span>
                     </div>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-muted-foreground">
                       Common JavaScript helper functions for date formatting and string manipulation
                     </p>
                   </Button>
@@ -345,7 +345,7 @@ export function ContextManager({ isOpen, onClose, onSave, initialContexts = [], 
                       <FileText className="h-5 w-5 mr-2 text-blue-500" />
                       <span className="font-medium">Project Requirements</span>
                     </div>
-                    <p className="text-xs text-gray-500">Template for project requirements and specifications</p>
+                    <p className="text-xs text-muted-foreground">Template for project requirements and specifications</p>
                   </Button>
 
                   <Button
@@ -364,7 +364,7 @@ export function ContextManager({ isOpen, onClose, onSave, initialContexts = [], 
                       <Database className="h-5 w-5 mr-2 text-red-500" />
                       <span className="font-medium">Database Schema</span>
                     </div>
-                    <p className="text-xs text-gray-500">Template for database schema definition</p>
+                    <p className="text-xs text-muted-foreground">Template for database schema definition</p>
                   </Button>
 
                   <Button
@@ -381,7 +381,7 @@ export function ContextManager({ isOpen, onClose, onSave, initialContexts = [], 
                       <Link className="h-5 w-5 mr-2 text-green-500" />
                       <span className="font-medium">API Documentation</span>
                     </div>
-                    <p className="text-xs text-gray-500">Template for API documentation links</p>
+                    <p className="text-xs text-muted-foreground">Template for API documentation links</p>
                   </Button>
                 </div>
 

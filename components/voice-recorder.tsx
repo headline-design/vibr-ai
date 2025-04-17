@@ -194,7 +194,7 @@ export function VoiceRecorder({ onRecordingComplete, onCancel, className }: Voic
             <span className="text-sm font-medium">{isRecording ? "Recording..." : "Processing..."}</span>
           </div>
           <div className="flex items-center space-x-2">
-            <span className="text-xs text-gray-500">{formatTime(recordingTime)}</span>
+            <span className="text-xs text-muted-foreground">{formatTime(recordingTime)}</span>
             <Button
               variant="ghost"
               size="icon"
@@ -213,7 +213,7 @@ export function VoiceRecorder({ onRecordingComplete, onCancel, className }: Voic
         </div>
 
         {/* Transcript preview */}
-        <div className="min-h-[40px] text-sm text-gray-600 dark:text-gray-300 bg-white/50 dark:bg-gray-800/50 rounded p-2 overflow-y-auto max-h-20">
+        <div className="min-h-[40px] text-sm text-muted-foreground bg-white/50 dark:bg-gray-800/50 rounded p-2 overflow-y-auto max-h-20">
           {transcript || "Listening..."}
         </div>
 

@@ -74,7 +74,7 @@ export function CommandPalette({ isOpen, onClose, onSelect }: CommandPaletteProp
       name: "Settings",
       description: "Open settings panel",
       keywords: ["settings", "preferences", "options", "configure"],
-      icon: <span className="text-gray-500">⚙️</span>,
+      icon: <span className="text-muted-foreground">⚙️</span>,
     },
   ]
 
@@ -120,7 +120,7 @@ export function CommandPalette({ isOpen, onClose, onSelect }: CommandPaletteProp
     <div className="fixed inset-0 bg-black/50 z-50 flex items-start justify-center pt-[20vh]">
       <div className="bg-background rounded-lg shadow-lg w-full max-w-md overflow-hidden">
         <div className="flex items-center border-b p-3">
-          <Command className="h-5 w-5 text-gray-500 dark:text-gray-400 mr-2" />
+          <Command className="h-5 w-5 text-muted-foreground mr-2" />
           <input
             ref={inputRef}
             type="text"
@@ -136,7 +136,7 @@ export function CommandPalette({ isOpen, onClose, onSelect }: CommandPaletteProp
 
         <div className="max-h-[300px] overflow-y-auto">
           {filteredCommands.length === 0 ? (
-            <div className="p-4 text-center text-gray-500 dark:text-gray-400">No commands found</div>
+            <div className="p-4 text-center text-muted-foreground">No commands found</div>
           ) : (
             <ul>
               {filteredCommands.map((command, index) => (
@@ -152,7 +152,7 @@ export function CommandPalette({ isOpen, onClose, onSelect }: CommandPaletteProp
                     <div className="mr-3 w-6 h-6 flex items-center justify-center">{command.icon}</div>
                     <div>
                       <div className="font-medium">{command.name}</div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400">{command.description}</div>
+                      <div className="text-sm text-muted-foreground">{command.description}</div>
                     </div>
                   </button>
                 </li>

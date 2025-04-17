@@ -50,7 +50,7 @@ export default function ChatClient() {
 
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* Controls Panel */}
+          {/* Desktop Controls Panel */}
           <Card
             className="lg:col-span-4 hidden lg:block"
             style={{
@@ -232,6 +232,7 @@ export default function ChatClient() {
           {/* Assistant Mode */}
           {demoView === "assistant" && <FluxAssistant />}
 
+          {/* Controls Panel for Mobile */}
           <Card
             className="lg:col-span-4 block lg:hidden"
             style={{
@@ -349,28 +350,35 @@ export default function ChatClient() {
               <div className="space-y-4">
                 <h3 className="text-sm font-medium">Features</h3>
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="markdown" className="cursor-pointer">
-                    Markdown Support
+                  <Label htmlFor="enableCmdk" className="cursor-pointer">
+                    Command Palette
                   </Label>
-                  <Switch id="markdown" defaultChecked />
+                  <Switch id="enableCmdk" checked={chatConfig.enableCmdk} onCheckedChange={(checked) => updateChatConfig({ enableCmdk: checked })} />
                 </div>
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="voice" className="cursor-pointer">
+                  <Label htmlFor="enableVoiceInput" className="cursor-pointer">
                     Voice Input
                   </Label>
-                  <Switch id="voice" defaultChecked />
+                  <Switch id="enableVoiceInput" checked={chatConfig.enableVoiceInput} onCheckedChange={(checked) => updateChatConfig({ enableVoiceInput: checked })} />
                 </div>
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="emoji" className="cursor-pointer">
-                    Emoji Picker
+                  <Label htmlFor="enableAttachments" className="cursor-pointer">
+                    File Attachments
                   </Label>
-                  <Switch id="emoji" defaultChecked />
+                  <Switch id="enableAttachments" checked={chatConfig.enableAttachments} onCheckedChange={(checked) => updateChatConfig({ enableAttachments: checked })} />
                 </div>
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="reactions" className="cursor-pointer">
-                    Message Reactions
+                  <Label htmlFor="enableShortcuts" className="cursor-pointer">
+                    Keyboard Shortcuts
                   </Label>
-                  <Switch id="reactions" defaultChecked />
+                  <Switch id="enableShortcuts" checked={chatConfig.enableShortcuts} onCheckedChange={(checked) => updateChatConfig({ enableShortcuts: checked })} />
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="showChatAvatar" className="cursor-pointer">
+                    Show Chat Avatar
+                  </Label>
+                  <Switch id="showChatAvatar" checked={chatConfig.showChatAvatar} onCheckedChange={(checked) => updateChatConfig({ showChatAvatar: checked })} />
                 </div>
               </div>
 

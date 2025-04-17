@@ -290,7 +290,7 @@ export function AIModelSelector({
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Info className="h-3.5 w-3.5 text-gray-400" />
+                          <Info className="h-3.5 w-3.5 text-muted-foreground" />
                         </TooltipTrigger>
                         <TooltipContent side="left" className="max-w-xs">
                           <p className="text-xs">
@@ -308,7 +308,7 @@ export function AIModelSelector({
                     value={[settings.temperature]}
                     onValueChange={(value) => updateSettings({ temperature: value[0] })}
                   />
-                  <div className="flex justify-between text-xs text-gray-500">
+                  <div className="flex justify-between text-xs text-muted-foreground">
                     <span>Precise</span>
                     <span>Balanced</span>
                     <span>Creative</span>
@@ -323,7 +323,7 @@ export function AIModelSelector({
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Info className="h-3.5 w-3.5 text-gray-400" />
+                          <Info className="h-3.5 w-3.5 text-muted-foreground" />
                         </TooltipTrigger>
                         <TooltipContent side="left" className="max-w-xs">
                           <p className="text-xs">
@@ -341,7 +341,7 @@ export function AIModelSelector({
                     value={[settings.maxTokens]}
                     onValueChange={(value) => updateSettings({ maxTokens: value[0] })}
                   />
-                  <div className="flex justify-between text-xs text-gray-500">
+                  <div className="flex justify-between text-xs text-muted-foreground">
                     <span>Short</span>
                     <span>Medium</span>
                     <span>Long</span>
@@ -358,7 +358,7 @@ export function AIModelSelector({
                         <TooltipProvider>
                           <Tooltip>
                             <TooltipTrigger asChild>
-                              <Info className="h-3.5 w-3.5 text-gray-400" />
+                              <Info className="h-3.5 w-3.5 text-muted-foreground" />
                             </TooltipTrigger>
                             <TooltipContent side="left" className="max-w-xs">
                               <p className="text-xs">
@@ -386,7 +386,7 @@ export function AIModelSelector({
                         <TooltipProvider>
                           <Tooltip>
                             <TooltipTrigger asChild>
-                              <Info className="h-3.5 w-3.5 text-gray-400" />
+                              <Info className="h-3.5 w-3.5 text-muted-foreground" />
                             </TooltipTrigger>
                             <TooltipContent side="left" className="max-w-xs">
                               <p className="text-xs">Reduces repetition by penalizing tokens that appear frequently.</p>
@@ -412,7 +412,7 @@ export function AIModelSelector({
                         <TooltipProvider>
                           <Tooltip>
                             <TooltipTrigger asChild>
-                              <Info className="h-3.5 w-3.5 text-gray-400" />
+                              <Info className="h-3.5 w-3.5 text-muted-foreground" />
                             </TooltipTrigger>
                             <TooltipContent side="left" className="max-w-xs">
                               <p className="text-xs">
@@ -501,7 +501,7 @@ export function AIModelSelector({
       </div>
 
       {/* Selected model display */}
-      <div className="mb-4 p-4 border rounded-lg bg-gray-50 dark:bg-gray-900">
+      <div className="mb-4 p-4 border rounded-lg bg-accent-muted">
         <div className="flex items-start justify-between">
           <div>
             <div className="flex items-center">
@@ -514,7 +514,7 @@ export function AIModelSelector({
                 <Badge className="ml-2 bg-blue-100 text-blue-800 text-xs">Recommended</Badge>
               )}
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{selectedModel.description}</p>
+            <p className="text-sm text-muted-foreground mt-1">{selectedModel.description}</p>
           </div>
 
           <Select value={selectedModelId} onValueChange={handleModelSelect}>
@@ -536,17 +536,17 @@ export function AIModelSelector({
 
         <div className="grid grid-cols-3 gap-4 mt-4">
           <div className="flex items-center">
-            <Cpu className="h-4 w-4 mr-2 text-gray-500" />
+            <Cpu className="h-4 w-4 mr-2 text-muted-foreground" />
             <div>
-              <div className="text-xs text-gray-500">Context Length</div>
+              <div className="text-xs text-muted-foreground">Context Length</div>
               <div className="text-sm font-medium">{selectedModel.contextLength.toLocaleString()} tokens</div>
             </div>
           </div>
 
           <div className="flex items-center">
-            <DollarSign className="h-4 w-4 mr-2 text-gray-500" />
+            <DollarSign className="h-4 w-4 mr-2 text-muted-foreground" />
             <div>
-              <div className="text-xs text-gray-500">Cost</div>
+              <div className="text-xs text-muted-foreground">Cost</div>
               <div className="text-sm font-medium">{formatCost(selectedModel.costPer1kTokens)} per 1K tokens</div>
             </div>
           </div>
@@ -554,14 +554,14 @@ export function AIModelSelector({
           <div className="flex items-center">
             <Clock className={cn("h-4 w-4 mr-2", getLatencyColor(selectedModel.latency))} />
             <div>
-              <div className="text-xs text-gray-500">Speed</div>
+              <div className="text-xs text-muted-foreground">Speed</div>
               <div className="text-sm font-medium">{getLatencyLabel(selectedModel.latency)}</div>
             </div>
           </div>
         </div>
 
         <div className="mt-4">
-          <div className="text-xs text-gray-500 mb-1">Capabilities</div>
+          <div className="text-xs text-muted-foreground mb-1">Capabilities</div>
           <div className="flex flex-wrap gap-1">
             {selectedModel.capabilities.map((capability, index) => (
               <Badge key={index} variant="secondary" className="text-xs">
@@ -573,7 +573,7 @@ export function AIModelSelector({
 
         {selectedModel.limitations && (
           <div className="mt-3">
-            <div className="text-xs text-gray-500 mb-1">Limitations</div>
+            <div className="text-xs text-muted-foreground mb-1">Limitations</div>
             <div className="flex flex-wrap gap-1">
               {selectedModel.limitations.map((limitation, index) => (
                 <Badge key={index} variant="outline" className="text-xs text-amber-600 border-amber-200 bg-amber-50">
@@ -656,7 +656,7 @@ function ModelCard({
     <div
       className={cn(
         "p-3 border rounded-lg cursor-pointer transition-colors",
-        isSelected ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" : "hover:bg-gray-50 dark:hover:bg-gray-900",
+        isSelected ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" : "hover:bg-accent-muted",
       )}
       onClick={() => onSelect(model.id)}
     >
@@ -684,7 +684,7 @@ function ModelCard({
                 </Badge>
               )}
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-300 mt-0.5">{model.description}</p>
+            <p className="text-sm text-muted-foreground mt-0.5">{model.description}</p>
           </div>
         </div>
 
@@ -696,7 +696,7 @@ function ModelCard({
         )}
       </div>
 
-      <div className="flex items-center mt-2 text-xs text-gray-500 space-x-4">
+      <div className="flex items-center mt-2 text-xs text-muted-foreground/80 space-x-4">
         <div className="flex items-center">
           <Cpu className="h-3.5 w-3.5 mr-1" />
           <span>{model.contextLength.toLocaleString()} tokens</span>

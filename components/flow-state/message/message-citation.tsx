@@ -23,7 +23,7 @@ export function MessageCitation({ citations, className }: MessageCitationProps) 
 
   return (
     <div className={cn("mt-2 text-xs", className)}>
-      <div className="flex items-center text-gray-500 dark:text-gray-400">
+      <div className="flex items-center text-muted-foreground">
         <Info className="h-3 w-3 mr-1" />
         <button
           className="flex items-center hover:text-gray-700 dark:hover:text-gray-300"
@@ -53,13 +53,13 @@ export function MessageCitation({ citations, className }: MessageCitationProps) 
                 >
                   {citation.title}
                 </a>
-                <Button variant="ghost" size="icon" className="h-5 w-5 text-gray-400" asChild>
+                <Button variant="ghost" size="icon" className="h-5 w-5 text-muted-foreground" asChild>
                   <a href={citation.url} target="_blank" rel="noopener noreferrer" aria-label="Open link">
                     <ExternalLink className="h-3 w-3" />
                   </a>
                 </Button>
               </div>
-              {citation.snippet && <p className="text-gray-600 dark:text-gray-300 line-clamp-2">{citation.snippet}</p>}
+              {citation.snippet && <p className="text-muted-foreground line-clamp-2">{citation.snippet}</p>}
             </div>
           ))}
         </div>

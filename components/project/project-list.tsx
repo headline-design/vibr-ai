@@ -157,7 +157,7 @@ export function ProjectList({ initialProjects, user, onProjectChange }: ProjectL
                 </div>
                 <div data-orientation="horizontal" role="none" className="shrink-0 h-[1px] bg-border mx-3 w-auto"></div>
                 <CardFooter className="flex p-6 h-11 items-center rounded-b-lg px-3 py-0">
-                  <div className="flex min-w-0 items-center gap-1 text-sm leading-none text-gray-500">
+                  <div className="flex min-w-0 items-center gap-1 text-sm leading-none text-muted-foreground">
                     <div className="text-xs text-muted-foreground">{project.id.substring(0, 8)}...</div>
                     <div className="text-xs text-muted-foreground">Updated {formatDate(project.updated_at)}</div>
                   </div>

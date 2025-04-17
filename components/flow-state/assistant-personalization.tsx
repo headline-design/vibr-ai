@@ -363,7 +363,7 @@ export function AssistantPersonalization({ onSave, initialSettings, className }:
 
             <div className="flex-1">
               <h3 className="text-lg font-medium">{settings.name}</h3>
-              <p className="text-sm text-gray-500 mt-1">{settings.description}</p>
+              <p className="text-sm text-muted-foreground mt-1">{settings.description}</p>
 
               <div className="mt-3 p-3 bg-gray-100 rounded-lg">
                 <p className="text-sm">{settings.greeting}</p>
@@ -493,7 +493,7 @@ export function AssistantPersonalization({ onSave, initialSettings, className }:
                       }
                     }}
                   >
-                    <SelectTrigger className="h-7 border-dashed border-gray-300 text-gray-500">
+                    <SelectTrigger className="h-7 border-dashed border-gray-300 text-muted-foreground">
                       <Plus className="h-3.5 w-3.5 mr-1" />
                       <span>Add expertise</span>
                     </SelectTrigger>
@@ -588,7 +588,7 @@ export function AssistantPersonalization({ onSave, initialSettings, className }:
             </CardHeader>
             <CardContent className="space-y-2">
               {settings.customInstructions.length === 0 ? (
-                <div className="text-center py-6 text-gray-500">
+                <div className="text-center py-6 text-muted-foreground">
                   <Lightbulb className="h-8 w-8 mx-auto mb-2 opacity-50" />
                   <p className="text-sm">No custom instructions yet</p>
                   <p className="text-xs mt-1">Add instructions to customize how your assistant responds</p>
@@ -724,7 +724,7 @@ export function AssistantPersonalization({ onSave, initialSettings, className }:
                             value={settings.primaryColor}
                             onChange={(e) => updateSettings({ primaryColor: e.target.value })}
                           />
-                          <Plus className="h-4 w-4 text-gray-500" />
+                          <Plus className="h-4 w-4 text-muted-foreground" />
                         </label>
                       </TooltipTrigger>
                       <TooltipContent>
@@ -778,7 +778,7 @@ export function AssistantPersonalization({ onSave, initialSettings, className }:
                             value={settings.secondaryColor}
                             onChange={(e) => updateSettings({ secondaryColor: e.target.value })}
                           />
-                          <Plus className="h-4 w-4 text-gray-500" />
+                          <Plus className="h-4 w-4 text-muted-foreground" />
                         </label>
                       </TooltipTrigger>
                       <TooltipContent>
@@ -908,7 +908,7 @@ export function AssistantPersonalization({ onSave, initialSettings, className }:
                     <Label htmlFor="enable-personalization" className="font-medium">
                       Personalization
                     </Label>
-                    <p className="text-xs text-gray-500 mt-0.5">Adapt to your preferences over time</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">Adapt to your preferences over time</p>
                   </div>
                   <Switch
                     id="enable-personalization"
@@ -922,7 +922,7 @@ export function AssistantPersonalization({ onSave, initialSettings, className }:
                     <Label htmlFor="enable-memory" className="font-medium">
                       Conversation Memory
                     </Label>
-                    <p className="text-xs text-gray-500 mt-0.5">Remember details from previous conversations</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">Remember details from previous conversations</p>
                   </div>
                   <Switch
                     id="enable-memory"
@@ -957,7 +957,7 @@ export function AssistantPersonalization({ onSave, initialSettings, className }:
                     <Label htmlFor="enable-continuous-learning" className="font-medium">
                       Continuous Learning
                     </Label>
-                    <p className="text-xs text-gray-500 mt-0.5">Improve responses based on feedback</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">Improve responses based on feedback</p>
                   </div>
                   <Switch
                     id="enable-continuous-learning"
@@ -1069,7 +1069,7 @@ export function AssistantPersonalization({ onSave, initialSettings, className }:
             {presets.map((preset) => (
               <div
                 key={preset.id}
-                className="flex items-start p-3 border rounded-md cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800"
+                className="flex items-start p-3 border rounded-md cursor-pointer hover:bg-accent-muted dark:hover:bg-gray-800"
                 onClick={() => applyPreset(preset)}
               >
                 <div className="flex-1">
@@ -1081,7 +1081,7 @@ export function AssistantPersonalization({ onSave, initialSettings, className }:
                       </Badge>
                     )}
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">{preset.description}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{preset.description}</p>
                 </div>
 
                 <Button
@@ -1179,7 +1179,7 @@ export function AssistantPersonalization({ onSave, initialSettings, className }:
               />
             </div>
 
-            <div className="text-xs text-gray-500">
+            <div className="text-xs text-muted-foreground">
               <p>Tips for effective instructions:</p>
               <ul className="list-disc pl-4 mt-1 space-y-1">
                 <li>Be specific and clear about what you want</li>
@@ -1224,7 +1224,7 @@ export function AssistantPersonalization({ onSave, initialSettings, className }:
               />
             </div>
 
-            <div className="text-xs text-gray-500">
+            <div className="text-xs text-muted-foreground">
               <p>The system prompt is the initial instruction given to the AI model that defines its behavior.</p>
               <p className="mt-1">
                 <HelpCircle className="h-3.5 w-3.5 inline mr-1" />

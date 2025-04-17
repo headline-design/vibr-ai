@@ -97,7 +97,7 @@ export function ConversationTreeVisualizer({ className }: ConversationTreeVisual
                 </Badge>
               )}
             </div>
-            <div className="text-xs text-gray-500 dark:text-gray-400">
+            <div className="text-xs text-muted-foreground dark:text-muted-foreground">
               {node.category || "Uncategorized"}
               {node.conditions && node.conditions.length > 0 && " • Has conditions"}
             </div>

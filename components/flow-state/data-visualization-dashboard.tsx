@@ -175,7 +175,7 @@ export function DataVisualizationDashboard() {
       </div>
 
       <Tabs defaultValue="usage" className="space-y-4">
-        <TabsList>
+        <TabsList className=" h-auto grid grid-cols-2 md:inline-flex ">
           <TabsTrigger value="usage" className="flex items-center gap-2">
             <TrendingUp className="h-4 w-4" />
             Usage Trends
@@ -200,7 +200,7 @@ export function DataVisualizationDashboard() {
               <CardTitle>Usage Over Time</CardTitle>
               <CardDescription>Message count and token usage over the selected time period</CardDescription>
             </CardHeader>
-            <CardContent className="pl-2">
+            <CardContent className="pl-2 overflow-auto scrollbrar-thin scroll-bar-thumb-rounded-full scroll-bar-track-rounded-full">
               <ChartContainer
                 config={{
                   messages: {
@@ -256,7 +256,7 @@ export function DataVisualizationDashboard() {
               <CardTitle>Cost Analysis</CardTitle>
               <CardDescription>Estimated cost based on token usage</CardDescription>
             </CardHeader>
-            <CardContent className="pl-2">
+            <CardContent className="pl-2 overflow-auto scrollbrar-thin scroll-bar-thumb-rounded-full scroll-bar-track-rounded-full">
               <ChartContainer
                 config={{
                   cost: {
@@ -264,7 +264,7 @@ export function DataVisualizationDashboard() {
                     color: "hsl(var(--chart-3))",
                   },
                 }}
-                className="h-[300px]"
+                className="h-[300px] "
               >
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={usageData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>

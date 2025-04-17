@@ -186,7 +186,7 @@ export function KeyboardShortcutsHelp({ isOpen, onClose }: KeyboardShortcutsHelp
                     <div className="flex items-center space-x-1">
                       {shortcut.keys.map((key, keyIndex) => (
                         <span key={keyIndex} className="flex items-center">
-                          {keyIndex > 0 && <span className="mx-1 text-gray-400 dark:text-gray-600">+</span>}
+                          {keyIndex > 0 && <span className="mx-1 text-muted-foreground dark:text-gray-600">+</span>}
                           {renderKey(key)}
                         </span>
                       ))}
@@ -198,7 +198,7 @@ export function KeyboardShortcutsHelp({ isOpen, onClose }: KeyboardShortcutsHelp
           ))}
         </Tabs>
 
-        <div className="mt-4 p-3 bg-gray-100 rounded-md text-sm text-gray-600 dark:text-gray-400">
+        <div className="mt-4 p-3 bg-gray-100 rounded-md text-sm text-gray-600 dark:text-muted-foreground">
           <p>
             Press{" "}
             <span className="inline-flex items-center">

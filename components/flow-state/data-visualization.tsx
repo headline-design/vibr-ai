@@ -132,7 +132,7 @@ export function DataVisualization({
     <div className="h-64 flex items-end justify-around p-4">
       {isLoading ? (
         <div className="flex items-center justify-center w-full h-full">
-          <RefreshCw className="h-8 w-8 text-gray-400 animate-spin" />
+          <RefreshCw className="h-8 w-8 text-muted-foreground animate-spin" />
         </div>
       ) : (
         dataWithColors.map((d, i) => (
@@ -158,7 +158,7 @@ export function DataVisualization({
     <div className="h-64 p-4">
       {isLoading ? (
         <div className="flex items-center justify-center w-full h-full">
-          <RefreshCw className="h-8 w-8 text-gray-400 animate-spin" />
+          <RefreshCw className="h-8 w-8 text-muted-foreground animate-spin" />
         </div>
       ) : (
         <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -248,7 +248,7 @@ export function DataVisualization({
       <div className="h-64 p-4 flex flex-col items-center">
         {isLoading ? (
           <div className="flex items-center justify-center w-full h-full">
-            <RefreshCw className="h-8 w-8 text-gray-400 animate-spin" />
+            <RefreshCw className="h-8 w-8 text-muted-foreground animate-spin" />
           </div>
         ) : (
           <>
@@ -289,7 +289,7 @@ export function DataVisualization({
     <div className="overflow-x-auto">
       {isLoading ? (
         <div className="flex items-center justify-center w-full h-64">
-          <RefreshCw className="h-8 w-8 text-gray-400 animate-spin" />
+          <RefreshCw className="h-8 w-8 text-muted-foreground animate-spin" />
         </div>
       ) : (
         <>
@@ -297,7 +297,7 @@ export function DataVisualization({
             <thead>
               <tr className="bg-gray-100">
                 {tableData.headers.map((header, i) => (
-                  <th key={i} className="px-4 py-2 text-left font-medium text-gray-500 dark:text-gray-400">
+                  <th key={i} className="px-4 py-2 text-left font-medium text-muted-foreground">
                     {header}
                   </th>
                 ))}
@@ -325,7 +325,7 @@ export function DataVisualization({
           {/* Pagination */}
           {totalPages > 1 && (
             <div className="flex items-center justify-between px-4 py-2 border-t border-gray-100 dark:border-gray-800">
-              <div className="text-xs text-gray-500 dark:text-gray-400">
+              <div className="text-xs text-muted-foreground dark:text-muted-foreground">
                 Showing {(currentPage - 1) * rowsPerPage + 1} to{" "}
                 {Math.min(currentPage * rowsPerPage, tableData.rows.length)} of {tableData.rows.length} entries
               </div>
@@ -386,7 +386,7 @@ export function DataVisualization({
 
       {/* Description */}
       {description && (
-        <div className="px-3 py-2 text-xs text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-800">
+        <div className="px-3 py-2 text-xs text-muted-foreground dark:text-muted-foreground border-b border-gray-200 dark:border-gray-800">
           {description}
         </div>
       )}

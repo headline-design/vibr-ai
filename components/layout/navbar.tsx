@@ -342,7 +342,7 @@ export function Navbar({
                 <div className="flex items-center">
                   <div className="flex items-center">
                     {/* Added ml-4 for proper spacing from the logo */}
-                    <span className="font-bold text-xl ml-4">VIBR</span>
+                    <span className="font-bold text-xl ml-3">VIBR</span>
                     <span className="mx-2 text-muted-foreground">|</span>
                     <span className="text-lg">AI Chat</span>
                   </div>

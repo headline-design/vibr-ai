@@ -72,7 +72,7 @@ export function WelcomeScreen({ onSuggestionSelect, className }: WelcomeScreenPr
           </div>
         </div>
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Welcome to AI Assistant</h1>
-        <p className="text-gray-600 dark:text-gray-300 max-w-md mx-auto">
+        <p className="text-muted-foreground max-w-md mx-auto">
           Your intelligent coding companion. Ask questions, get code examples, and solve problems faster.
         </p>
       </motion.div>
@@ -89,7 +89,7 @@ export function WelcomeScreen({ onSuggestionSelect, className }: WelcomeScreenPr
               "flex-1 py-3 px-4 text-sm font-medium transition-colors duration-200",
               activeTab === "chat"
                 ? "text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400"
-                : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100",
+                : "text-muted-foreground hover:text-gray-900 dark:hover:text-gray-100",
             )}
             onClick={() => setActiveTab("chat")}
           >
@@ -101,7 +101,7 @@ export function WelcomeScreen({ onSuggestionSelect, className }: WelcomeScreenPr
               "flex-1 py-3 px-4 text-sm font-medium transition-colors duration-200",
               activeTab === "code"
                 ? "text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400"
-                : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100",
+                : "text-muted-foreground hover:text-gray-900 dark:hover:text-gray-100",
             )}
             onClick={() => setActiveTab("code")}
           >
@@ -113,7 +113,7 @@ export function WelcomeScreen({ onSuggestionSelect, className }: WelcomeScreenPr
               "flex-1 py-3 px-4 text-sm font-medium transition-colors duration-200",
               activeTab === "docs"
                 ? "text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400"
-                : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100",
+                : "text-muted-foreground hover:text-gray-900 dark:hover:text-gray-100",
             )}
             onClick={() => setActiveTab("docs")}
           >
@@ -150,7 +150,7 @@ export function WelcomeScreen({ onSuggestionSelect, className }: WelcomeScreenPr
               </div>
               <div>
                 <h3 className="font-medium text-gray-900 dark:text-white mb-1">{feature.title}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">{feature.description}</p>
+                <p className="text-sm text-muted-foreground">{feature.description}</p>
               </div>
             </div>
           </div>
@@ -158,7 +158,7 @@ export function WelcomeScreen({ onSuggestionSelect, className }: WelcomeScreenPr
       </motion.div>
 
       <motion.div
-        className="text-center text-xs text-gray-500 dark:text-gray-400"
+        className="text-center text-xs text-muted-foreground dark:text-muted-foreground"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3, delay: 0.3 }}

@@ -283,7 +283,7 @@ export function CollaborativeWorkspace() {
       case "commenter":
         return <Badge className="bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">Commenter</Badge>
       case "viewer":
-        return <Badge className="bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400">Viewer</Badge>
+        return <Badge className="bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-muted-foreground">Viewer</Badge>
       default:
         return null
     }
@@ -414,7 +414,7 @@ export function CollaborativeWorkspace() {
                       filteredConversations.map((conversation) => (
                         <div
                           key={conversation.id}
-                          className="flex items-start p-3 border rounded-md hover:bg-accent/50 transition-colors cursor-pointer"
+                          className="flex items-start p-3 border rounded-md hover:bg-accent-muted transition-colors cursor-pointer"
                           onClick={() => setSelectedConversation(conversation)}
                         >
                           <div className="flex-1 min-w-0">

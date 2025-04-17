@@ -27,12 +27,12 @@ export function WelcomePanel({ onSuggestionSelect }: WelcomePanelProps) {
       <div className="flex flex-col items-center text-center mb-6">
         <FluxAvatar size="lg" mood="neutral" className="mb-3" />
         <FluxBranding size="lg" variant="default" className="mb-2" />
-        <p className="text-sm text-gray-600 dark:text-gray-300 max-w-md">
+        <p className="text-sm text-muted-foreground max-w-md">
           I'm your AI coding assistant. Ask me questions, request information, or get help with tasks.
         </p>
       </div>
 
-      <div className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+      <div className="text-sm text-muted-foreground mb-3">
         <div className="flex justify-between items-start">
           <div>
             <h2 className="font-medium mb-1">How can I assist you today?</h2>
@@ -41,7 +41,7 @@ export function WelcomePanel({ onSuggestionSelect }: WelcomePanelProps) {
           <Button
             variant="ghost"
             size="icon"
-            className="h-7 w-7 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+            className="h-7 w-7 text-muted-foreground hover:text-gray-600 dark:hover:text-gray-300"
             onClick={() => setShowCapabilities(!showCapabilities)}
             aria-label={showCapabilities ? "Hide capabilities" : "Show capabilities"}
           >

@@ -21,7 +21,7 @@ export function FluxFloatingPanel({ isOpen, onClose }: FluxFloatingPanelProps) {
   return (
     <div
       className={cn(
-        "fixed bottom-6 right-6 w-[420px] h-[92vh] max-h-[600px] bg-background rounded-xl shadow-2xl border flex flex-col overflow-hidden z-50 transition-all duration-300 ease-in-out",
+        "fixed bottom-0 w-full h-full sm:bottom-6 sm:right-6 sm:w-[420px] sm:h-[92vh] sm:max-h-[600px] bg-background sm:rounded-xl sm:shadow-2xl border flex flex-col overflow-hidden z-50 transition-all duration-300 ease-in-out",
         isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none",
       )}
     >

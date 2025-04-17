@@ -49,7 +49,7 @@ export function EmojiPicker({ onEmojiSelect }: EmojiPickerProps) {
   return (
     <div className="p-2">
       <div className="relative mb-2">
-        <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-400" />
+        <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
         <Input
           placeholder="Search emoji"
           className="pl-8"
@@ -71,7 +71,7 @@ export function EmojiPicker({ onEmojiSelect }: EmojiPickerProps) {
             </button>
           ))}
           {filteredEmojis?.length === 0 && (
-            <div className="col-span-7 py-4 text-center text-sm text-gray-500">No emojis found</div>
+            <div className="col-span-7 py-4 text-center text-sm text-muted-foreground">No emojis found</div>
           )}
         </div>
       ) : (

@@ -134,20 +134,7 @@ export default function ChatToolsClient() {
         )}
 
         {activeAITool === "code-gen" && (
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <Code className="h-5 w-5 mr-2 text-primary" />
-                Code Generation Assistant
-              </CardTitle>
-              <CardDescription>
-                Generate code snippets, components, and functions with AI assistance
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <CodeGenerationAssistant />
-            </CardContent>
-          </Card>
+          <CodeGenerationAssistant />
         )}
 
         {activeAITool === "knowledge-base" && (

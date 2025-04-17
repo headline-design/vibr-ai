@@ -198,7 +198,7 @@ export function CodeBlock({
                   variant="ghost"
                   size="icon"
                   onClick={copyToClipboard}
-                  className="h-6 w-6 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+                  className="h-6 w-6 text-muted-foreground hover:text-gray-700 dark:text-muted-foreground dark:hover:text-gray-300"
                 >
                   {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
                 </Button>
@@ -216,7 +216,7 @@ export function CodeBlock({
                   variant="ghost"
                   size="icon"
                   onClick={downloadCode}
-                  className="h-6 w-6 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+                  className="h-6 w-6 text-muted-foreground hover:text-gray-700 dark:text-muted-foreground dark:hover:text-gray-300"
                 >
                   <Download className="h-3.5 w-3.5" />
                 </Button>
@@ -234,7 +234,7 @@ export function CodeBlock({
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-6 w-6 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+                    className="h-6 w-6 text-muted-foreground hover:text-gray-700 dark:text-muted-foreground dark:hover:text-gray-300"
                   >
                     <ExternalLink className="h-3.5 w-3.5" />
                   </Button>
@@ -273,7 +273,7 @@ export function CodeBlock({
             variant="ghost"
             size="sm"
             onClick={toggleExpanded}
-            className="w-full text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 py-1"
+            className="w-full text-xs text-muted-foreground hover:text-gray-700 dark:text-muted-foreground dark:hover:text-gray-300 py-1"
           >
             {isExpanded ? "Show less" : "Show more"}
           </Button>

@@ -90,14 +90,14 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
           },
           th({ children }) {
             return (
-              <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider bg-gray-100">
+              <th className="px-3 py-2 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider bg-gray-100">
                 {children}
               </th>
             )
           },
           td({ children }) {
             return (
-              <td className="px-3 py-2 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700">
+              <td className="px-3 py-2 whitespace-nowrap text-sm text-muted-foreground border-b border-gray-200 dark:border-gray-700">
                 {children}
               </td>
             )

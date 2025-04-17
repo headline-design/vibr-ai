@@ -159,14 +159,14 @@ export function KnowledgeBaseIntegration({ className = "" }: KnowledgeBaseIntegr
     <Card className={`w-full shadow-sm border-gray-100 ${className}`}>
       <CardHeader className="pb-2">
         <CardTitle className="text-sm font-medium">Knowledge Base Integration</CardTitle>
-        <CardDescription className="text-xs text-gray-500">
+        <CardDescription className="text-xs text-muted-foreground">
           Search across your connected knowledge sources
         </CardDescription>
       </CardHeader>
       <CardContent className="p-0">
         <Tabs defaultValue="search" value={activeTab} onValueChange={setActiveTab}>
           <div className="px-4">
-            <TabsList className="grid grid-cols-2 h-8 mb-2">
+            <TabsList className="grid grid-cols-2 mb-2">
               <TabsTrigger value="search" className="text-xs">
                 Search
               </TabsTrigger>
@@ -196,14 +196,14 @@ export function KnowledgeBaseIntegration({ className = "" }: KnowledgeBaseIntegr
             <ScrollArea className="h-[220px]">
               {isSearching ? (
                 <div className="flex items-center justify-center h-full">
-                  <div className="animate-pulse text-xs text-gray-400">Searching knowledge base...</div>
+                  <div className="animate-pulse text-xs text-muted-foreground">Searching knowledge base...</div>
                 </div>
               ) : searchResults.length > 0 ? (
                 <div className="space-y-3">
                   {searchResults.map((result) => (
                     <div
                       key={result.id}
-                      className="p-2 rounded-md border border-gray-100 hover:bg-gray-50 transition-colors"
+                      className="p-2 rounded-md border border-gray-100 hover:bg-accent-muted transition-colors"
                     >
                       <div className="flex items-start justify-between">
                         <div className="font-medium text-sm">{result.title}</div>
@@ -213,7 +213,7 @@ export function KnowledgeBaseIntegration({ className = "" }: KnowledgeBaseIntegr
                       </div>
                       <p className="text-xs text-gray-600 mt-1 line-clamp-2">{result.excerpt}</p>
                       <div className="flex items-center justify-between mt-2">
-                        <span className="text-xs text-gray-400">Source: {result.source}</span>
+                        <span className="text-xs text-muted-foreground">Source: {result.source}</span>
                         {result.url && (
                           <Button variant="ghost" size="sm" className="h-6 px-2">
                             <ExternalLink className="h-3 w-3 mr-1" />
@@ -226,11 +226,11 @@ export function KnowledgeBaseIntegration({ className = "" }: KnowledgeBaseIntegr
                 </div>
               ) : searchQuery ? (
                 <div className="flex items-center justify-center h-full">
-                  <div className="text-xs text-gray-400">No results found</div>
+                  <div className="text-xs text-muted-foreground">No results found</div>
                 </div>
               ) : (
                 <div className="flex items-center justify-center h-full">
-                  <div className="text-xs text-gray-400">Enter a search query to find information</div>
+                  <div className="text-xs text-muted-foreground">Enter a search query to find information</div>
                 </div>
               )}
             </ScrollArea>
@@ -242,7 +242,7 @@ export function KnowledgeBaseIntegration({ className = "" }: KnowledgeBaseIntegr
                 {knowledgeSources.map((source) => (
                   <div
                     key={source.id}
-                    className="p-2 rounded-md border border-gray-100 hover:bg-gray-50 transition-colors"
+                    className="p-2 rounded-md border border-gray-100 hover:bg-accent-muted transition-colors"
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
@@ -261,7 +261,7 @@ export function KnowledgeBaseIntegration({ className = "" }: KnowledgeBaseIntegr
                               </Tooltip>
                             </TooltipProvider>
                           </div>
-                          <div className="text-xs text-gray-500 flex items-center gap-2">
+                          <div className="text-xs text-muted-foreground flex items-center gap-2">
                             <span className="capitalize">{source.type}</span>
                             {source.documentCount && (
                               <>
@@ -281,7 +281,7 @@ export function KnowledgeBaseIntegration({ className = "" }: KnowledgeBaseIntegr
                         {selectedSources.includes(source.id) ? "Selected" : "Select"}
                       </Button>
                     </div>
-                    <div className="text-xs text-gray-400 mt-1.5">Last updated: {source.lastUpdated}</div>
+                    <div className="text-xs text-muted-foreground mt-1.5">Last updated: {source.lastUpdated}</div>
                   </div>
                 ))}
               </div>

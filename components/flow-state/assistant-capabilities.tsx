@@ -110,14 +110,14 @@ export function AssistantCapabilities({ onClose, className }: AssistantCapabilit
             <div className="mt-0.5">{capability.icon}</div>
             <div>
               <h4 className="font-medium text-sm text-gray-700 dark:text-gray-300">{capability.title}</h4>
-              <p className="text-xs text-gray-500 dark:text-gray-400">{capability.description}</p>
+              <p className="text-xs text-muted-foreground dark:text-muted-foreground">{capability.description}</p>
             </div>
           </div>
         ))}
       </div>
 
       <div className="mt-4 pt-3 border-t border-gray-100 dark:border-gray-700">
-        <p className="text-xs text-gray-500 dark:text-gray-400">
+        <p className="text-xs text-muted-foreground dark:text-muted-foreground">
           Try asking about specific programming languages, frameworks, or development concepts. I'm here to help with
           your coding questions!
         </p>

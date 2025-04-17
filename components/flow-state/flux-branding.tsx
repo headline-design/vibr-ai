@@ -34,7 +34,7 @@ export function FluxBranding({ size = "md", variant = "default", className }: Fl
     <div className={cn("flex items-center gap-2", className)}>
       <Bot size={iconSizes[size]} className="text-indigo-600" />
       <span className={cn("font-semibold tracking-tight", sizeClasses[size])}>
-        {variant === "minimal" ? "Flux" : "Flux Assistant"}
+        {variant === "minimal" ? "VIBR" : "VIBR Assistant"}
       </span>
     </div>
   )

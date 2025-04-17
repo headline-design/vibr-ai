@@ -87,7 +87,7 @@ export function FileAttachmentHandler({ onClose, onFileAttached }: FileAttachmen
   }
 
   const getFileIcon = () => {
-    if (!selectedFile) return <Upload className="h-12 w-12 text-gray-400" />
+    if (!selectedFile) return <Upload className="h-12 w-12 text-muted-foreground" />
 
     if (selectedFile.type.startsWith("image/")) {
       return <Image className="h-12 w-12 text-blue-500" />
@@ -141,7 +141,7 @@ export function FileAttachmentHandler({ onClose, onFileAttached }: FileAttachmen
                 </div>
                 <div>
                   <p className="font-medium truncate">{selectedFile.name}</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{formatFileSize(selectedFile.size)}</p>
+                  <p className="text-sm text-muted-foreground">{formatFileSize(selectedFile.size)}</p>
                 </div>
                 <Button variant="outline" size="sm" onClick={handleButtonClick}>
                   Change File
@@ -150,11 +150,11 @@ export function FileAttachmentHandler({ onClose, onFileAttached }: FileAttachmen
             ) : (
               <div className="space-y-4">
                 <div className="flex justify-center">
-                  <Upload className="h-12 w-12 text-gray-400" />
+                  <Upload className="h-12 w-12 text-muted-foreground" />
                 </div>
                 <div>
                   <p className="font-medium">Drag and drop a file here</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">or click to browse files</p>
+                  <p className="text-sm text-muted-foreground">or click to browse files</p>
                 </div>
                 <Button variant="outline" onClick={handleButtonClick}>
                   Browse Files

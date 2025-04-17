@@ -53,7 +53,7 @@ export function MessageReactions({ messageId, existingReactions = [], onReact, c
             <Button
               variant="ghost"
               size="icon"
-              className="h-6 w-6 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+              className="h-6 w-6 text-muted-foreground hover:text-gray-600 dark:hover:text-gray-300"
               onClick={() => handleReaction("👍")}
               aria-label="Like"
             >
@@ -62,7 +62,7 @@ export function MessageReactions({ messageId, existingReactions = [], onReact, c
             <Button
               variant="ghost"
               size="icon"
-              className="h-6 w-6 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+              className="h-6 w-6 text-muted-foreground hover:text-gray-600 dark:hover:text-gray-300"
               onClick={() => handleReaction("👎")}
               aria-label="Dislike"
             >
@@ -77,7 +77,7 @@ export function MessageReactions({ messageId, existingReactions = [], onReact, c
             <Button
               variant="ghost"
               size="icon"
-              className="h-6 w-6 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+              className="h-6 w-6 text-muted-foreground hover:text-gray-600 dark:hover:text-gray-300"
               aria-label="Add reaction"
             >
               <SmilePlus className="h-3 w-3" />

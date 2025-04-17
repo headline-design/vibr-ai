@@ -384,7 +384,7 @@ export function AIModelConfiguration() {
                       <div
                         key={model.id}
                         className={`p-4 border rounded-lg cursor-pointer transition-colors ${
-                          selectedModel?.id === model.id ? "border-primary bg-primary/5" : "hover:bg-accent"
+                          selectedModel?.id === model.id ? "border-primary bg-primary/5" : "hover:bg-accent-muted"
                         }`}
                         onClick={() => setSelectedModel(model)}
                       >

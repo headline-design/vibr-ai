@@ -119,7 +119,7 @@ export function ContextAwareSuggestions({
           <Zap className="h-4 w-4 text-yellow-500" />
           Context-Aware Suggestions
         </CardTitle>
-        <CardDescription className="text-xs text-gray-500">Based on your current conversation</CardDescription>
+        <CardDescription className="text-xs text-muted-foreground">Based on your current conversation</CardDescription>
       </CardHeader>
       <CardContent className="p-0">
         <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab}>
@@ -147,14 +147,14 @@ export function ContextAwareSuggestions({
             <ScrollArea className="h-[180px] px-4 pb-4">
               {isLoading ? (
                 <div className="flex items-center justify-center h-full">
-                  <div className="animate-pulse text-xs text-gray-400">Generating suggestions...</div>
+                  <div className="animate-pulse text-xs text-muted-foreground">Generating suggestions...</div>
                 </div>
               ) : filteredSuggestions.length > 0 ? (
                 <div className="space-y-2">
                   {filteredSuggestions.map((suggestion) => (
                     <div
                       key={suggestion.id}
-                      className="p-2 rounded-md border border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer"
+                      className="p-2 rounded-md border border-gray-100 hover:bg-accent-muted transition-colors cursor-pointer"
                       onClick={() => handleSuggestionClick(suggestion)}
                     >
                       <div className="flex items-start justify-between">
@@ -168,14 +168,14 @@ export function ContextAwareSuggestions({
                         </Badge>
                       </div>
                       {suggestion.source && (
-                        <div className="text-xs text-gray-400 mt-1">Source: {suggestion.source}</div>
+                        <div className="text-xs text-muted-foreground mt-1">Source: {suggestion.source}</div>
                       )}
                     </div>
                   ))}
                 </div>
               ) : (
                 <div className="flex items-center justify-center h-full">
-                  <div className="text-xs text-gray-400">No suggestions available</div>
+                  <div className="text-xs text-muted-foreground">No suggestions available</div>
                 </div>
               )}
             </ScrollArea>

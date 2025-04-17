@@ -240,7 +240,7 @@ export function CollaborativeFeatures({
                   <div className="flex items-center">
                     <div className="font-medium text-sm">
                       {collaborator.name}
-                      {collaborator.id === currentUserId && <span className="text-xs text-gray-500 ml-1">(You)</span>}
+                      {collaborator.id === currentUserId && <span className="text-xs text-muted-foreground ml-1">(You)</span>}
                     </div>
                     <Badge
                       variant="outline"
@@ -253,7 +253,7 @@ export function CollaborativeFeatures({
                       <span>{collaborator.role}</span>
                     </Badge>
                   </div>
-                  <div className="text-xs text-gray-500">
+                  <div className="text-xs text-muted-foreground">
                     {collaborator.email}
                     {collaborator.lastActive && (
                       <span className="ml-2">• Active {formatDate(collaborator.lastActive)}</span>
@@ -318,7 +318,7 @@ export function CollaborativeFeatures({
             <TabsContent value="link" className="space-y-4 mt-4">
               <div className="flex items-center space-x-2">
                 <div className="relative flex-1">
-                  <Globe className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+                  <Globe className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
                   <Input
                     value={shareUrl || `https://chat.example.com/share/${conversationId}`}
                     readOnly
@@ -348,7 +348,7 @@ export function CollaborativeFeatures({
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <Label htmlFor="public-link" className="flex items-center cursor-pointer">
-                    <Globe className="h-4 w-4 mr-1.5 text-gray-500" />
+                    <Globe className="h-4 w-4 mr-1.5 text-muted-foreground" />
                     <span>Public link</span>
                   </Label>
                   <Switch
@@ -362,7 +362,7 @@ export function CollaborativeFeatures({
                   <div className="pl-6 space-y-3">
                     <div className="flex items-center justify-between">
                       <Label htmlFor="require-auth" className="flex items-center cursor-pointer text-sm">
-                        <Lock className="h-3.5 w-3.5 mr-1.5 text-gray-500" />
+                        <Lock className="h-3.5 w-3.5 mr-1.5 text-muted-foreground" />
                         <span>Require authentication</span>
                       </Label>
                       <Switch
@@ -374,7 +374,7 @@ export function CollaborativeFeatures({
 
                     <div className="flex items-center justify-between">
                       <Label htmlFor="allow-comments" className="flex items-center cursor-pointer text-sm">
-                        <MessageSquare className="h-3.5 w-3.5 mr-1.5 text-gray-500" />
+                        <MessageSquare className="h-3.5 w-3.5 mr-1.5 text-muted-foreground" />
                         <span>Allow comments</span>
                       </Label>
                       <Switch
@@ -386,7 +386,7 @@ export function CollaborativeFeatures({
 
                     <div className="flex items-center justify-between">
                       <Label htmlFor="allow-copy" className="flex items-center cursor-pointer text-sm">
-                        <Copy className="h-3.5 w-3.5 mr-1.5 text-gray-500" />
+                        <Copy className="h-3.5 w-3.5 mr-1.5 text-muted-foreground" />
                         <span>Allow copying content</span>
                       </Label>
                       <Switch
@@ -400,7 +400,7 @@ export function CollaborativeFeatures({
                       <div className="space-y-3 pt-2 border-t border-gray-200 dark:border-gray-700">
                         <div className="flex items-center justify-between">
                           <Label htmlFor="expiry-date" className="flex items-center text-sm">
-                            <Clock className="h-3.5 w-3.5 mr-1.5 text-gray-500" />
+                            <Clock className="h-3.5 w-3.5 mr-1.5 text-muted-foreground" />
                             <span>Link expiry</span>
                           </Label>
                           <Select
@@ -456,7 +456,7 @@ export function CollaborativeFeatures({
                     <Shield className="h-5 w-5 mr-3 text-purple-500 mt-0.5" />
                     <div>
                       <div className="font-medium">Owner</div>
-                      <div className="text-xs text-gray-500 mt-1">
+                      <div className="text-xs text-muted-foreground mt-1">
                         Full access. Can manage collaborators, change settings, and delete the conversation.
                       </div>
                     </div>
@@ -466,7 +466,7 @@ export function CollaborativeFeatures({
                     <Edit2 className="h-5 w-5 mr-3 text-blue-500 mt-0.5" />
                     <div>
                       <div className="font-medium">Editor</div>
-                      <div className="text-xs text-gray-500 mt-1">
+                      <div className="text-xs text-muted-foreground mt-1">
                         Can view, edit, and continue the conversation with the AI.
                       </div>
                     </div>
@@ -476,17 +476,17 @@ export function CollaborativeFeatures({
                     <MessageSquare className="h-5 w-5 mr-3 text-amber-500 mt-0.5" />
                     <div>
                       <div className="font-medium">Commenter</div>
-                      <div className="text-xs text-gray-500 mt-1">
+                      <div className="text-xs text-muted-foreground mt-1">
                         Can view the conversation and add comments, but cannot edit or continue it.
                       </div>
                     </div>
                   </div>
 
                   <div className="flex items-start p-3 border rounded-md">
-                    <Eye className="h-5 w-5 mr-3 text-gray-500 mt-0.5" />
+                    <Eye className="h-5 w-5 mr-3 text-muted-foreground mt-0.5" />
                     <div>
                       <div className="font-medium">Viewer</div>
-                      <div className="text-xs text-gray-500 mt-1">
+                      <div className="text-xs text-muted-foreground mt-1">
                         Can only view the conversation. Cannot edit, comment, or continue it.
                       </div>
                     </div>
@@ -520,7 +520,7 @@ export function CollaborativeFeatures({
               <Label htmlFor="invite-email">Email address</Label>
               <div className="flex items-center space-x-2">
                 <div className="relative flex-1">
-                  <Mail className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+                  <Mail className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
                   <Input
                     id="invite-email"
                     type="email"
@@ -544,7 +544,7 @@ export function CollaborativeFeatures({
               </div>
             </div>
 
-            <div className="text-xs text-gray-500">
+            <div className="text-xs text-muted-foreground">
               An email invitation will be sent to this address with a link to join the conversation.
             </div>
           </div>

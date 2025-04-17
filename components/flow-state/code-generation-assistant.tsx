@@ -119,7 +119,7 @@ ${includeTests ? '\n// Test case\nimport { render, screen } from \'@testing-libr
   }
 
   return (
-    <Card className="w-full max-w-4xl shadow-lg border-0">
+    <Card className="w-full max-w-4xl shadow-lg ">
       <CardHeader className="bg-gradient-to-r from-violet-500 to-purple-600 text-white rounded-t-lg">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">

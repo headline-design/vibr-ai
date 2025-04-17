@@ -55,21 +55,21 @@ export function DesignSystemShowcase() {
       </CardHeader>
       <CardContent>
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid grid-cols-4 mb-6">
+          <TabsList className="grid h-auto grid-cols-2 sm:grid-cols-4 mb-6">
             <TabsTrigger value="colors" className="flex items-center gap-2">
-              <Palette className="h-4 w-4" />
+              <Palette className="h-4 w-4 hidden md:block" />
               Colors
             </TabsTrigger>
             <TabsTrigger value="typography" className="flex items-center gap-2">
-              <Type className="h-4 w-4" />
+              <Type className="h-4 w-4 hidden md:block" />
               Typography
             </TabsTrigger>
             <TabsTrigger value="spacing" className="flex items-center gap-2">
-              <Ruler className="h-4 w-4" />
+              <Ruler className="h-4 w-4  hidden md:block" />
               Spacing
             </TabsTrigger>
             <TabsTrigger value="components" className="flex items-center gap-2">
-              <Square className="h-4 w-4" />
+              <Square className="h-4 w-4 hidden md:block" />
               Components
             </TabsTrigger>
           </TabsList>

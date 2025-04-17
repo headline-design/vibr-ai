@@ -304,7 +304,7 @@ export function KnowledgeBaseManager({
       case "text":
         return <MessageSquare className="h-5 w-5 text-amber-500" />
       default:
-        return <FileText className="h-5 w-5 text-gray-500" />
+        return <FileText className="h-5 w-5 text-muted-foreground" />
     }
   }
 
@@ -318,7 +318,7 @@ export function KnowledgeBaseManager({
       case "error":
         return <Badge className="bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400">Error</Badge>
       case "inactive":
-        return <Badge className="bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400">Inactive</Badge>
+        return <Badge className="bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-muted-foreground">Inactive</Badge>
       default:
         return null
     }
@@ -372,7 +372,7 @@ export function KnowledgeBaseManager({
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <div className="relative w-64">
-                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                 <Input
                   placeholder="Search sources..."
                   value={searchQuery}
@@ -501,7 +501,7 @@ export function KnowledgeBaseManager({
               </DropdownMenu>
             </div>
 
-            <div className="text-sm text-gray-500">
+            <div className="text-sm text-muted-foreground">
               {filteredSources.length} {filteredSources.length === 1 ? "source" : "sources"}
             </div>
           </div>
@@ -510,7 +510,7 @@ export function KnowledgeBaseManager({
             <div className="text-center py-12 border rounded-lg">
               <Database className="h-12 w-12 mx-auto text-gray-300 dark:text-gray-600 mb-4" />
               <h3 className="text-lg font-medium mb-2">No knowledge sources found</h3>
-              <p className="text-gray-500 mb-4">
+              <p className="text-muted-foreground mb-4">
                 {searchQuery || filterType !== "all" || filterStatus !== "all"
                   ? "Try adjusting your filters"
                   : "Add your first knowledge source to get started"}
@@ -565,7 +565,7 @@ export function KnowledgeBaseManager({
                             )}
                           </div>
 
-                          {source.description && <p className="text-sm text-gray-500">{source.description}</p>}
+                          {source.description && <p className="text-sm text-muted-foreground">{source.description}</p>}
                         </div>
                       </div>
                       <div className="flex items-center space-x-2">
@@ -599,7 +599,7 @@ export function KnowledgeBaseManager({
                         </Button>
                       </div>
                     </div>
-                    <div className="mt-4 text-sm text-gray-500">
+                    <div className="mt-4 text-sm text-muted-foreground">
                       <div className="flex items-center space-x-2">
                         <span>Last Updated: {formatDate(source.lastUpdated)}</span>
                         {source.size !== undefined && <span> | Size: {formatFileSize(source.size)}</span>}
@@ -625,7 +625,7 @@ export function KnowledgeBaseManager({
         <TabsContent value="search" className="space-y-4 mt-6">
           <div className="flex items-center space-x-2">
             <div className="relative w-64">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Search knowledge base..."
                 value={searchQuery}
@@ -653,9 +653,9 @@ export function KnowledgeBaseManager({
               <Search className="h-12 w-12 mx-auto text-gray-300 dark:text-gray-600 mb-4" />
               <h3 className="text-lg font-medium mb-2">No results found</h3>
               {searchQuery ? (
-                <p className="text-gray-500 mb-4">Try adjusting your search query</p>
+                <p className="text-muted-foreground mb-4">Try adjusting your search query</p>
               ) : (
-                <p className="text-gray-500 mb-4">Enter a search query to find knowledge sources</p>
+                <p className="text-muted-foreground mb-4">Enter a search query to find knowledge sources</p>
               )}
             </div>
           ) : (
@@ -664,7 +664,7 @@ export function KnowledgeBaseManager({
                 <Card key={result.id}>
                   <CardContent className="p-6">
                     <h3 className="font-medium">{result.title}</h3>
-                    <p className="text-sm text-gray-500 mt-2">{result.content.substring(0, 150)}...</p>
+                    <p className="text-sm text-muted-foreground mt-2">{result.content.substring(0, 150)}...</p>
                     <div
                       className="mt-4 text-xs text-gray
                       500"

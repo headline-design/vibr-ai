@@ -403,7 +403,7 @@ export function IntegrationHub({ onIntegrationConnect, onIntegrationDisconnect, 
         </h2>
 
         <div className="relative w-64">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
             placeholder="Search integrations..."
             value={searchQuery}
@@ -465,7 +465,7 @@ export function IntegrationHub({ onIntegrationConnect, onIntegrationDisconnect, 
             <div className="text-center py-12">
               <Puzzle className="h-12 w-12 mx-auto text-gray-300 dark:text-gray-600 mb-4" />
               <h3 className="text-lg font-medium mb-2">No integrations found</h3>
-              <p className="text-gray-500 mb-4">
+              <p className="text-muted-foreground mb-4">
                 {searchQuery ? `No results for "${searchQuery}"` : "No integrations available in this category"}
               </p>
               {searchQuery && (
@@ -567,7 +567,7 @@ export function IntegrationHub({ onIntegrationConnect, onIntegrationDisconnect, 
               </ul>
             </div>
 
-            <div className="text-xs text-gray-500">
+            <div className="text-xs text-muted-foreground">
               <p className="flex items-center">
                 <Lock className="h-3.5 w-3.5 mr-1.5" />
                 Your credentials are securely stored and can be revoked at any time.
@@ -652,19 +652,19 @@ export function IntegrationHub({ onIntegrationConnect, onIntegrationDisconnect, 
               <Label>Connection Details</Label>
               <div className="p-3 border rounded-md bg-gray-100 text-sm">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-500">Connected Account</span>
+                  <span className="text-muted-foreground">Connected Account</span>
                   <span>{selectedIntegration?.connectionDetails?.accountName || "Demo Account"}</span>
                 </div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-500">Email</span>
+                  <span className="text-muted-foreground">Email</span>
                   <span>{selectedIntegration?.connectionDetails?.accountEmail || "demo@example.com"}</span>
                 </div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-500">Plan</span>
+                  <span className="text-muted-foreground">Plan</span>
                   <Badge variant="outline">{selectedIntegration?.connectionDetails?.plan || "Free"}</Badge>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-gray-500">API Usage</span>
+                  <span className="text-muted-foreground">API Usage</span>
                   <div className="flex items-center">
                     <div className="w-32 h-2 bg-gray-200 dark:bg-gray-700 rounded-full mr-2">
                       <div
@@ -690,7 +690,7 @@ export function IntegrationHub({ onIntegrationConnect, onIntegrationDisconnect, 
             <div className="space-y-2">
               <Label>Webhooks</Label>
               <Input placeholder="https://example.com/webhook" />
-              <p className="text-xs text-gray-500">Receive real-time updates when changes occur</p>
+              <p className="text-xs text-muted-foreground">Receive real-time updates when changes occur</p>
             </div>
           </div>
 
@@ -746,7 +746,7 @@ function IntegrationCard({
       </CardHeader>
       <CardContent className="pb-2">
         {integration.status === "connected" && (
-          <div className="text-xs text-gray-500 flex items-center mb-2">
+          <div className="text-xs text-muted-foreground flex items-center mb-2">
             <Check className="h-3.5 w-3.5 text-green-500 mr-1.5" />
             <span>
               Connected {integration.connectedAt && `on ${new Date(integration.connectedAt).toLocaleDateString()}`}
