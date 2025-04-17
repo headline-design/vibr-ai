@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect, useCallback, type React
 
 // Define the structure of MetaSessionData
 interface MetaSessionData {
-  experienceLevel(experienceLevel: any): unknown
+  experienceLevel?: "Beginner" | "Intermediate" | "Advanced" | "Expert" | any
   userName: string
   preferredLanguages: string[]
   lastTopics: string[]

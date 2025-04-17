@@ -31,13 +31,15 @@ interface TabsTriggerProps {
   className?: string;
   children?: React.ReactNode;
   onClick?: () => void;
+  disabled?: boolean;
   value?: string;
 }
 
 export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(
-  ({ className, children, value, onClick, ...props }, ref) => (
+  ({ className, children, disabled, value, onClick, ...props }, ref) => (
     <TabsPrimitive.Trigger
-      value={value}
+      value={value as any}
+      disabled={disabled}
       ref={ref}
       onClick={onClick}
       className={cn(
@@ -56,12 +58,13 @@ interface TabsContentProps {
   className?: string;
   value?: string;
   children?: React.ReactNode;
+  disabled?: boolean;
 }
 
 export const TabsContent = React.forwardRef<HTMLDivElement, TabsContentProps>(
-  ({ className, children, value, ...props }, ref) => (
+  ({ className, children, value, disabled, ...props }, ref) => (
     <TabsPrimitive.Content
-      value={value}
+      value={value as any}
       ref={ref}
       className={cn(
         "mt-2 ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 dark:ring-offset-neutral-950 dark:focus-visible:ring-neutral-300",
