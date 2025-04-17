@@ -94,7 +94,7 @@ VIBR is built with Next.js at its core, leveraging:
 
 ## 📦 Installation
 
-\`\`\`bash
+```bash
 
 ## Clone the repository
 
@@ -117,7 +117,7 @@ cp .env.example .env.local
 ## Run the development server
 
 pnpm run dev
-\`\`\`
+```
 
 ## 🖥️ Usage
 
