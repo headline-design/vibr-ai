@@ -147,7 +147,7 @@ export default function LoginPage() {
                 variant="outline"
                 className="w-full rounded-md "
                 onClick={handleGithubLogin}
-                disabled={isLoading}
+                disabled={true}
                 size="xl"
               >
                 <Github className="mr-2 h-4 w-4" />

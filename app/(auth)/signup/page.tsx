@@ -30,7 +30,7 @@ export default function SignupPage() {
     setMessage(null)
 
     const formData = new FormData()
-    formData.append("name", name)
+    //formData.append("name", name)
     formData.append("email", email)
     formData.append("password", password)
 
@@ -69,7 +69,14 @@ export default function SignupPage() {
     }
 
     // Simulate successful signup
-    await signUp(formData)
+   const response = await signUp(formData)
+    if (response === "confirmation_sent") {
+      setMessage({ type: "success", text: "Account created! Please check your email for confirmation." })
+    } else {
+      setMessage({ type: "error", text: "An error occurred while creating your account. Please try again." })
+    }
+
+    setIsLoading(false)
   }
 
   const handleGithubSignup = () => {
@@ -106,7 +113,7 @@ export default function SignupPage() {
                     id="name"
                     type="text"
                     placeholder="John Doe"
-                    className="pl-10"
+                    className="pl-10 h-12"
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -123,7 +130,7 @@ export default function SignupPage() {
                     id="email"
                     type="email"
                     placeholder="you@example.com"
-                    className="pl-10"
+                    className="pl-10 h-12"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -140,7 +147,7 @@ export default function SignupPage() {
                     id="password"
                     type="password"
                     placeholder="••••••••"
-                    className="pl-10"
+                    className="pl-10 h-12"
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -158,7 +165,7 @@ export default function SignupPage() {
                     id="confirmPassword"
                     type="password"
                     placeholder="••••••••"
-                    className="pl-10"
+                    className="pl-10 h-12"
                     required
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
@@ -203,7 +210,7 @@ export default function SignupPage() {
                 </Alert>
               )}
 
-              <Button className="w-full rounded-md h-10" type="submit" disabled={isLoading}>
+              <Button size="xl" className="w-full rounded-md" type="submit" disabled={isLoading}>
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -215,36 +222,36 @@ export default function SignupPage() {
               </Button>
             </form>
 
-            <div className="relative my-6">
-              <Separator />
-              <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-card px-2 text-xs text-muted-foreground">
-                OR
-              </span>
-            </div>
+          <div className="relative ">
+                          <Separator />
+                          <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-card px-2 text-xs text-muted-foreground">
+                            OR
+                          </span>
+                        </div>
 
             <Button
+            size="xl"
               variant="outline"
-              className="w-full rounded-md h-10"
+              className="w-full rounded-md"
               onClick={handleGithubSignup}
-              disabled={isLoading}
+              disabled={true}
             >
               <Github className="mr-2 h-4 w-4" />
               Continue with GitHub
             </Button>
           </div>
-          <div className="flex flex-row items-center justify-center self-stretch rounded-sm bg-gray-200 p-2">
-
-            <div className="text-center">
-              <p className="text-sm">
-                Already have an account?{" "}
-                <Link href="/signin" className="text-primary font-medium hover:underline">
-                  Sign in
-                </Link>
-              </p>
-            </div>
-          </div>
-
         </div>
+        <div className="flex flex-row items-center justify-center self-stretch rounded-sm bg-gray-200 p-2">
+
+<div className="text-center">
+  <p className="text-sm">
+    Already have an account?{" "}
+    <Link href="/signin" className="text-primary font-medium hover:underline">
+      Sign in
+    </Link>
+  </p>
+</div>
+</div>
       </Card>
     </>
   )

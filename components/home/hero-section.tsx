@@ -72,13 +72,15 @@ export function HeroSection() {
               <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-purple-500/30 to-primary/30 blur-md opacity-50 rounded-lg"></div>
               <div className="relative flex items-center justify-between bg-background/80 backdrop-blur-sm border border-primary/20 rounded-lg px-5 py-3 shadow-lg">
                 <div className="flex items-center">
-                  <div className="h-2 w-2 bg-primary rounded-full animate-pulse mr-2"></div>
+                  <div className="h-2 w-2 bg-primary rounded-full animate-pulse mr-2 flex-shrink-0"></div>
+                  <div className="flex flex-col xs:flex-row items-start sm:items-center">
                   <span className="font-medium text-sm">Coming Soon:</span>
-                  <span className="ml-2 text-sm bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500 font-bold">
-                   The Vibe Coding Management Platform
+                  <span className="ml-0 sm:ml-2 text-sm bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500 font-bold">
+                  Vibe Coding Project Manager
                   </span>
+                  </div>
                 </div>
-                <div className="text-xs text-muted-foreground hidden sm:block">Powered by VIBR AI chat technology</div>
+                <div className="text-xs text-muted-foreground hidden md:block">Powered by VIBR AI chat technology</div>
               </div>
             </div>
           </motion.div>
@@ -166,7 +168,7 @@ export function HeroSection() {
                   <div className="w-3 h-3 rounded-full bg-green-500"></div>
                 </div>
                 <div className="text-xs text-muted-foreground bg-background/50 px-3 py-1 rounded-full">
-                  vibr.ai/chat
+                  vibr.fun/chat
                 </div>
                 <div className="w-8"></div>
               </div>
@@ -256,10 +258,10 @@ export function HeroSection() {
                             files and collaborators.
                           </p>
                           <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground bg-background/50 p-2 rounded-lg">
-                            <Server className="h-3 w-3 text-primary" />
+                            <Server className="h-3 w-3 text-primary flex-shrink-0" />
                             <span>Processed by specialized contextual engine - faster, more accurate</span>
                           </div>
-                          <div className="mt-3 flex items-center gap-2">
+                          <div className="mt-3 flex items-center gap-2 flex-wrap">
                             <Button size="sm" variant="default" className="h-8 rounded-full">
                               Open Project <ExternalLink className="ml-1 h-3 w-3" />
                             </Button>
@@ -345,10 +347,10 @@ export function HeroSection() {
                             out: [link] #webdev #javascript"
                           </div>
                           <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground bg-background/50 p-2 rounded-lg">
-                            <Sparkles className="h-3 w-3 text-blue-500" />
+                            <Sparkles className="h-3 w-3 text-blue-500 flex-shrink-0" />
                             <span>LLM response enhanced with your project context and details</span>
                           </div>
-                          <div className="mt-3 flex items-center gap-2">
+                          <div className="mt-3 flex items-center gap-2 flex-wrap">
                             <Button size="sm" variant="default" className="h-8 rounded-full">
                               Copy Tweet
                             </Button>
@@ -433,15 +435,18 @@ export function HeroSection() {
                           </p>
                           <div className="mt-3 bg-background/80 p-4 rounded-xl text-sm border border-primary/10 shadow-sm flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                              <Lock className="h-4 w-4 text-green-500" />
+                              <Lock className="h-4 w-4 text-green-500 flex-shrink-0" />
+                              <div className="flex flex-wrap gap-3 items-center" >
                               <span className="text-primary">View API Keys (Secure Portal)</span>
-                            </div>
-                            <Button variant="default" size="sm" className="h-8 rounded-full">
+                              <Button variant="default" size="sm" className="h-8 rounded-full">
                               Open Portal
                             </Button>
+                            </div>
+                            </div>
+
                           </div>
                           <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground bg-background/50 p-2 rounded-lg">
-                            <Lock className="h-3 w-3 text-green-500" />
+                            <Lock className="h-3 w-3 text-green-500 flex-shrink-0" />
                             <span>Security-first approach prevents sensitive data exposure</span>
                           </div>
                         </div>

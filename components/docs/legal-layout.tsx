@@ -50,7 +50,7 @@ export function LegalLayout({ children, title, lastUpdated }: LegalLayoutProps) 
 
           <div className="text-sm text-muted-foreground">
             <p>These legal documents govern your use of Vibr. Please read them carefully.</p>
-            <p className="mt-2">If you have any questions, please contact us at legal@vibr.ai</p>
+            <p className="mt-2">If you have any questions, please contact us at legal@vibr.fun</p>
             {lastUpdated && <p className="mt-4 font-medium">Last updated: {lastUpdated}</p>}
           </div>
         </div>

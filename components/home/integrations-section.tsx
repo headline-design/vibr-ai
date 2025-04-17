@@ -21,6 +21,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { SectionReveal } from "@/components/home/section-reveal"
+import Link from "next/link"
 
 // Define the integration type
 type Integration = {
@@ -395,9 +396,16 @@ export function IntegrationsSection() {
               Get started with our powerful integrations and build your next project faster than ever.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg">Get Started</Button>
-              <Button size="lg" variant="outline">
-                View Documentation
+              <Button size="lg" asChild>
+<Link href="/chat" >
+                Get Started
+                </Link>
+                </Button>
+              <Button size="lg" variant="outline" asChild>
+<Link href="https://github.com/headline-design/vibr-ai" target="_blank">
+                View Github
+                <ExternalLink className="h-4 w-4 " />
+</Link>
               </Button>
             </div>
           </div>

@@ -50,7 +50,7 @@ export default function ChatClient() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Controls Panel */}
           <Card
-            className="lg:col-span-4"
+            className="lg:col-span-4 hidden lg:block"
             style={{
               containerName: "controls-panel",
               containerType: "inline-size",
@@ -111,7 +111,7 @@ export default function ChatClient() {
                     onClick={() => setActiveFeature(activeFeature === "command" ? null : "command")}
                   >
                     <CommandIcon className="h-4 w-4" />
-                    <span className="[@container(max-width:380px)]:hidden flex items-center justify-center">
+                    <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
                       CMDK
                     </span>
                   </Button>
@@ -222,6 +222,160 @@ export default function ChatClient() {
 
           {/* Assistant Mode */}
           {demoView === "assistant" && <FluxAssistant />}
+
+          <Card
+            className="lg:col-span-4 block lg:hidden"
+            style={{
+              containerName: "controls-panel",
+              containerType: "inline-size",
+            }}
+          >
+            <CardHeader>
+              <CardTitle>Demo Controls</CardTitle>
+              <CardDescription>Configure the demo experience</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {/* View Mode */}
+              <div className="space-y-2">
+                <h3 className="text-sm font-medium">View Mode</h3>
+                <Tabs
+                  defaultValue={demoView}
+                  onValueChange={(v) => setDemoView(v as "floating" | "embedded" | "assistant")}
+                >
+                  <TabsList className="grid w-full grid-cols-3">
+                    <TabsTrigger value="embedded">
+                      <PanelLeft className="h-4 w-4 flex-shrink-0 " />
+                      <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
+                        Embedded
+                      </span>
+                    </TabsTrigger>
+                    <TabsTrigger value="floating">
+                      <Maximize2 className="h-4 w-4 flex-shrink-0" />
+                      <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
+                        Floating
+                      </span>
+                    </TabsTrigger>
+                    <TabsTrigger value="assistant">
+                      <MessageSquare className="h-4 w-4 flex-shrink-0" />
+
+                      <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
+                        Assistant
+                      </span>
+                    </TabsTrigger>
+                  </TabsList>
+                </Tabs>
+              </div>
+
+              {/* Theme Selector */}
+              <div className="space-y-2">
+                <h3 className="text-sm font-medium">Theme</h3>
+                <Suspense fallback={<ThemeTabsLoading />}>
+                  <ThemeTabs />
+                </Suspense>
+              </div>
+
+              {/* Feature Showcase */}
+              <div className="space-y-4">
+                <h3 className="text-sm font-medium">Feature Showcase</h3>
+                <div className="grid grid-cols-2 gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className={activeFeature === "command" ? "bg-accent-muted" : ""}
+                    onClick={() => setActiveFeature(activeFeature === "command" ? null : "command")}
+                  >
+                    <CommandIcon className="h-4 w-4" />
+                    <span className="ml-2 [@container(max-width:380px)]:hidden flex items-center justify-center">
+                      CMDK
+                    </span>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className={activeFeature === "voice" ? "bg-accent-muted" : ""}
+                    onClick={() => setActiveFeature(activeFeature === "voice" ? null : "voice")}
+                  >
+                    <Mic className="h-4 w-4" />
+                    <span className="[@container(max-width:380px)]:hidden flex items-center justify-center">
+                      Voice Input
+                    </span>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className={activeFeature === "file" ? "bg-accent-muted" : ""}
+                    onClick={() => setActiveFeature(activeFeature === "file" ? null : "file")}
+                  >
+                    <Paperclip className="h-4 w-4" />
+                    <span className="[@container(max-width:380px)]:hidden flex items-center justify-center">
+                      Attachment
+                    </span>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className={activeFeature === "keyboard" ? "bg-accent-muted" : ""}
+                    onClick={() => setActiveFeature(activeFeature === "keyboard" ? null : "keyboard")}
+                  >
+                    <Keyboard className="h-4 w-4" />
+                    <span className="[@container(max-width:380px)]:hidden flex items-center justify-center">
+                      Shortcuts
+                    </span>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className={activeFeature === "accessibility" ? "bg-accent-muted" : ""}
+                    onClick={() => setActiveFeature(activeFeature === "accessibility" ? null : "accessibility")}
+                  >
+                    <Info className="h-4 w-4" />
+                    <span className="[@container(max-width:380px)]:hidden flex items-center justify-center">
+                      Accessibility
+                    </span>
+                  </Button>
+                </div>
+              </div>
+
+              {/* Feature Toggles */}
+              <div className="space-y-4">
+                <h3 className="text-sm font-medium">Features</h3>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="markdown" className="cursor-pointer">
+                    Markdown Support
+                  </Label>
+                  <Switch id="markdown" defaultChecked />
+                </div>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="voice" className="cursor-pointer">
+                    Voice Input
+                  </Label>
+                  <Switch id="voice" defaultChecked />
+                </div>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="emoji" className="cursor-pointer">
+                    Emoji Picker
+                  </Label>
+                  <Switch id="emoji" defaultChecked />
+                </div>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="reactions" className="cursor-pointer">
+                    Message Reactions
+                  </Label>
+                  <Switch id="reactions" defaultChecked />
+                </div>
+              </div>
+
+              {/* Floating Panel Controls */}
+              {demoView === "floating" && (
+                <div className="pt-4">
+                  <Button onClick={() => setIsFloatingPanelOpen(!isFloatingPanelOpen)} className="w-full">
+                    <MessageSquare className="h-4 w-4 mr-2" />
+                    {isFloatingPanelOpen ? "Close Chat Panel" : "Open Chat Panel"}
+                  </Button>
+                </div>
+              )}
+            </CardContent>
+          </Card>
 
           {/* Feature Description */}
           <Card className={demoView === "embedded" ? "lg:col-span-12" : "lg:col-span-8"}>

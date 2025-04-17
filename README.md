@@ -193,6 +193,6 @@ The VIBR roadmap outlines our vision for the next phases of development as we bu
   <p>
     <a href="https://twitter.com/vibr_ai">Twitter</a> •
     <a href="https://github.com/headline-design/vibr-ai">GitHub</a> •
-    <a href="https://vibr.ai">Website</a>
+    <a href="https://vibr.fun">Website</a>
   </p>
 </div>

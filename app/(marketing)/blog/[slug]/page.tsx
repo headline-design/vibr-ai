@@ -40,10 +40,10 @@ export async function generateMetadata({ params }) {
       title: post.title,
       description: post.description,
       type: "article",
-      url: `https://vibr.ai/blog/${post.slugAsParams}`,
+      url: `https://vibr.fun/blog/${post.slugAsParams}`,
       images: [
         {
-          url: post.ogImage || post.image || "https://vibr.ai/og-image.png",
+          url: post.ogImage || post.image || "https://vibr.fun/og-image.png",
           width: 1200,
           height: 630,
           alt: post.title,
@@ -54,7 +54,7 @@ export async function generateMetadata({ params }) {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images: [post.ogImage || post.image || "https://vibr.ai/og-image.png"],
+      images: [post.ogImage || post.image || "https://vibr.fun/og-image.png"],
     },
   }
 }

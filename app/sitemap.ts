@@ -2,7 +2,7 @@ import { allBlogs, allLegals } from "contentlayer/generated"
 import type { MetadataRoute } from "next"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://vibr.ai"
+  const baseUrl = "https://vibr.fun"
 
   // Static routes
   const staticRoutes = [

@@ -208,7 +208,7 @@ export function Footer() {
                     href="mailto:aaron@headline.dev"
                     className="text-sm text-muted-foreground hover:text-primary transition-colors"
                   >
-                    legal@vibr.ai
+                    legal@vibr.fun
                   </Link>
                 </li>
               </ul>

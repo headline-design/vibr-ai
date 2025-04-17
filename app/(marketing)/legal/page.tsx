@@ -74,8 +74,8 @@ export default function LegalPage() {
         <div className="mt-12 text-center text-sm text-muted-foreground">
           <p>
             If you have any questions about our legal documents, please contact us at{" "}
-            <a href="mailto:legal@vibr.ai" className="underline hover:text-foreground">
-              legal@vibr.ai
+            <a href="mailto:legal@vibr.fun" className="underline hover:text-foreground">
+              legal@vibr.fun
             </a>
           </p>
           <p className="mt-4">© {new Date().getFullYear()} Vibr AI. All rights reserved.</p>

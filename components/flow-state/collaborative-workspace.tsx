@@ -90,7 +90,7 @@ export function CollaborativeWorkspace() {
   const [inviteEmail, setInviteEmail] = useState("")
   const [inviteRole, setInviteRole] = useState("viewer")
   const [isShareDialogOpen, setIsShareDialogOpen] = useState(false)
-  const [shareLink, setShareLink] = useState("https://vibr.ai/share/conv-123456")
+  const [shareLink, setShareLink] = useState("https://vibr.fun/share/conv-123456")
   const [sharePermission, setSharePermission] = useState("view")
   const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null)
 

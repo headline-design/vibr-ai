@@ -315,8 +315,8 @@ export function Navbar({
             ? "bg-background-100"
             : (isHomepage || isAuthPage) && !navbarScrolled && !isOpen
               ? "bg-transparent"
-              : "bg-background/80 backdrop-blur-md border-b shadow-sm transition-colors duration-200",
-          isOpen ? "z-[120] fixed top-0" : "z-40",
+              : "bg-background border-b shadow-sm transition-colors duration-200",
+          isOpen ? "z-[120] fixed top-0 border-b-0" : "z-40",
         )}
         ref={navRef}
       >
@@ -476,7 +476,7 @@ export function Navbar({
             animate={{ opacity: 1, height: "calc(100vh - 4rem)" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-            className="md:hidden fixed top-16 left-0 right-0 bottom-0 bg-background/95 backdrop-blur-sm border-b z-50 overflow-auto flex flex-col"
+            className="md:hidden fixed top-16 left-0 right-0 bottom-0 bg-background border-b z-50 overflow-auto flex flex-col"
           >
             <div className="flex-1 p-4">
               {isAuthPage ? (

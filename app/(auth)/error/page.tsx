@@ -61,8 +61,8 @@ export default function ErrorPage() {
 
             <p className="text-xs text-muted-foreground text-center">
               If you continue to experience issues, please contact{" "}
-              <Link href="mailto:support@vibr.ai" className="text-primary hover:underline">
-                support@vibr.ai
+              <Link href="mailto:support@vibr.fun" className="text-primary hover:underline">
+                support@vibr.fun
               </Link>
             </p>
           </CardFooter>
