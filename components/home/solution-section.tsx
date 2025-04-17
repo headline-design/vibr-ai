@@ -19,7 +19,7 @@ export function SolutionSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 items-center">
           {/* Main pitch text */}
-          <SectionReveal className="lg:col-span-7 relative" direction="left" delay={0.2}>
+          <SectionReveal className="lg:col-span-7 relative" delay={0.2}>
             <div className="relative z-10 p-6 md:p-8 bg-background/80 backdrop-blur-sm rounded-xl border border-primary/10 shadow-lg">
               <p className="text-lg md:text-xl leading-relaxed text-foreground/90">
                 Most AI tools rely on slow, generic LLM responses for every task—even when speed, security, or accuracy
@@ -31,7 +31,7 @@ export function SolutionSection() {
           </SectionReveal>
 
           {/* Key benefits */}
-          <SectionReveal className="lg:col-span-5" direction="right" delay={0.3}>
+          <SectionReveal className="lg:col-span-5" delay={0.3}>
             <div className="grid grid-cols-1 gap-4">
               <SectionReveal
                 className="flex items-start p-4 bg-background rounded-lg border border-primary/10 shadow-sm"

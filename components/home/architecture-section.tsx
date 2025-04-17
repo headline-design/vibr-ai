@@ -28,7 +28,7 @@ export function ArchitectureSection() {
         </SectionReveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <SectionReveal direction="left" delay={0.2}>
+          <SectionReveal  delay={0.2}>
             <ul className="space-y-6">
               <SectionReveal className="flex items-start" delay={0.3}>
                 <div className="mr-4 mt-1 bg-primary/10 p-2 rounded-full">
@@ -96,7 +96,7 @@ export function ArchitectureSection() {
             </SectionReveal>
           </SectionReveal>
 
-          <SectionReveal className="relative" direction="right" delay={0.3}>
+          <SectionReveal className="relative" delay={0.3}>
             <div className="absolute -inset-4 rounded-xl bg-gradient-to-r from-primary/20 to-purple-500/20 blur-xl opacity-70"></div>
             <div className="bg-background z-10 relative border rounded-xl shadow-xl overflow-hidden">
               {/* Browser chrome */}
