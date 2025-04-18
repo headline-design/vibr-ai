@@ -1,21 +1,21 @@
 # VIBR - Intent-First AI Chat Platform
 
 <div align="center">
-  <img src="public/vibr-logo.png" alt="VIBR Logo" width="180" />
-  <h3>The AI chat that gets your vibe. Built for coders, by coders.</h3>
-  <p><em>Next.js Global Hackathon 2025 - AI Track</em></p>
+ <img src="public/vibr-logo.png" alt="VIBR Logo" width="180" />
+ <h3>The AI chat that gets your vibe. Built for coders, by coders.</h3>
+ <p><em>Next.js Global Hackathon 2025 - Best Use of AI Track</em></p>
 </div>
 
 <div align="center">
-  <a href="#demo">Live Demo</a> •
-  <a href="#key-features">Key Features</a> •
-  <a href="#why-vibr">Why VIBR?</a> •
-  <a href="#tech-stack">Tech Stack</a> •
-  <a href="#installation">Installation</a> •
-  <a href="#usage">Usage</a> •
-  <a href="#architecture">Architecture</a> •
-  <a href="#roadmap">Roadmap</a> •
-  <a href="#team">Team</a>
+ <a href="#-demo">Live Demo</a> •
+ <a href="#-key-features">Key Features</a> •
+ <a href="#-why-vibr-should-win">Why VIBR?</a> •
+ <a href="#️-tech-stack">Tech Stack</a> •
+ <a href="#-installation">Installation</a> •
+ <a href="#️-usage">Usage</a> •
+ <a href="#️-architecture">Architecture</a> •
+ <a href="#️-roadmap">Roadmap</a> •
+ <a href="#-team">Team</a>
 </div>
 
 <br />
@@ -27,6 +27,21 @@ VIBR is not just another AI chat platform. It's a revolutionary approach to AI i
 **The Problem**: Most AI tools today rely on slow, generic LLM responses for every task—even when speed, security, or accuracy matters most. This one-size-fits-all approach creates unnecessary latency, security risks, and suboptimal experiences.
 
 **Our Solution**: VIBR flips this model with our intent-based engine that understands your workflow, routes simple tasks through fast local logic, and only uses LLMs when creative reasoning is needed.
+
+## 📹 Demo
+
+Check out our 1-minute demo video to see VIBR in action:
+
+<div align="center">
+  <video src="public/vibr_demo.mp4" width="640" height="360" controls></video>
+</div>
+
+This demo clip provides a brief example of the modularity and intelligent routing capabilities of VIBR. It highlights how the platform can handle various intents, from simple project creation to complex creative tasks, all while maintaining security and performance.
+
+The demo video showcases VIBR login with Supabase Auth, intent-based routing in action with secure Supabase db operations as server actions for "Create project" and "Add description", llm-routing for creative tasks with context enrichment for "Write X post", and more. The UI in the demo showcases the inline chat interface, with the floating option and action button option also available.
+
+[![Watch the demo video](public/vibr_demo_thumbnail.png)](public/vibr_demo.mp4)
+You can also [download the demo video](public/vibr_demo.mp4) to view it directly.
 
 ## 🎯 Key Features
 
@@ -89,7 +104,7 @@ VIBR is built with Next.js at its core, leveraging:
 - **Backend**: Next.js API Routes, Edge Functions
 - **AI**: OpenAI, Vercel AI SDK, Custom Intent Classification System
 - **Database**: Supabase (PostgreSQL)
-- **Authentication**: Supabase Auth
+- **Authentication**: NextAuth.js
 - **Deployment**: Vercel
 
 ## 📦 Installation
@@ -98,7 +113,7 @@ VIBR is built with Next.js at its core, leveraging:
 
 ## Clone the repository
 
-git clone <https://github.com/headline-design/vibr-ai.git>
+git clone https://github.com/yourusername/vibr.git
 
 ## Navigate to the project directory
 
@@ -106,7 +121,7 @@ cd vibr
 
 ## Install dependencies
 
-pnpm install
+npm install
 
 ## Set up environment variables
 
@@ -116,7 +131,8 @@ cp .env.example .env.local
 
 ## Run the development server
 
-pnpm run dev
+npm run dev
+
 ```
 
 ## 🖥️ Usage
@@ -139,28 +155,30 @@ pnpm run dev
 VIBR's architecture consists of four main components:
 
 1. **Intent Classification Engine**
-   - Analyzes user input to determine request type
-   - Routes to appropriate processing pipeline
-   - Continuously learns from user interactions
+
+- Analyzes user input to determine request type
+- Routes to appropriate processing pipeline
+- Continuously learns from user interactions
 
 2. **Local Processing System**
-   - Handles high-proximity intents
-   - Executes deterministic operations
-   - Ensures data security and privacy
+
+- Handles high-proximity intents
+- Executes deterministic operations
+- Ensures data security and privacy
 
 3. **Enhanced LLM Pipeline**
-   - Processes creative and complex requests
-   - Enriches prompts with local context
-   - Optimizes token usage
+
+- Processes creative and complex requests
+- Enriches prompts with local context
+- Optimizes token usage
 
 4. **Context Management System**
-   - Maintains project and user context
-   - Provides relevant information to both pipelines
-   - Ensures consistent user experience
+
+- Maintains project and user context
+- Provides relevant information to both pipelines
+- Ensures consistent user experience
 
 ## 📊 Performance Metrics
-
-(Estimated based on internal testing)
 
 | Metric | Traditional AI | VIBR |
 |--------|---------------|------|
@@ -172,12 +190,25 @@ VIBR's architecture consists of four main components:
 
 ## 🗺️ Roadmap
 
-The VIBR roadmap outlines our vision for the next phases of development as we build out the vibe coding project management platform and expand our AI capabilities:
-
 - **Q2 2025**: Public beta launch
-- **Q3 2025**: VIBR Vibe Coding Manager Platform release
+- **Q3 2025**: VIBR Coding Manager Platform release
 - **Q4 2025**: Enterprise features and integrations
 - **Q1 2026**: Mobile application
+
+## 👥 Team
+
+VIBR was created by developers who were frustrated with the limitations of existing AI tools and decided to build something better.
+
+- **Lead Developer & Founder**: [Aaron Martinez](https://github.com/headline-design) - Based in Texas, USA
+- **AI Architecture**: Collaborative effort with contributions from the open source community
+- **UX Design**: In-house design with feedback from early users
+- **Full Stack Development**: Led by Aaron with support from contributors
+
+Aaron started VIBR after experiencing firsthand the limitations of existing AI coding assistants and recognizing the need for a more intelligent, context-aware solution that respects both performance and security concerns.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgements
 
@@ -189,10 +220,10 @@ The VIBR roadmap outlines our vision for the next phases of development as we bu
 ---
 
 <div align="center">
-  <p>Built with ❤️ for the Next.js Global Hackathon 2025</p>
-  <p>
-    <a href="https://twitter.com/vibr_ai">Twitter</a> •
-    <a href="https://github.com/headline-design/vibr-ai">GitHub</a> •
-    <a href="https://vibr.fun">Website</a>
-  </p>
+ <p>Built with ❤️ for the Next.js Global Hackathon 2025</p>
+ <p>
+   <a href="https://x.com/ussaaron_">X</a> •
+   <a href="https://github.com/headline-design/vibr-ai">GitHub</a> •
+   <a href="https://vibr.ai">Website</a>
+ </p>
 </div>
