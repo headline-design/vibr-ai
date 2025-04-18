@@ -9,7 +9,7 @@
 <div align="center">
  <a href="#-demo">Live Demo</a> •
  <a href="#-key-features">Key Features</a> •
- <a href="#-why-vibr-should-win">Why VIBR?</a> •
+ <a href="#-why-vibr">Why VIBR?</a> •
  <a href="#️-tech-stack">Tech Stack</a> •
  <a href="#-installation">Installation</a> •
  <a href="#️-usage">Usage</a> •
@@ -39,8 +39,6 @@ Check out our 1-minute demo video to see VIBR in action:
 This demo clip provides a brief example of the modularity and intelligent routing capabilities of VIBR. It highlights how the platform can handle various intents, from simple project creation to complex creative tasks, all while maintaining security and performance.
 
 The demo video showcases VIBR login with Supabase Auth, intent-based routing in action with secure Supabase db operations as server actions for "Create project" and "Add description", llm-routing for creative tasks with context enrichment for "Write X post", and more. The UI in the demo showcases the inline chat interface, with the floating option and action button option also available.
-
-[![Watch the demo video](public/vibr_demo_thumbnail.png)](public/vibr_demo.mp4)
 You can also [download the demo video](public/vibr_demo.mp4) to view it directly.
 
 ## 🎯 Key Features
@@ -111,28 +109,27 @@ VIBR is built with Next.js at its core, leveraging:
 
 ```bash
 
-## Clone the repository
+# Clone the repository
 
-git clone https://github.com/yourusername/vibr.git
+git clone <https://github.com/headline-design/vibr-ai.git>
 
-## Navigate to the project directory
+# Navigate to the project directory
 
 cd vibr
 
-## Install dependencies
+# Install dependencies
 
 npm install
 
-## Set up environment variables
+# Set up environment variables
 
 cp .env.example .env.local
 
-## Add your API keys to .env.local
+# Add your API keys to .env.local
 
-## Run the development server
+# Run the development server
 
 npm run dev
-
 ```
 
 ## 🖥️ Usage
@@ -199,7 +196,7 @@ VIBR's architecture consists of four main components:
 
 VIBR was created by developers who were frustrated with the limitations of existing AI tools and decided to build something better.
 
-- **Lead Developer & Founder**: [Aaron Martinez](https://github.com/headline-design) - Based in Texas, USA
+- **Lead Developer & Founder**: [Aaron Martinez](https://github.com/aaronmartinez) - Based in Texas, USA
 - **AI Architecture**: Collaborative effort with contributions from the open source community
 - **UX Design**: In-house design with feedback from early users
 - **Full Stack Development**: Led by Aaron with support from contributors
@@ -208,7 +205,16 @@ Aaron started VIBR after experiencing firsthand the limitations of existing AI c
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0) - see the [LICENSE](LICENSE) file for details.
+
+The AGPL-3.0 is a copyleft license that requires anyone who distributes your code or a derivative work to make the source available under the same terms. It also specifically addresses the use of software over a network, requiring that the complete source code be made available to any network user of the AGPL-licensed work.
+
+Key restrictions:
+
+- Anyone who modifies and distributes the code must make their modifications available under AGPL
+- If the code is used as part of a network service, the complete source code must be made available to users
+- All derivative works must be licensed under AGPL
+- Commercial use is permitted, but all code must remain open source
 
 ## 🙏 Acknowledgements
 
@@ -222,8 +228,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <div align="center">
  <p>Built with ❤️ for the Next.js Global Hackathon 2025</p>
  <p>
-   <a href="https://x.com/ussaaron_">X</a> •
+   <a href="https://x.com/ussaron_">X</a> •
    <a href="https://github.com/headline-design/vibr-ai">GitHub</a> •
-   <a href="https://vibr.ai">Website</a>
+   <a href="https://vibr.fun">Website</a>
  </p>
 </div>
