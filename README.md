@@ -33,7 +33,7 @@ VIBR is not just another AI chat platform. It's a revolutionary approach to AI i
 Check out our 1-minute demo video to see VIBR in action:
 
 <div align="center">
-  <video src="public/vibr_demo.mp4" width="640" height="360" controls></video>
+  <video src="https://github.com/user-attachments/assets/39865e8d-f232-4dfc-ba4c-bf735548c1ef" width="640" height="360" controls></video>
 </div>
 
 This demo clip provides a brief example of the modularity and intelligent routing capabilities of VIBR. It highlights how the platform can handle various intents, from simple project creation to complex creative tasks, all while maintaining security and performance.
@@ -64,6 +64,7 @@ You can also [download the demo video](public/vibr_demo.mp4) to view it directly
 - **Open Source**: 100% open source and extensible
 
 ## Why VIBR?
+
 
 ### Innovation in AI Interaction
 
@@ -102,7 +103,7 @@ VIBR is built with Next.js at its core, leveraging:
 - **Backend**: Next.js API Routes, Edge Functions
 - **AI**: OpenAI, Vercel AI SDK, Custom Intent Classification System
 - **Database**: Supabase (PostgreSQL)
-- **Authentication**: NextAuth.js
+- **Authentication**: Supabase Auth
 - **Deployment**: Vercel
 
 ## 📦 Installation
@@ -176,6 +177,8 @@ VIBR's architecture consists of four main components:
 - Ensures consistent user experience
 
 ## 📊 Performance Metrics
+
+(Estimated based on internal tests)
 
 | Metric | Traditional AI | VIBR |
 |--------|---------------|------|
