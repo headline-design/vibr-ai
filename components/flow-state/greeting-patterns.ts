@@ -1,4 +1,4 @@
-"\"use client"
+"use client"
 
 // Define patterns for greeting recognition
 export const greetingPatterns = [
@@ -44,13 +44,25 @@ export const generalGreetingPatterns = [
 ]
 
 // Function to check if a message matches any greeting pattern
-export function isGreetingToFlux(message: string): boolean {
+export function isGreetingToFlux(message: string, messageCount?: number): boolean {
+
+  // Only check for greetings if this is the first user message in the conversation
+  if (messageCount && messageCount >= 1) {
+    return false
+  }
+
   const normalizedMessage = message.toLowerCase().trim()
   return greetingPatterns.some((pattern) => normalizedMessage.includes(pattern))
 }
 
 // Function to check if a message is a general greeting
-export function isGeneralGreeting(message: string): boolean {
+export function isGeneralGreeting(message: string, messageCount?: number): boolean {
+
+  // Only check for greetings if this is the first user message in the conversation
+  if (messageCount && messageCount >= 1) {
+    return false
+  }
+
   const normalizedMessage = message.toLowerCase().trim()
 
   // Check if it's a direct greeting to Flux first
@@ -78,16 +90,10 @@ export const appQuestionPatterns = [
   "what can you do",
   "what are you",
   "who are you",
-  "how do you work",
-  "what is this",
-  "help me",
-  "how does this work",
   "what is flux",
   "tell me about yourself",
   "your capabilities",
   "what are your features",
-  "how to use",
-  "how can you help",
   "what do you know",
   "what's your purpose",
 ]

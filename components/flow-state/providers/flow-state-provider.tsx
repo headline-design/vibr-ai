@@ -28,9 +28,9 @@ const FlowStateContext = createContext<FlowStateContextProps>({
 
 // Create the flow state provider
 export function FlowStateProvider({ children }: { children: ReactNode }) {
-  const [messages, setMessages] = useState<ChatMessage[]>([])
+
   const [isWaitingForResponse, setIsWaitingForResponse] = useState(false)
-  const { processUserMessage } = useConversationTree()
+  const { processUserMessage, messages, setMessages } = useConversationTree()
 
   // Handle sending a message
   const handleSendMessage = useCallback(

@@ -12,6 +12,7 @@ import { handleIntentConditions, setPendingIntent } from "./conditions/intent-co
 import { handleProjectConditions } from "./conditions/project-conditions"
 import { useMessages } from "@/components/flow-state/providers/message-provider"
 import { getLLMResponse } from "@/lib/ai-service"
+import { ChatMessage } from "../chat-interface"
 
 // Define the structure of MetaSessionData
 interface MetaSessionData {
@@ -45,6 +46,8 @@ export interface ConversationNode {
 // Define the conversation tree context
 interface ConversationTreeContextProps {
   currentNode: ConversationNode | null
+  messages: ChatMessage[]
+  setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>
   processUserMessage: (message: string) => Promise<{
     response: string | any
     isClientOnly: boolean
@@ -61,13 +64,16 @@ const ConversationTreeContext = createContext<ConversationTreeContextProps>({
   currentNode: null,
   processUserMessage: async () => ({ response: "", isClientOnly: false }),
   isProcessing: false,
-  handleUpdateMetaSession: () => {},
+  handleUpdateMetaSession: () => { },
+  messages: [],
+  setMessages: () => { },
 })
 
 // Create the conversation tree provider
 export function ConversationTreeProvider({ children }: { children: ReactNode }) {
   const { metaSession, incrementInteractionCount, addTopic, updateMetaSession } = useMetaSession()
   const [currentNode, setCurrentNode] = useState<ConversationNode | null>(null)
+  const [messages, setMessages] = useState<ChatMessage[]>([])
   const [isProcessing, setIsProcessing] = useState(false)
   const { toast } = useToast()
   const { addMessage } = useMessages()
@@ -137,7 +143,8 @@ export function ConversationTreeProvider({ children }: { children: ReactNode }) 
 
         // If no specific intent was detected, find a matching node in the conversation tree
         const allNodes = [...conversationNodes, ...projectNodes]
-        const { node: matchingNode, isHighProximity } = findMatchingNode(message, allNodes, metaSession)
+        const messageCount = messages.filter((m) => m.role === "user").length
+        const { node: matchingNode, isHighProximity } = findMatchingNode(message, messageCount, allNodes, metaSession)
         setCurrentNode(matchingNode)
 
         // Increment interaction count
@@ -198,6 +205,8 @@ export function ConversationTreeProvider({ children }: { children: ReactNode }) 
       processUserMessage,
       isProcessing,
       handleUpdateMetaSession,
+      messages,
+      setMessages,
     }),
     [currentNode, processUserMessage, isProcessing, handleUpdateMetaSession],
   )

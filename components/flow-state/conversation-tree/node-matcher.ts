@@ -32,25 +32,10 @@ export function isAppRelatedQuery(message: string): boolean {
   }
 
   const appRelatedKeywords = [
-    "app",
     "flux",
-    "feature",
-    "help",
     "how to use",
-    "settings",
-    "preferences",
-    "interface",
-    "ui",
-    "dashboard",
-    "account",
-    "profile",
-    "login",
-    "logout",
-    "how does this work",
     "what can you do",
     "what are you",
-    "project",
-    "create",
   ]
 
   const lowerMessage = message.toLowerCase()
@@ -60,6 +45,7 @@ export function isAppRelatedQuery(message: string): boolean {
 // Helper function to find matching node
 export function findMatchingNode(
   message: string,
+  messageCount: number,
   nodes: ConversationNode[],
   metaSession: any,
 ): {
@@ -71,7 +57,7 @@ export function findMatchingNode(
   const lowerMessage = message.toLowerCase().trim()
 
   // Check for specific greeting patterns first
-  if (isGreetingToFlux(lowerMessage)) {
+  if (isGreetingToFlux(lowerMessage, messageCount)) {
     // Find the hello_flux_greeting node
     const helloFluxNode = nodes.find((node) => node.id === "hello_flux_greeting")
     if (helloFluxNode) {
@@ -80,7 +66,8 @@ export function findMatchingNode(
   }
 
   // Check for general greetings
-  if (isGeneralGreeting(lowerMessage)) {
+  if (isGeneralGreeting(lowerMessage, messageCount)) {
+
     const generalGreetingNode = nodes.find((node) => node.id === "general_greeting")
     if (generalGreetingNode) {
       return { node: generalGreetingNode, isHighProximity: true }

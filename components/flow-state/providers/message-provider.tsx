@@ -120,5 +120,9 @@ export function MessageProvider({ children }: { children: ReactNode }) {
 
 // Create a hook to use the message context
 export function useMessages() {
-  return useContext(MessageContext)
+  const context = useContext(MessageContext)
+  if (!context) {
+    throw new Error("useMessages must be used within a MessageProvider")
+  }
+  return context
 }
