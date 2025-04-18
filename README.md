@@ -178,6 +178,8 @@ VIBR's architecture consists of four main components:
 
 ## 📊 Performance Metrics
 
+(Estimated based on internal tests)
+
 | Metric | Traditional AI | VIBR |
 |--------|---------------|------|
 | Response Time (simple tasks) | 2-5 seconds | 0.2-0.5 seconds |
