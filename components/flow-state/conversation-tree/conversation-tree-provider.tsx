@@ -10,7 +10,7 @@ import type { ProximityCategory } from "./tree-types"
 import { findMatchingNode } from "./node-matcher"
 import { handleIntentConditions, setPendingIntent } from "./conditions/intent-conditions"
 import { handleProjectConditions } from "./conditions/project-conditions"
-import { useMessages } from "@/components/flow-state/providers/message-provider"
+import {  useMessages } from "@/components/flow-state/providers/message-provider"
 import { getLLMResponse } from "@/lib/ai-service"
 import { ChatMessage } from "../chat-interface"
 
@@ -46,9 +46,7 @@ export interface ConversationNode {
 // Define the conversation tree context
 interface ConversationTreeContextProps {
   currentNode: ConversationNode | null
-  messages: ChatMessage[]
-  setMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>
-  processUserMessage: (message: string) => Promise<{
+  processUserMessage: (message: string, messages: ChatMessage[]) => Promise<{
     response: string | any
     isClientOnly: boolean
     actions?: Array<{ id: string; label: string; variant?: string }>
@@ -65,15 +63,13 @@ const ConversationTreeContext = createContext<ConversationTreeContextProps>({
   processUserMessage: async () => ({ response: "", isClientOnly: false }),
   isProcessing: false,
   handleUpdateMetaSession: () => { },
-  messages: [],
-  setMessages: () => { },
 })
 
 // Create the conversation tree provider
 export function ConversationTreeProvider({ children }: { children: ReactNode }) {
   const { metaSession, incrementInteractionCount, addTopic, updateMetaSession } = useMetaSession()
   const [currentNode, setCurrentNode] = useState<ConversationNode | null>(null)
-  const [messages, setMessages] = useState<ChatMessage[]>([])
+
   const [isProcessing, setIsProcessing] = useState(false)
   const { toast } = useToast()
   const { addMessage } = useMessages()
@@ -88,7 +84,7 @@ export function ConversationTreeProvider({ children }: { children: ReactNode }) 
   )
 
   const processUserMessage = useCallback(
-    async (message: string) => {
+    async (message: string, messages: ChatMessage[]) => {
       setIsProcessing(true)
       console.log("Processing user message:", message)
 
@@ -157,8 +153,10 @@ export function ConversationTreeProvider({ children }: { children: ReactNode }) 
               ? matchingNode.content(metaSession)
               : matchingNode?.content || ""
 
+              console.log("about to simulate client-side response:", content)
           // Simulate network delay for client-side responses to make them feel like LLM responses
           await new Promise((resolve) => setTimeout(resolve, 1500))
+          console.log("Client-side response content:", content)
 
           // Get actions if they exist
           const actions = matchingNode.actions || undefined
@@ -205,8 +203,6 @@ export function ConversationTreeProvider({ children }: { children: ReactNode }) 
       processUserMessage,
       isProcessing,
       handleUpdateMetaSession,
-      messages,
-      setMessages,
     }),
     [currentNode, processUserMessage, isProcessing, handleUpdateMetaSession],
   )
