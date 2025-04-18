@@ -103,7 +103,7 @@ VIBR is built with Next.js at its core, leveraging:
 - **Backend**: Next.js API Routes, Edge Functions
 - **AI**: OpenAI, Vercel AI SDK, Custom Intent Classification System
 - **Database**: Supabase (PostgreSQL)
-- **Authentication**: NextAuth.js
+- **Authentication**: Supabase Auth
 - **Deployment**: Vercel
 
 ## 📦 Installation
