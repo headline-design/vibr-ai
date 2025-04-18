@@ -196,7 +196,7 @@ VIBR's architecture consists of four main components:
 
 VIBR was created by developers who were frustrated with the limitations of existing AI tools and decided to build something better.
 
-- **Lead Developer & Founder**: [Aaron Martinez](https://github.com/aaronmartinez) - Based in Texas, USA
+- **Lead Developer & Founder**: [Aaron Martinez](https://github.com/headline-design) - Based in Texas, USA
 - **AI Architecture**: Collaborative effort with contributions from the open source community
 - **UX Design**: In-house design with feedback from early users
 - **Full Stack Development**: Led by Aaron with support from contributors
@@ -228,7 +228,7 @@ Key restrictions:
 <div align="center">
  <p>Built with ❤️ for the Next.js Global Hackathon 2025</p>
  <p>
-   <a href="https://x.com/ussaron_">X</a> •
+   <a href="https://x.com/ussaaron_">X</a> •
    <a href="https://github.com/headline-design/vibr-ai">GitHub</a> •
    <a href="https://vibr.fun">Website</a>
  </p>
